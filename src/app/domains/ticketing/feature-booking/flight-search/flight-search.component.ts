@@ -6,6 +6,7 @@ import {CityPipe} from '@demo/shared/ui-common';
 import {Flight, FlightService} from '@demo/ticketing/data';
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 import {debounceTime} from "rxjs";
+import {FlightStore} from "@demo/ticketing/data";
 
 // import { CheckinService } from '@demo/checkin/data';
 
@@ -17,12 +18,10 @@ import {debounceTime} from "rxjs";
   imports: [CommonModule, FormsModule, CityPipe, FlightCardComponent],
 })
 export class FlightSearchComponent {
-  from = signal('Paris');
-  to = signal('London');
-  flights = signal<Array<Flight>>([]);
   selectedFlight: Flight | undefined;
   message = '';
   date = new Date();
+  flightStore = inject(FlightStore)
 
   basket = signal<Record<number, boolean>>({
     3: true,
@@ -35,15 +34,15 @@ export class FlightSearchComponent {
     );
   }
 
-  lazyFrom$ = toObservable(this.from).pipe(
+  lazyFrom$ = toObservable(this.flightStore.from).pipe(
     debounceTime(300)
   );
 
   lazyFrom = toSignal(this.lazyFrom$, {
-    initialValue: this.from()
+    initialValue: this.flightStore.from()
   });
 
-  flightRoute = computed(() => 'From ' + this.lazyFrom() + ' to ' + this.to() + '.');
+  flightRoute = computed(() => 'From ' + this.lazyFrom() + ' to ' + this.flightStore.to() + '.');
 
   private flightService = inject(FlightService);
 
@@ -51,15 +50,7 @@ export class FlightSearchComponent {
     // Reset properties
     this.message = '';
     this.selectedFlight = undefined;
-
-    this.flightService.find(this.from(), this.to()).subscribe({
-      next: (flights) => {
-        this.flights.set(flights);
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+    this.flightStore.search()
   }
 
   select(f: Flight): void {
