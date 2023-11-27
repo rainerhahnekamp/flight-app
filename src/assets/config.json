@@ -1,0 +1,9 @@
+{
+  "baseUrl": "https://demo.angulararchitects.io/api",
+  "defaults": {
+    "search": {
+      "from": "Luxembourg",
+      "to": "Graz"
+    }
+  }
+}
