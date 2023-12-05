@@ -1,55 +1,48 @@
-import { Component, ElementRef, NgZone, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  NgZone,
+  inject,
+  signal,
+  computed,
+  effect,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { CityPipe } from '@demo/shared/ui-common';
-import { Flight, FlightService } from '@demo/ticketing/data';
-import { addMinutes } from 'date-fns';
+import { Flight, FlightService, FlightsStore } from '@demo/ticketing/data';
+import { FlightSearchFormComponent } from '@demo/ticketing/feature-booking/flight-search-form.component';
 
 @Component({
   selector: 'app-flight-search',
   standalone: true,
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  imports: [CommonModule, FormsModule, CityPipe, FlightCardComponent],
+  providers: [FlightsStore],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CityPipe,
+    FlightCardComponent,
+    FlightSearchFormComponent,
+  ],
 })
 export class FlightSearchComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
-  private flightService = inject(FlightService);
-
-  from = signal('Paris');
-  to = signal('London');
-  flights = signal<Flight[]>([]);
+  protected flightsStore = inject(FlightsStore);
 
   basket = signal<Record<number, boolean>>({
     3: true,
     5: true,
   });
 
-  async search(): Promise<void> {
-    if (!this.from() || !this.to()) {
-      return;
-    }
+  counter = signal(0);
 
-    const flights = await this.flightService.findPromise(
-      this.from(),
-      this.to()
-    );
-    this.flights.set(flights);
-  }
-
-  delay(): void {
-    this.flights.update((flights) => {
-      const oldFlight = flights[0];
-      const oldDate = new Date(oldFlight.date);
-
-      const newDate = addMinutes(oldDate, 15);
-      const newFlight: Flight = { ...oldFlight, date: newDate.toISOString() };
-
-      return [newFlight, ...flights.slice(1)];
-    });
+  constructor() {
+    effect(() => console.log(this.counter()));
   }
 
   updateBasket(flightId: number, selected: boolean): void {
