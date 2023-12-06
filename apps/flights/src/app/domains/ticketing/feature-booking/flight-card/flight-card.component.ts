@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { FlightsStore, initFlight } from '@demo/ticketing/data';
 
 @Component({
   selector: 'app-flight-card',
@@ -20,10 +20,12 @@ import { initFlight } from '@demo/ticketing/data';
   imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
+  providers: [FlightsStore],
 })
 export class FlightCardComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
+  protected flightsStore = inject(FlightsStore);
 
   private dialog = inject(MatDialog);
 

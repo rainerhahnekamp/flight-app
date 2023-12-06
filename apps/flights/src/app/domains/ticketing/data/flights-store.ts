@@ -17,11 +17,13 @@ import { tapResponse } from '@ngrx/component-store';
 export type FlightsState = {
   params: { from: string; to: string };
   flights: Flight[];
+  expandState: 'N/A'|'isExpanded'|'isNotExpanded';
 };
 
 const initialState: FlightsState = {
   params: { from: 'Wien', to: 'London' },
   flights: [],
+  expandState: 'N/A',
 };
 
 const withLoading = () =>
@@ -68,6 +70,15 @@ export const FlightsStore = signalStore(
           flights: [newFlight, ...state.flights().slice(1)],
         });
       },
+              toggleExpandState() {
+								if (state.expandState()==='N/A' || state.expandState()==='isExpanded'){
+									patchState(state, {
+										expandState:  'isNotExpanded'});
+									} else {
+									patchState(state, {
+										expandState:  'isExpanded'});
+									}
+							}
     };
   }),
   withComputed((state) => {
@@ -76,6 +87,7 @@ export const FlightsStore = signalStore(
         () => `Flug von ${state.params.from()} nach ${state.params.to()}`
       ),
       flightCount: computed(() => state.flights().length),
+      currentExpandState: computed(() =>  state.expandState()),
     };
   })
 );

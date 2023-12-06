@@ -6,6 +6,9 @@
   </div>
 
   <div class="card-body">
+  <p>Show details: {{flightsStore.currentExpandState()}}  </p>
+   
+  <p><button (click)="flightsStore.toggleExpandState()">Test toggle 4 expand</button></p>
     <p>Flight-No.: #{{ item.id }}</p>
     <p>Date: {{ item.date | date : 'dd.MM.yyyy HH:mm' }}</p>
 
