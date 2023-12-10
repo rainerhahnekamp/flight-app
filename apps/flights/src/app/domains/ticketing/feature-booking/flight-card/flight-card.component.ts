@@ -20,7 +20,6 @@ import { FlightsStore, initFlight } from '@demo/ticketing/data';
   imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
-  providers: [FlightsStore],
 })
 export class FlightCardComponent {
   private element = inject(ElementRef);
