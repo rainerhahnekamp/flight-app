@@ -8,11 +8,11 @@ import { FlightsStore } from '@demo/ticketing/data';
   imports: [CommonModule],
   templateUrl: './status-toggle.component.html',
   styleUrls: ['./status-toggle.component.css'],
-  providers: [FlightsStore],
 })
 export class StatusToggleComponent {
   @Input() status = false;
   @Output() statusChange = new EventEmitter<boolean>();
+  @Output() toggleExpand = new EventEmitter<void>();
 
 protected flightsStore = inject(FlightsStore);
   toggle(): void {
