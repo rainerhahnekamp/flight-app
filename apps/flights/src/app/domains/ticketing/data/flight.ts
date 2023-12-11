@@ -11,5 +11,5 @@ export const initFlight: Flight = {
   from: '',
   to: '',
   date: '',
-  delayed: false,
+  delayed: false
 };

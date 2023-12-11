@@ -12,7 +12,9 @@ import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import {Flight, FlightsStore, initFlight} from '@demo/ticketing/data';
+
+export type FlightWithExpanded = Flight & { isExpanded: boolean };
 
 @Component({
   selector: 'app-flight-card',
@@ -24,10 +26,11 @@ import { initFlight } from '@demo/ticketing/data';
 export class FlightCardComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
+  protected flightsStore = inject(FlightsStore);
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
+  @Input() item: FlightWithExpanded | undefined;
   @Input() selected = false;
   @Output() selectedChange = new EventEmitter<boolean>();
 

@@ -7,7 +7,7 @@
 <p>{{flightsStore.prettyFlight()}}</p>
 
 <div class="row">
-  <div *ngFor="let f of flightsStore.flights()" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <div *ngFor="let f of flightsStore.flightsWithExpanded()" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
     <app-flight-card
       [item]="f"
       [selected]="basket()[f.id]"
