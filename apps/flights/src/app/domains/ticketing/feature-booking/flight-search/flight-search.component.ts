@@ -1,51 +1,78 @@
-import { Component, ElementRef, NgZone, inject } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  NgZone,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { CityPipe } from '@demo/shared/ui-common';
-import { Flight, FlightService } from '@demo/ticketing/data';
-import { addMinutes } from 'date-fns';
+import { FlightService } from '@demo/ticketing/data';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, interval, map, of, pipe, tap } from 'rxjs';
+import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 @Component({
   selector: 'app-flight-search',
   standalone: true,
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  imports: [CommonModule, FormsModule, CityPipe, FlightCardComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CityPipe,
+    FlightCardComponent,
+    ReactiveFormsModule,
+  ],
 })
 export class FlightSearchComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
-  private flightService = inject(FlightService);
+  formGroup = inject(FormBuilder).nonNullable.group({ from: [''], to: [''] });
 
-  from = 'Paris';
-  to = 'London';
-  flights: Array<Flight> = [];
+  private flightService = inject(FlightService);
+  protected flightStore = inject(FlightStore);
+
+  constructor() {
+    this.formGroup.setValue(this.flightStore.searchParams());
+    // this.formGroup.valueChanges.subscribe(() => this.search());
+
+    this.flightStore.search(
+      this.formGroup.valueChanges.pipe(
+        map((values) => ({
+          from: values.from || '',
+          to: values.to || '',
+        }))
+      )
+    );
+    const incrementer = rxMethod<number>(
+      pipe(
+        debounceTime(100),
+        tap((value) => console.log(value + 1))
+      )
+    );
+    const number = signal(1);
+    incrementer(number);
+  }
+
+  flights = this.flightStore.flights;
 
   basket: Record<number, boolean> = {
     3: true,
     5: true,
   };
 
-  search(): void {
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+  search() {
+    this.flightStore.search(this.formGroup.getRawValue());
   }
 
-  delay(): void {
-    const oldFlights = this.flights;
-    const oldFlight = oldFlights[0];
-    const oldDate = new Date(oldFlight.date);
-
-    const newDate = addMinutes(oldDate, 15);
-    oldFlight.date = newDate.toISOString();
+  delay() {
+    this.flightStore.delay();
   }
 
   blink() {
