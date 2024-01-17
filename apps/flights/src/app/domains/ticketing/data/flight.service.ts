@@ -23,6 +23,10 @@ export class FlightService {
     return this.http.get<Flight[]>(url, { headers, params });
   }
 
+  search(from: string, to: string): Observable<Flight[]> {
+    return this.find(from, to);
+  }
+
   findPromise(from: string, to: string, urgent = false): Promise<Flight[]> {
     return firstValueFrom(this.find(from, to, urgent));
   }
