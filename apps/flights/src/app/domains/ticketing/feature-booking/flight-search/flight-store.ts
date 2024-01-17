@@ -31,7 +31,6 @@ const withLoading = () =>
   );
 
 export const FlightStore = signalStore(
-  { providedIn: 'root' },
   withLoading(),
   withState({
     searchParams: {

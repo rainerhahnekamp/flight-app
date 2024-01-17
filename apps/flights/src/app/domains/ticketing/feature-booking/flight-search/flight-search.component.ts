@@ -28,6 +28,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
     FlightCardComponent,
     ReactiveFormsModule,
   ],
+  providers: [FlightStore],
 })
 export class FlightSearchComponent {
   private element = inject(ElementRef);
