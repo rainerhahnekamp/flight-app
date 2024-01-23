@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { FlightSearchComponent } from './flight-search/flight-search.component';
 
 @Component({
   standalone: true,
@@ -11,5 +11,5 @@ import { FlightSearchComponent } from './flight-search/flight-search.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Hello World';
+  title = 'Hello World!';
 }
