@@ -1,0 +1,18 @@
+<form>
+  <input name="from" [(ngModel)]="from">
+  <input name="to" [(ngModel)]="to">
+
+  <button type="submit" [disabled]="!(from && to)" (click)="search()">Search</button>
+</form>
+
+<table>
+  <tr *ngFor="let flight of flights">
+    <td>{{flight.id}}</td>
+    <td>{{flight.from}}</td>
+    <td>{{flight.to}}</td>
+    <td>{{flight.date}}</td>
+    <td><button (click)="select(flight)">Select</button></td>
+  </tr>
+</table>
+
+<p *ngIf="selectedFlight">Selektierter Flug: {{selectedFlight | json}}</p>
