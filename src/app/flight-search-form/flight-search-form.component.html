@@ -1,14 +1,11 @@
-<form>
-  <div class="form-group">
-    <label>From:</label>
-    <input [ngModel]="searchParams.from" (ngModelChange)="handleFromUpdate($event)" name="from" class="form-control"/>
-  </div>
-  <div class="form-group">
-    <label>To:</label>
-    <input [ngModel]="searchParams.to" (ngModelChange)="handleToUpdate($event)" name="to" class="form-control"/>
-  </div>
+<form #form="ngForm" roundTrip>
+
+  <formly-form [form]="formGroup" [fields]="fields" [model]="searchParams"></formly-form>
 
   <div class="form-group">
-    <button (click)="handleSearch()" class="btn btn-default">Search</button>
+    <button [disabled]="form.invalid" (click)="handleSearch()" class="btn btn-default">Search</button>
   </div>
+
 </form>
+
+

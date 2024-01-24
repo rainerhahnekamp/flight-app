@@ -4,7 +4,6 @@ export type Flight = {
   to: string;
   date: string;
   delayed: boolean;
-  airline: { name: string };
 };
 export function createFlight(): Flight {
   return {
@@ -13,6 +12,5 @@ export function createFlight(): Flight {
     to: 'Berlin',
     date: '2024-01-23',
     delayed: true,
-    airline: { name: '' },
   };
 }

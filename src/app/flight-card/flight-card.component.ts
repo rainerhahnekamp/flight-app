@@ -23,6 +23,7 @@ export class FlightCardComponent implements OnInit, OnChanges, OnDestroy {
   @Input() item: Flight | undefined;
   @Input() selected = true;
   @Output() selectedChange = new EventEmitter<boolean>();
+  @Output() edit = new EventEmitter<Flight>();
 
   deselect() {
     this.selectedChange.emit(false);
