@@ -1,11 +1,11 @@
-export interface Flight {
+export type Flight = {
   id: number;
   from: string;
   to: string;
   date: string;
   delayed: boolean;
-}
-
+  airline: { name: string };
+};
 export function createFlight(): Flight {
   return {
     id: 1,
@@ -13,5 +13,6 @@ export function createFlight(): Flight {
     to: 'Berlin',
     date: '2024-01-23',
     delayed: true,
+    airline: { name: '' },
   };
 }

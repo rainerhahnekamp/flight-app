@@ -1,0 +1,14 @@
+<form>
+  <div class="form-group">
+    <label>From:</label>
+    <input [ngModel]="searchParams.from" (ngModelChange)="handleFromUpdate($event)" name="from" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input [ngModel]="searchParams.to" (ngModelChange)="handleToUpdate($event)" name="to" class="form-control"/>
+  </div>
+
+  <div class="form-group">
+    <button (click)="handleSearch()" class="btn btn-default">Search</button>
+  </div>
+</form>

@@ -1,0 +1,23 @@
+@if (item) {
+  <div style="padding:20px;"
+       [ngStyle]="{'background-color':
+                             (selected) ? 'orange' :'lightsteelblue' }">
+    <ng-content select=".header"></ng-content>
+    <p>
+      Flugnr. #{{ item.id }}</p>
+    <p>Datum: {{ item.date | date:'dd.MM.yyyy h:mm:ss ' }}</p>
+    <p>
+      @switch (selected) {
+        @case (true) {
+          <button (click)="deselect()">Deselect</button>
+        }
+        @case (false) {
+          <button (click)="select()">Select</button>
+        }
+      }
+    </p>
+
+    <ng-content select=".footer"></ng-content>
+
+  </div>
+}
