@@ -3,3 +3,23 @@
 
 <button (click)="auth.login('Max')" class="btn btn-default">Login</button>
 <button (click)="auth.logout()" class="btn btn-default">Logout</button>
+
+<input [formControl]="fromControl" placeholder="City"/>
+<input [formControl]="toControl" placeholder="City"/>
+<button (click)="refresh()">Refresh</button>
+
+@if (searchResult$ | async; as searchResult) {
+  @if (searchResult.hasError) {
+    <p class="error">An error happened</p>
+  }
+}
+
+@if (searchResult$ | async; as searchResult) {
+  @if (!searchResult.hasError) {
+    <ul>
+      @for (flight of searchResult.flights; track flight) {
+        <li>{{ flight.from }} - {{ flight.to }}</li>
+      }
+    </ul>
+  }
+}
