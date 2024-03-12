@@ -1,10 +1,15 @@
 import { inject } from '@angular/core';
-import { Routes } from '@angular/router';
+import { CanActivateFn, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ConfigService } from './shared/config.service';
 import { ErrorComponent } from './error.component';
+import { delay, of } from 'rxjs';
+
+const canActivate: CanActivateFn = (route, state) => {
+  return of(true).pipe(delay(1000));
+};
 
 export const APP_ROUTES: Routes = [
   {
@@ -24,6 +29,7 @@ export const APP_ROUTES: Routes = [
     },
     children: [
       {
+        canActivate: [canActivate],
         path: 'flight-booking',
         loadChildren: () => import('./flight-booking/flight-booking.routes'),
       },

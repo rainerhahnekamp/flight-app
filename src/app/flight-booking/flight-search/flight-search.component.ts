@@ -98,6 +98,13 @@ export class FlightSearchComponent implements OnInit {
     initialValue: { flights: [], hasError: false },
   });
 
+  async search() {
+    const flights = await this.flightService.findPromise(
+      this.from(),
+      this.to()
+    );
+  }
+
   ngOnInit(): void {
     // interval(1000)
     //   .pipe(startWith(0), takeUntilDestroyed(this.destroyRef))
