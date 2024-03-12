@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -29,12 +30,21 @@ export class FlightCardComponent {
   private dialog = inject(MatDialog);
   private element = inject(ElementRef);
   private zone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
+
+  private date = new Date();
+  protected lastUpdated = 0;
 
   @Input() item = initFlight;
   @Input() selected: boolean = false;
   @Output() selectedChange = new EventEmitter<boolean>();
 
-  ngOnInit() {}
+  ngOnInit() {
+    // setInterval(() => {
+    //   this.lastUpdated = (new Date().getTime() - this.date.getTime()) / 1_000;
+    //   // this.cdr.markForCheck();
+    // }, 1000);
+  }
 
   select() {
     this.selected = true;
@@ -64,4 +74,6 @@ export class FlightCardComponent {
 
     return null;
   }
+
+  handleClick() {}
 }

@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flight } from '../../model/flight';
 import { FormsModule } from '@angular/forms';
 import { FlightService } from './flight.service';
 import { CityPipe } from '../../shared/city.pipe';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-flight-search',
@@ -15,10 +22,10 @@ import { FlightCardComponent } from '../flight-card/flight-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSearchComponent {
-  from = 'London';
-  to = 'Paris';
-  selectedFlight: Flight | undefined;
-  message = '';
+  from = signal('London');
+  to = signal('Paris');
+  message = signal('');
+  flights = signal<Flight[]>([]);
 
   basket: Record<number, boolean> = {
     3: true,
@@ -26,19 +33,19 @@ export class FlightSearchComponent {
   };
 
   private flightService = inject(FlightService);
+  protected date = signal(new Date());
 
-  flights$ = this.flightService.flights$;
+  constructor() {
+    setInterval(() => this.date.set(new Date()), 1000);
+  }
 
   search(): void {
     // Reset properties
-    this.message = '';
-    this.selectedFlight = undefined;
+    this.message.set('');
 
-    this.flightService.load(this.from, this.to);
-  }
-
-  select(f: Flight): void {
-    this.selectedFlight = { ...f };
+    this.flightService
+      .find(this.from(), this.to())
+      .subscribe((flights) => this.flights.set(flights));
   }
 
   delay(): void {

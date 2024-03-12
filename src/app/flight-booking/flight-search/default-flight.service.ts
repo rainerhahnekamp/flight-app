@@ -54,7 +54,7 @@ export class DefaultFlightService implements FlightService {
     const oldDate = new Date(oldFlight.date);
 
     // Mutable
-    // oldDate.setTime(oldDate.getTime() + 15 * ONE_MINUTE );
+    // oldDate.setTime(oldDate.getTime() + 15 * ONE_MINUTE);
     // oldFlight.date = oldDate.toISOString();
 
     // Immutable
