@@ -5,13 +5,15 @@ import {
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
+  model,
   NgZone,
   Output,
 } from '@angular/core';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { initFlight } from '../../model/flight';
+import { Flight, initFlight } from '../../model/flight';
 import { CityPipe } from '../../shared/city.pipe';
 import { StatusToggleComponent } from '../../shared/status-toggle/status-toggle.component';
 import { FlightEditComponent } from '../flight-edit/flight-edit.component';
@@ -35,11 +37,13 @@ export class FlightCardComponent {
   private date = new Date();
   protected lastUpdated = 0;
 
-  @Input() item = initFlight;
-  @Input() selected: boolean = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  item = input.required<Flight>();
+  selected = model.required<boolean>();
+
+  constructor() {}
 
   ngOnInit() {
+    console.log(this.item());
     // setInterval(() => {
     //   this.lastUpdated = (new Date().getTime() - this.date.getTime()) / 1_000;
     //   // this.cdr.markForCheck();
@@ -47,13 +51,11 @@ export class FlightCardComponent {
   }
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {
@@ -62,18 +64,7 @@ export class FlightCardComponent {
     });
   }
 
-  blink() {
-    // Dirty Hack used to visualize the change detector
-    this.element.nativeElement.firstChild.style.backgroundColor = 'crimson';
-
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        this.element.nativeElement.firstChild.style.backgroundColor = 'white';
-      }, 1000);
-    });
-
-    return null;
-  }
+  blink() {}
 
   handleClick() {}
 }

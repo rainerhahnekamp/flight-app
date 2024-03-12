@@ -2,37 +2,40 @@
   <h2 class="title">Flight Search</h2>
 </div>
 
-<p>Aktuelles Datum: {{date() | date:'dd.MM.YY HH:mm:ss'}}</p>
-
+<p>Aktuelles Datum: {{ prettyDate() }}</p>
 <form>
   <div class="form-group">
     <label>From:</label>
-    <input [ngModel]="from()" (ngModelChange)="from.set($event)" name="from" class="form-control" />
+    <input [(ngModel)]="from" name="from" class="form-control"/>
   </div>
   <div class="form-group">
     <label>To:</label>
-    <input [ngModel]="to()" (ngModelChange)="to.set($event)" name="to" class="form-control" />
+    <input [(ngModel)]="to" name="to" class="form-control"/>
   </div>
 
   <div class="form-group">
-    <button (click)="search()" class="btn btn-default">Search</button>
     <button (click)="delay()" class="btn btn-default">Delay</button>
   </div>
 </form>
+<p>Aktuelle Suche: {{ prettySearch() }}</p>
 
-<div class="row">
-  <div
-    *ngFor="let f of flights()"
-    class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-  >
-    <app-flight-card [item]="f" [(selected)]="basket[f.id]">
-      <p class="middle"><i>Delays are possible!</i></p>
-      <p class="bottom"><small>Statement without guarantee!</small></p>
-    </app-flight-card>
+@if (flightsData().hasError) {
+  <p>Es trat ein Fehler auf.</p>
+} @else {
+  <div class="row">
+    @for (f of flightsData().flights; track f) {
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+      >
+        <app-flight-card [item]="f" [(selected)]="basket[f.id]">
+          <p class="middle"><i>Delays are possible!</i></p>
+          <p class="bottom"><small>Statement without guarantee!</small></p>
+        </app-flight-card>
+      </div>
+    }
   </div>
-</div>
+}
 
-<p>&nbsp;</p>
 
 <div>
   <pre>{{ basket | json }}</pre>

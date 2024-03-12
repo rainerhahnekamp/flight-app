@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ConfigService } from './shared/config.service';
+import { ErrorComponent } from './error.component';
 
 export const APP_ROUTES: Routes = [
   {
@@ -37,6 +38,7 @@ export const APP_ROUTES: Routes = [
         path: 'about',
         component: AboutComponent,
       },
+      { path: 'error', component: ErrorComponent },
 
       // This _needs_ to be the last route!!
       {

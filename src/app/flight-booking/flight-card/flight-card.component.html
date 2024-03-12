@@ -1,32 +1,33 @@
-<div [ngClass]="{ selected: selected }" class="card">
+@if (item(); as flight) {
+<div [ngClass]="{ selected: selected() }" class="card">
   <div class="card-header">
     <h2 class="title">
-      {{ item.from | city : "short" }} - {{ item.to | city : "long" }}
+      {{ flight.from | city : "short" }} - {{ flight.to | city : "long" }}
     </h2>
   </div>
 
   <div class="card-body">
-    <p>Flight-No.: #{{ item.id }}</p>
-    <p>Date: {{ item.date | date : "dd.MM.yyyy HH:mm" }}</p>
+    <p>Flight-No.: #{{ flight.id }}</p>
+    <p>Date: {{ flight.date | date : "dd.MM.yyyy HH:mm" }}</p>
     <p>Last Update: {{lastUpdated}}</p>
 
     <ng-content select=".middle"></ng-content>
 
     <p>
       Delayed:
-      <app-status-toggle [(status)]="item.delayed"> </app-status-toggle>
+      <app-status-toggle [(status)]="flight.delayed"> </app-status-toggle>
     </p>
     <p>
-      <button (click)="select()" *ngIf="!selected" class="btn btn-default">
+      <button (click)="select()" *ngIf="!selected()" class="btn btn-default">
         Select
       </button>
-      <button (click)="deselect()" *ngIf="selected" class="btn btn-default">
+      <button (click)="deselect()" *ngIf="selected()" class="btn btn-default">
         Remove
       </button>
       <button (click)="handleClick()" class="btn btn-default">Click Me</button>
 
       <button
-        [routerLink]="['../flight-edit', item.id, { showDetails: false }]"
+        [routerLink]="['../flight-edit', flight.id, { showDetails: false }]"
         class="btn btn-default"
       >
         Edit
@@ -37,3 +38,4 @@
 </div>
 
 {{ blink() }}
+}
