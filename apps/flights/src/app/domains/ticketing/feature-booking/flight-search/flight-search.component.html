@@ -11,17 +11,15 @@
     <label>To:</label>
     <input [(ngModel)]="to" name="to" class="form-control" />
   </div>
-
-  <div class="form-group">
-    <button (click)="search()" class="btn btn-default">Search</button>
-  </div>
 </form>
 
-<button (click)="toggleLoaded()">Toggle Loaded</button> {{loaded$ | async }}
-<p>Anzahl der Flüge {{flightsCount$ | async}}</p>
+<p>Suche: {{prettySearch() }}</p>
+
+<!--<button (click)="toggleLoaded()">Toggle Loaded</button> {{loaded$ | async }}-->
+<!--<p>Anzahl der Flüge {{flightsCount$ | async}}</p>-->
 
 <div class="row">
-  <div *ngFor="let f of flights$ | async" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <div *ngFor="let f of flights()" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
     <app-flight-card [item]="f" [(selected)]="basket[f.id]">
       <p class="middle"><i>Delays are possible!</i></p>
       <p class="bottom"><small>Statement without guarantee!</small></p>

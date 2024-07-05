@@ -1,8 +1,5 @@
 import { Component, inject, Injectable, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoggerService } from '../shared/logger/logger';
-import { CustomLogAppender } from '../shared/logger/custom-log-appender';
-import { AuthService } from '../shared/auth/auth.service';
 import {
   BehaviorSubject,
   catchError,
@@ -35,10 +32,11 @@ import {
 } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Flight } from '../model/flight';
-import { FlightService } from '../flight-booking/flight-search/flight.service';
+import { LoggerService } from '@demo/shared/util-logger';
+import { AuthService } from '@demo/shared/util-auth';
+import { Flight, FlightService } from '@demo/ticketing/data';
 
-function debug<Type>(prefix = '') {
+export function debug<Type>(prefix = '') {
   return (source$: Observable<Type>): Observable<Type> => {
     return source$.pipe(tap((value) => console.log(`${prefix}%o`, value)));
   };

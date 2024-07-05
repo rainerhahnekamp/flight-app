@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Flight } from '../../model/flight';
+import { Flight } from '@demo/ticketing/data';
 
 export const ticketsActions = createActionGroup({
   source: 'tickets',

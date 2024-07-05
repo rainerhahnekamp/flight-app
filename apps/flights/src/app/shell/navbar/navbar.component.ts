@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store';
 
 @Component({
   standalone: true,
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   sidebarVisible = false;
+
+  protected readonly flightStore = inject(FlightStore);
 
   sidebarToggle() {
     const body = document.getElementsByTagName('body')[0];

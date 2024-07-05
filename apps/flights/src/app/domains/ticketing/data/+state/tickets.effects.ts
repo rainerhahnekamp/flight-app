@@ -3,8 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { filter, map, switchMap } from 'rxjs';
 import { ticketsActions } from './tickets.actions';
-import { FlightService } from '../flight-search/flight.service';
-import { Flight } from '../../model/flight';
+import { Flight, FlightService } from '@demo/ticketing/data';
 
 @Injectable()
 export class TicketsEffects {

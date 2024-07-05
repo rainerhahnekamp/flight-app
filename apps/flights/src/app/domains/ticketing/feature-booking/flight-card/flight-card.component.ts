@@ -10,11 +10,10 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { initFlight } from '../../model/flight';
-import { CityPipe } from '../../shared/city.pipe';
-import { StatusToggleComponent } from '../../shared/status-toggle/status-toggle.component';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
+import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
+import { initFlight } from '@demo/ticketing/data';
 
 @Component({
   selector: 'app-flight-card',
