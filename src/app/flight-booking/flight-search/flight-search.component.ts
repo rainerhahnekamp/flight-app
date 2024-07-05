@@ -7,6 +7,12 @@ import { CityPipe } from '../../shared/city.pipe';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { DateCvaDirective } from 'src/app/shared/date/date-cva.directive';
 import { DateStepperComponent } from 'src/app/shared/date/date-stepper/date-stepper.component';
+import { first, lastValueFrom, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ticketsActions } from '../+state/tickets.actions';
+import { ticketsFeature } from '../+state/tickets.reducers';
+import { fromTickets } from '../+state/tickets.selectors';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-flight-search',
@@ -35,24 +41,22 @@ export class FlightSearchComponent {
     5: true,
   };
 
-  private flightService = inject(FlightService);
+  private store = inject(Store);
+  flights$ = this.store.select(fromTickets.selectFlights);
+  flightsCount$ = this.store.select(fromTickets.selectFlightsCount);
+  loaded$ = this.store.select(ticketsFeature.selectIsLoaded);
 
-  search(): void {
-    // Reset properties
-    this.message = '';
-    this.selectedFlight = undefined;
-
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+  search() {
+    this.store.dispatch(
+      ticketsActions.loadFlights({ from: this.from, to: this.to })
+    );
   }
 
   select(f: Flight): void {
     this.selectedFlight = { ...f };
+  }
+
+  toggleLoaded() {
+    this.store.dispatch(ticketsActions.toggleLoaded());
   }
 }

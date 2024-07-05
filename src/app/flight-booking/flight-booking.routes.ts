@@ -9,6 +9,10 @@ import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { FlightService } from './flight-search/flight.service';
 import { PassengerSearchComponent } from './passenger-search/passenger-search.component';
+import { provideState } from '@ngrx/store';
+import { ticketsFeature } from './+state/tickets.reducers';
+import { provideEffects } from '@ngrx/effects';
+import { TicketsEffects } from './+state/tickets.effects';
 
 export const FLIGHT_BOOKING_ROUTES: Routes = [
   {
@@ -18,6 +22,8 @@ export const FLIGHT_BOOKING_ROUTES: Routes = [
       provideLogger({
         formatter: (lvl, cat, msg) => [lvl, cat, msg].join(';'),
       }),
+      provideState(ticketsFeature),
+      provideEffects([TicketsEffects]),
     ],
     children: [
       {
