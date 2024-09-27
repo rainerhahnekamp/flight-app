@@ -6,8 +6,13 @@
   <div class="main-panel">
     <app-navbar-cmp></app-navbar-cmp>
 
-    <div class="content">
+    <div class="content" *ngIf="!cfgIsLoaded">
       <h1>{{ title }}</h1>
+      <p>Stay patient... we are loading the awesome config for you...</p>
+    </div>
+    <div class="content" *ngIf="cfgIsLoaded">
+      <h1>{{ title }}</h1>
+      <app-flight-search></app-flight-search>
     </div>
   </div>
 </div>
