@@ -12,6 +12,10 @@ import de from '@angular/common/locales/de';
 import { FlightSearchService } from './app/flights/data/flight-search.service';
 import { CachedFlightSearchService } from './app/flights/data/cached-flight-search.service';
 import { DefaultFlightService } from './app/flights/data/default-flight-service';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { HomeComponent } from './app/home/home.component';
+import { FlightSearchComponent } from './app/flights/flight-search/flight-search.component';
+import { FlightEditComponent } from './app/flights/flight-edit.component';
 
 registerLocaleData(de, 'de');
 
@@ -19,6 +23,23 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(withFetch()),
+    provideRouter(
+      [
+        {
+          path: '',
+          component: HomeComponent,
+        },
+        {
+          path: 'flights/search',
+          component: FlightSearchComponent,
+        },
+        {
+          path: 'flights/edit/:id',
+          component: FlightEditComponent,
+        },
+      ],
+      withComponentInputBinding(),
+    ),
     {
       provide: LOCALE_ID,
       useValue: 'de',

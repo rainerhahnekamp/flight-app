@@ -13,6 +13,7 @@ import {
 import { Flight } from '../model/flight';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-flight-card',
@@ -24,6 +25,7 @@ import { HttpClient } from '@angular/common/http';
       <p>
         <button (click)="selectedChange.emit(true)">Select</button>
         <button (click)="selectedChange.emit(false)">Deselect</button>
+        <a class="btn" [routerLink]="['/flights/edit', flight().id]">Edit</a>
       </p>
     </div>
   `,
@@ -44,7 +46,7 @@ import { HttpClient } from '@angular/common/http';
       border-width: 4px;
     }
   `,
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
 })
 export class FlightCardComponent {
   flight = input.required<Flight>();
@@ -69,6 +71,7 @@ export class FlightCardComponent {
   blinkEffect = effect(() => this.blinker());
 
   selectedChange = output<boolean>();
+  edit = output<void>();
 
   selectedCss = computed(() => ({
     selected: this.selected(),

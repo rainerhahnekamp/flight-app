@@ -2,20 +2,41 @@
   <h2 class="title">Flight Search</h2>
 </div>
 
-<form (ngSubmit)="search()" #ngForm="ngForm">
+<form (ngSubmit)="search()" #ngForm="ngForm" roundtrip>
   <div class="form-group">
     <label>From:</label>
-    <input [(ngModel)]="from" name="from" city class="form-control" />
-    <pre>{{ ngForm.form.controls["from"].errors | json }}</pre>
-    <pre>{{ ngForm.form.controls["from"].validator | json }}</pre>
+    <input
+      [(ngModel)]="from"
+      name="from"
+      city="Berlin,Dortmund,London"
+      class="form-control"
+    />
+    @if (ngForm.form.controls["from"]) {
+      <app-city-error [ac]="ngForm.form.controls['from']" />
+    }
   </div>
   <div class="form-group">
     <label>To:</label>
-    <input [(ngModel)]="to" name="to" city required class="form-control" />
-    <pre>{{ ngForm.form.controls["to"].errors | json }}</pre>
+    <input
+      [(ngModel)]="to"
+      [disabled]="ngForm.controls['from'].value === 'Berlin'"
+      name="to"
+      city
+      required
+      class="form-control"
+    />
+    @if (ngForm.form.controls["to"].hasError("city")) {
+      <div class="error">
+        Diese Stadt ist nicht erlaubt. Erlaubt sind:
+        {{ getError("to", "city") }}
+      </div>
+    }
+    <pre>{{ ngForm.form.controls["to"].toString() | json }}</pre>
   </div>
 
   <div class="form-group">
+    <pre>{{ ngForm.errors | json }}</pre>
+
     @if (ngForm.form.valid) {
       <button class="btn btn-default" [disabled]="!ngForm.form.valid">
         Search
@@ -35,23 +56,4 @@
 @let message = message$ | async;
 @if (message) {
   <p>{{ message }}</p>
-}
-
-@if (selectedFlight) {
-  <div>
-    <pre>{{ selectedFlight | json }}</pre>
-  </div>
-
-  <form (ngSubmit)="saveFlight()">
-    <input [(ngModel)]="selectedFlight.id" name="id" class="form-control" />
-    <input [(ngModel)]="selectedFlight.from" name="from" class="form-control" />
-    <input [(ngModel)]="selectedFlight.to" name="to" class="form-control" />
-    <input [(ngModel)]="selectedFlight.date" name="date" class="form-control" />
-    <input
-      [(ngModel)]="selectedFlight.delayed"
-      name="delayed"
-      class="form-control"
-    />
-    <button>Speichern</button>
-  </form>
 }

@@ -13,6 +13,10 @@ export class CachedFlightSearchService {
 
   cache: Cache = {};
 
+  findById(id: number): Observable<Flight> {
+    return this.#httpClient.get<Flight>(`${this.#url}/${id}`);
+  }
+
   search(from: string, to: string): Promise<Array<Flight>> {
     const cacheKey = JSON.stringify({ from, to });
 

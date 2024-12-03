@@ -5,16 +5,24 @@ import {
   OnDestroy,
   viewChild,
   afterNextRender,
+  computed,
 } from '@angular/core';
-import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Flight } from '../model/flight';
-import { FormsModule, NgForm } from '@angular/forms';
-import { async, Observable, Subscription } from 'rxjs';
-import { CityPipe } from '../ui/city.pipe';
+import {
+  FormBuilder,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Observable } from 'rxjs';
 import { CachedFlightSearchService } from '../data/cached-flight-search.service';
 import { FlightCardComponent } from '../ui/flight-card.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CityValidator } from '../ui/city.directive';
+import { CityErrorComponent } from '../ui/city.error';
+import { RoundtripValidator } from '../ui/roundtrip.validator';
+import { CityValidator, cityValidator } from '../ui/city.validator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-flight-search',
@@ -25,6 +33,9 @@ import { CityValidator } from '../ui/city.directive';
     JsonPipe,
     AsyncPipe,
     CityValidator,
+    CityErrorComponent,
+    RoundtripValidator,
+    ReactiveFormsModule,
   ],
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
@@ -36,10 +47,31 @@ export class FlightSearchComponent {
   selectedFlight: Flight | undefined;
 
   ngForm = viewChild.required<NgForm>('ngForm');
+  formGroup = computed(() => this.ngForm().form);
 
-  constructor() {
+  constructor(route: ActivatedRoute) {
+    const flight = signal({
+      id: 1,
+      from: 'London',
+      to: 'Paris',
+      date: '2021-01-01',
+      delayed: false,
+      flightBookings: [],
+    });
+
+    const flightForNgModel = { ...flight() };
+
+    // submit
+
+    flight.set(flightForNgModel);
+
     afterNextRender(() => {
-      console.log('Formular: %o', this.ngForm());
+      const { from, to } = route.snapshot.queryParams;
+      if (from && to) {
+        this.from.set(from);
+        this.to = to;
+        this.search();
+      }
     });
   }
 
@@ -54,26 +86,14 @@ export class FlightSearchComponent {
     }
   }
 
-  select(flight: Flight): void {
-    this.selectedFlight = { ...flight };
-  }
-
   message$: Observable<string> | undefined;
-  subs: Array<Subscription> = [];
   message = signal('');
 
-  async saveFlight() {
-    const selectedFlight = this.selectedFlight;
-    if (!selectedFlight) {
-      return;
+  getError(controlName: string, errorName: string): string {
+    const errors = this.ngForm().form.controls[controlName].errors;
+    if (errors && errorName in errors) {
+      return errors[errorName];
     }
-    await this.#flightSearch.save(selectedFlight);
-    this.to = selectedFlight.to;
-    this.from.set(selectedFlight.from);
-    this.selectedFlight = undefined;
-    await this.search();
-    this.message.set('Speicherung war erfolgreich');
+    return '';
   }
-
-  protected readonly async = async;
 }
