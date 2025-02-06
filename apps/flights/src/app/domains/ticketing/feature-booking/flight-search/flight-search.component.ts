@@ -1,11 +1,35 @@
-import { Component, ElementRef, NgZone, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  NgZone,
+  inject,
+  signal,
+  computed,
+  untracked,
+  SkipSelf,
+  InjectionToken,
+  Inject,
+  effect,
+  OnInit,
+  DestroyRef,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
+import { debounceTime, from, lastValueFrom, switchMap, tap } from 'rxjs';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
+
+const BASE_URL = new InjectionToken('bsae url', { factory: () => 'url' });
 
 @Component({
   selector: 'app-flight-search',
@@ -14,34 +38,59 @@ import { addMinutes } from 'date-fns';
   styleUrls: ['./flight-search.component.css'],
   imports: [CommonModule, FormsModule, FlightCardComponent],
 })
-export class FlightSearchComponent {
+export class FlightSearchComponent implements OnInit {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
+  private injector = inject(Injector);
 
-  private flightService = inject(FlightService);
+  private flightService = inject(FlightService, { skipSelf: true });
 
-  from = 'Paris';
-  to = 'London';
-  flights: Array<Flight> = [];
+  ngOnInit() {
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        console.log(this.prettySearch());
+      });
+    });
+  }
+
+  pollDelays() {
+    return { id: 1, delay: 10 };
+  }
+
+  lastCheck = new Date();
+
+  // injector in effect / ausserhalb constructor
+  // glitch-free
+
+  from = signal('Paris');
+  to = signal('London');
+  flights = signal<Flight[]>([]);
+  flightsCount = computed(() => this.flights().length);
+
+  prettySearch = computed(() => {
+    const value = `Suche von ${this.from()} nach ${this.to()}: ${this.flightsCount()} Flüge`;
+    return value;
+  });
+
+  printPrettySearch() {
+    console.log(this.prettySearch());
+  }
 
   basket: Record<number, boolean> = {
     3: true,
     5: true,
   };
 
-  search(): void {
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+  async search() {
+    const from = this.from();
+    const to = this.to();
+
+    const flightsPromise = lastValueFrom(this.flightService.find(from, to));
+    this.flights.set(await flightsPromise);
   }
 
   delay(): void {
-    this.flights = this.toFlightsWithDelays(this.flights, 15);
+    // this.flights = this.toFlightsWithDelays(this.flights, 15);
   }
 
   toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
