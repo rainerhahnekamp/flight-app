@@ -14,22 +14,44 @@ import {
   DestroyRef,
   Injector,
   runInInjectionContext,
+  resource,
+  linkedSignal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
-import { debounceTime, from, lastValueFrom, switchMap, tap } from 'rxjs';
 import {
+  async,
+  debounceTime,
+  delay,
+  finalize,
+  from,
+  interval,
+  lastValueFrom,
+  map,
+  of,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+import {
+  rxResource,
   takeUntilDestroyed,
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
+import { id } from 'date-fns/locale';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
 const BASE_URL = new InjectionToken('bsae url', { factory: () => 'url' });
+
+async function debounce(timeout = 500) {
+  await new Promise((resolve) => setTimeout(() => resolve(true), timeout));
+}
 
 @Component({
   selector: 'app-flight-search',
@@ -38,33 +60,61 @@ const BASE_URL = new InjectionToken('bsae url', { factory: () => 'url' });
   styleUrls: ['./flight-search.component.css'],
   imports: [CommonModule, FormsModule, FlightCardComponent],
 })
-export class FlightSearchComponent implements OnInit {
+export class FlightSearchComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
   private injector = inject(Injector);
 
-  private flightService = inject(FlightService, { skipSelf: true });
-
-  ngOnInit() {
-    runInInjectionContext(this.injector, () => {
-      effect(() => {
-        console.log(this.prettySearch());
-      });
-    });
-  }
+  private flightService = inject(FlightService);
 
   pollDelays() {
     return { id: 1, delay: 10 };
   }
 
-  lastCheck = new Date();
+  setFligthsToVienna() {
+    this.flightsResource.update((flights) => {
+      if (!flights) {
+        return flights;
+      }
 
-  // injector in effect / ausserhalb constructor
-  // glitch-free
+      return flights.map((flight) => ({ ...flight, from: 'Vienna' }));
+    });
+  }
+
+  lastCheck = new Date();
 
   from = signal('Paris');
   to = signal('London');
-  flights = signal<Flight[]>([]);
+  // flightsResource = rxResource({
+  //   request: () => ({ from: this.from(), to: this.to() }),
+  //   loader: () => {
+  //     return interval(1000).pipe(
+  //       startWith(0),
+  //       switchMap(() => this.flightService.find(this.from(), this.to()))
+  //     );
+  //   },
+  // });
+
+  searchParameters = computed(() => ({ from: this.from(), to: this.to() }));
+
+  flightsResource = resource({
+    request: this.searchParameters,
+    stream: async ({ request: { from, to }, abortSignal }) => {
+      const flights = signal<{ value: Flight[] }>({ value: [] });
+
+      const intervalId = setInterval(async () => {
+        flights.set({ value: await this.flightService.findPromise(from, to) });
+      }, 5000);
+
+      abortSignal.addEventListener('abort', () => {
+        clearInterval(intervalId);
+      });
+
+      return flights;
+    },
+  });
+  flights = signal([] as Flight[]);
+
   flightsCount = computed(() => this.flights().length);
 
   prettySearch = computed(() => {
@@ -76,15 +126,15 @@ export class FlightSearchComponent implements OnInit {
     console.log(this.prettySearch());
   }
 
-  basket: Record<number, boolean> = {
+  basket = signal<Record<number, boolean>>({
     3: true,
     5: true,
-  };
+  });
+  basketCount = computed(() => Object.keys(this.basket()).length);
 
   async search() {
     const from = this.from();
     const to = this.to();
-
     const flightsPromise = lastValueFrom(this.flightService.find(from, to));
     this.flights.set(await flightsPromise);
   }
@@ -119,5 +169,14 @@ export class FlightSearchComponent implements OnInit {
     });
 
     return null;
+  }
+
+  updateBasket(id: number) {
+    // const basket = this.basket();
+    this.basket.update((basket) => {
+      basket[id] = true;
+      console.log(basket);
+      return basket;
+    });
   }
 }

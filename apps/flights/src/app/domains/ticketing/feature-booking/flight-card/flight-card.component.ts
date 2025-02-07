@@ -1,23 +1,42 @@
 import {
   Component,
+  computed,
+  effect,
   ElementRef,
-  EventEmitter,
   inject,
-  Input,
+  input,
+  linkedSignal,
+  model,
   NgZone,
-  Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
-import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { StatusToggleComponent } from '@demo/shared/ui-common';
+import { Flight } from '@demo/ticketing/data';
+import {
+  FormsModule,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { from } from 'rxjs';
+
+type Booking = {
+  id: number;
+  seat: string;
+};
 
 @Component({
   selector: 'app-flight-card',
   standalone: true,
-  imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
+  imports: [
+    CommonModule,
+    StatusToggleComponent,
+    RouterLink,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
 })
@@ -27,18 +46,25 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  item = input.required<Flight>();
+  formFlight = linkedSignal(this.item);
+
+  selected = model(false);
+  title = computed(() => {
+    const flight = this.item();
+    return `${flight.from} - ${flight.to}`;
+  });
+  formGroup = inject(NonNullableFormBuilder).group({ from: [''], to: [''] });
+  formSyncer = effect(() => {
+    this.formGroup.setValue(this.item());
+  });
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {
@@ -59,4 +85,6 @@ export class FlightCardComponent {
 
     return null;
   }
+
+  protected readonly from = from;
 }

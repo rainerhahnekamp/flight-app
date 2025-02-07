@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { Flight } from './flight';
 import { ConfigService } from '@demo/shared/util-config';
 
@@ -12,6 +12,7 @@ export class FlightService {
   private configService = inject(ConfigService);
 
   find(from: string, to: string, urgent = false): Observable<Flight[]> {
+    console.log(`running find: ${from} - ${to}`);
     const url = `${this.configService.config.baseUrl}/flight`;
 
     const headers = {
@@ -23,8 +24,14 @@ export class FlightService {
     return this.http.get<Flight[]>(url, { headers, params });
   }
 
-  findPromise(from: string, to: string, urgent = false): Promise<Flight[]> {
-    return firstValueFrom(this.find(from, to, urgent));
+  findPromise(
+    from: string,
+    to: string,
+    abortSignal?: AbortSignal
+  ): Promise<Flight[]> {
+    console.log(`running abort signal: ${from} - ${to}`);
+    const url = `${this.configService.config.baseUrl}/flight?from=${from}&to=${to}`;
+    return fetch(url, { signal: abortSignal }).then((res) => res.json());
   }
 
   findById(id: string): Observable<Flight> {

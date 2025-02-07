@@ -14,16 +14,19 @@
 
   <div class="form-group">
     <button (click)="search()" class="btn btn-default">Search</button>
+    <button (click)="setFligthsToVienna()" class="btn btn-default">
+      Change to Vienna
+    </button>
     <button (click)="delay()" class="btn btn-default">Delay</button>
   </div>
 </form>
 
-<!--<p>{{ prettySearch() }}</p>-->
+<p>Status: {{ flightsResource.status() }}</p>
 
 <div class="row">
   @for (f of flights(); track f.id) {
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-    <app-flight-card [item]="f" [(selected)]="basket[f.id]">
+    <app-flight-card [item]="f" (selectedChange)="updateBasket(f.id)">
       <p class="middle"><i>Delays are possible!</i></p>
       <p class="bottom"><small>Statement without guarantee!</small></p>
     </app-flight-card>
@@ -31,8 +34,7 @@
   }
 </div>
 
-<p>&nbsp;</p>
-
+<p>Anzahl der Flüge im Basket {{ basketCount() }}</p>
 <div>
-  <pre>{{ basket | json }}</pre>
+  <pre>{{ basket() | json }}</pre>
 </div>
