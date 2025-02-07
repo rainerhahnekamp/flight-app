@@ -14,14 +14,12 @@
 
   <div class="form-group">
     <button (click)="search()" class="btn btn-default">Search</button>
-    <button (click)="setFligthsToVienna()" class="btn btn-default">
-      Change to Vienna
-    </button>
-    <button (click)="delay()" class="btn btn-default">Delay</button>
   </div>
 </form>
 
-<p>Status: {{ flightsResource.status() }}</p>
+<p>Status: {{ status() }}</p>
+
+<p>{{ prettySearch() }}</p>
 
 <div class="row">
   @for (f of flights(); track f.id) {

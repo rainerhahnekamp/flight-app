@@ -32,7 +32,9 @@ import {
   lastValueFrom,
   map,
   of,
+  pipe,
   startWith,
+  Subject,
   switchMap,
   take,
   tap,
@@ -44,14 +46,11 @@ import {
   toSignal,
 } from '@angular/core/rxjs-interop';
 import { id } from 'date-fns/locale';
+import { FlightsStore } from './flight-store';
+import { patchState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
-
-const BASE_URL = new InjectionToken('bsae url', { factory: () => 'url' });
-
-async function debounce(timeout = 500) {
-  await new Promise((resolve) => setTimeout(() => resolve(true), timeout));
-}
 
 @Component({
   selector: 'app-flight-search',
@@ -59,124 +58,30 @@ async function debounce(timeout = 500) {
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
   imports: [CommonModule, FormsModule, FlightCardComponent],
+  providers: [FlightsStore],
 })
 export class FlightSearchComponent {
-  private element = inject(ElementRef);
-  private zone = inject(NgZone);
-  private injector = inject(Injector);
+  protected readonly flightsStore = inject(FlightsStore);
 
-  private flightService = inject(FlightService);
+  from = linkedSignal(() => this.flightsStore.searchParams().from);
+  to = linkedSignal(() => this.flightsStore.searchParams().to);
+  searchParams = computed(() => ({ from: this.from(), to: this.to() }));
 
-  pollDelays() {
-    return { id: 1, delay: 10 };
+  constructor() {
+    this.flightsStore.syncSearchParams(this.searchParams);
   }
 
-  setFligthsToVienna() {
-    this.flightsResource.update((flights) => {
-      if (!flights) {
-        return flights;
-      }
+  flights = this.flightsStore.flights;
+  basket = this.flightsStore.basket;
+  basketCount = this.flightsStore.basketCount;
+  status = this.flightsStore.status;
+  prettySearch = this.flightsStore.prettySearch;
 
-      return flights.map((flight) => ({ ...flight, from: 'Vienna' }));
-    });
+  search() {
+    // void this.flightsStore.search();
   }
 
-  lastCheck = new Date();
-
-  from = signal('Paris');
-  to = signal('London');
-  // flightsResource = rxResource({
-  //   request: () => ({ from: this.from(), to: this.to() }),
-  //   loader: () => {
-  //     return interval(1000).pipe(
-  //       startWith(0),
-  //       switchMap(() => this.flightService.find(this.from(), this.to()))
-  //     );
-  //   },
-  // });
-
-  searchParameters = computed(() => ({ from: this.from(), to: this.to() }));
-
-  flightsResource = resource({
-    request: this.searchParameters,
-    stream: async ({ request: { from, to }, abortSignal }) => {
-      const flights = signal<{ value: Flight[] }>({ value: [] });
-
-      const intervalId = setInterval(async () => {
-        flights.set({ value: await this.flightService.findPromise(from, to) });
-      }, 5000);
-
-      abortSignal.addEventListener('abort', () => {
-        clearInterval(intervalId);
-      });
-
-      return flights;
-    },
-  });
-  flights = signal([] as Flight[]);
-
-  flightsCount = computed(() => this.flights().length);
-
-  prettySearch = computed(() => {
-    const value = `Suche von ${this.from()} nach ${this.to()}: ${this.flightsCount()} Flüge`;
-    return value;
-  });
-
-  printPrettySearch() {
-    console.log(this.prettySearch());
-  }
-
-  basket = signal<Record<number, boolean>>({
-    3: true,
-    5: true,
-  });
-  basketCount = computed(() => Object.keys(this.basket()).length);
-
-  async search() {
-    const from = this.from();
-    const to = this.to();
-    const flightsPromise = lastValueFrom(this.flightService.find(from, to));
-    this.flights.set(await flightsPromise);
-  }
-
-  delay(): void {
-    // this.flights = this.toFlightsWithDelays(this.flights, 15);
-  }
-
-  toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
-    if (flights.length === 0) {
-      return [];
-    }
-
-    const oldFlights = flights;
-    const oldFlight = oldFlights[0];
-    const oldDate = new Date(oldFlight.date);
-    const newDate = addMinutes(oldDate, delay);
-
-    const newFlight = { ...oldFlight, date: newDate.toISOString() };
-
-    return [newFlight, ...flights.slice(1)];
-  }
-
-  blink() {
-    // Dirty Hack used to visualize the change detector
-    this.element.nativeElement.firstChild.style.backgroundColor = 'crimson';
-
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        this.element.nativeElement.firstChild.style.backgroundColor = 'white';
-      }, 1000);
-    });
-
-    return null;
-  }
-
-  updateBasket(id: number) {
-    // const basket = this.basket();
-    this.basket.update((basket) => {
-      basket[id] = true;
-      console.log(basket);
-      return basket;
-    });
+  updateBasket(flightId: number) {
+    this.flightsStore.addToBasket(flightId, true);
   }
 }

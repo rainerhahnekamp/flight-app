@@ -8,10 +8,6 @@
     <p>Flight-No.: #{{ flight.id }}</p>
     <p>Date: {{ flight.date | date : 'dd.MM.yyyy HH:mm' }}</p>
 
-    <form>
-      <input [(ngModel)]="formFlight().from" name="from" />
-    </form>
-
     <ng-content select=".middle"></ng-content>
 
     <p>

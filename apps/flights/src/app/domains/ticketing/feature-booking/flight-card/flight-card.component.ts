@@ -54,10 +54,6 @@ export class FlightCardComponent {
     const flight = this.item();
     return `${flight.from} - ${flight.to}`;
   });
-  formGroup = inject(NonNullableFormBuilder).group({ from: [''], to: [''] });
-  formSyncer = effect(() => {
-    this.formGroup.setValue(this.item());
-  });
 
   select() {
     this.selected.set(true);
