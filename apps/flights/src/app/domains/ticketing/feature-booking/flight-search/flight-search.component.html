@@ -14,12 +14,17 @@
 
   <div class="form-group">
     <button (click)="search()" class="btn btn-default">Search</button>
-    <button (click)="delay()" class="btn btn-default">Delay</button>
+    <button (click)="flightStore.delay()" class="btn btn-default">Delay</button>
+    <button (click)="connect()" class="btn btn-default">
+      Connect to SignalStore
+    </button>
   </div>
 </form>
 
+<p>{{ flightStore.prettySearch() }}</p>
+
 <div class="row">
-  @for (f of flights; track f.id) {
+  @for (f of flights(); track f.id) {
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
     <app-flight-card [item]="f" [(selected)]="basket[f.id]">
       <p class="middle"><i>Delays are possible!</i></p>
@@ -29,7 +34,7 @@
   }
 </div>
 
-<p>&nbsp;</p>
+<p>&nbsp;Flights found: {{ flightStore.flightsCount() }}</p>
 
 <div>
   <pre>{{ basket | json }}</pre>

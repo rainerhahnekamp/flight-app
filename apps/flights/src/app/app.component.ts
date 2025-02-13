@@ -14,7 +14,6 @@ import { NavbarComponent } from './shell/navbar/navbar.component';
 import { ConfigService } from '@demo/shared/util-config';
 
 @Component({
-  standalone: true,
   imports: [SidebarComponent, NavbarComponent, RouterOutlet, AsyncPipe],
   selector: 'app-root',
   templateUrl: './app.component.html',

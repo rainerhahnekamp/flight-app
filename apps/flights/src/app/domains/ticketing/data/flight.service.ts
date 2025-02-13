@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable, of, tap } from 'rxjs';
 import { Flight } from './flight';
 import { ConfigService } from '@demo/shared/util-config';
 
@@ -10,6 +10,12 @@ import { ConfigService } from '@demo/shared/util-config';
 export class FlightService {
   private http = inject(HttpClient);
   private configService = inject(ConfigService);
+
+  #airports = [] as string[];
+
+  get airports(): string[] {
+    return this.#airports;
+  }
 
   find(from: string, to: string, urgent = false): Observable<Flight[]> {
     const url = `${this.configService.config.baseUrl}/flight`;
@@ -37,5 +43,12 @@ export class FlightService {
     const params = { id };
 
     return this.http.get<Flight>(url, { headers, params });
+  }
+
+  preloadAirports() {
+    const url = `${this.configService.config.baseUrl}/airportsas`;
+    return this.http
+      .get<string[]>(url)
+      .pipe(tap((airports) => (this.#airports = airports)));
   }
 }

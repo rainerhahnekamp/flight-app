@@ -6,3 +6,18 @@
 
 <button (click)="auth.login('Max')" class="btn btn-default">Login</button>
 <button (click)="auth.logout()" class="btn btn-default">Logout</button>
+<button (click)="unsubscribeTimer()" class="btn btn-default">
+  Unsubscribe from Timer
+</button>
+
+<button (click)="subscribeTimer()" class="btn btn-default">Subscribe</button>
+
+<div>
+  <input [formControl]="from" placeholder="from" />
+</div>
+
+<ul>
+  @for(flight of flights$ | async; track flight) {
+  <li>{{ flight.from }}</li>
+  }
+</ul>
