@@ -43,17 +43,6 @@ export const APP_ROUTES: Routes = [
       },
       {
         path: 'flight-booking',
-        canActivate: [
-          () => {
-            const flightService = inject(FlightService);
-            const router = inject(Router);
-            const home = router.createUrlTree(['/about']);
-            return flightService.preloadAirports().pipe(
-              retry(2),
-              catchError(() => of(home))
-            );
-          },
-        ],
         loadChildren: () =>
           import('@demo/ticketing/feature-booking').then(
             (m) => m.FLIGHT_BOOKING_ROUTES

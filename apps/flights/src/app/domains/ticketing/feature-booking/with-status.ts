@@ -1,33 +1,39 @@
 import {
   patchState,
   signalStoreFeature,
+  type,
   withComputed,
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { computed } from '@angular/core';
+import { computed, ResourceStatus } from '@angular/core';
 
-type StatusState = {
-  status: 'none' | 'loading' | 'loaded' | 'error';
-};
-
-const initialState: StatusState = {
-  status: 'none',
-};
-
-export function withStatus() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function withStatus<_>() {
   return signalStoreFeature(
-    withState(initialState),
+    type<{
+      props: { name: string };
+    }>(),
+    withState({
+      status: ResourceStatus.Idle,
+      error: undefined as Error | undefined,
+    }),
     withMethods((store) => ({
       setLoading() {
-        patchState(store, { status: 'loading' });
+        patchState(store, { status: ResourceStatus.Loading, error: undefined });
       },
-      setLoaded() {
-        patchState(store, { status: 'loaded' });
+      setResolved() {
+        patchState(store, {
+          status: ResourceStatus.Resolved,
+          error: undefined,
+        });
+      },
+      setError(error: Error) {
+        patchState(store, { status: ResourceStatus.Error, error });
       },
     })),
     withComputed((state) => ({
-      isReady: computed(() => state.status() === 'loaded'),
+      hasError: computed(() => state.error() !== undefined),
     }))
   );
 }

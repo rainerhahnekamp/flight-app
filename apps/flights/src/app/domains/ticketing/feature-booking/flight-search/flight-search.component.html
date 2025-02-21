@@ -12,16 +12,13 @@
     <input [(ngModel)]="to" id="to" name="to" class="form-control" />
   </div>
 
+  <p>{{ flightStore.prettySearch() }}</p>
+
   <div class="form-group">
     <button (click)="search()" class="btn btn-default">Search</button>
-    <button (click)="flightStore.delay()" class="btn btn-default">Delay</button>
-    <button (click)="connect()" class="btn btn-default">
-      Connect to SignalStore
-    </button>
+    <button (click)="reset()" class="btn btn-default">Reset</button>
   </div>
 </form>
-
-<p>{{ flightStore.prettySearch() }}</p>
 
 <div class="row">
   @for (f of flights(); track f.id) {
@@ -33,8 +30,6 @@
   </div>
   }
 </div>
-
-<p>&nbsp;Flights found: {{ flightStore.flightsCount() }}</p>
 
 <div>
   <pre>{{ basket | json }}</pre>
