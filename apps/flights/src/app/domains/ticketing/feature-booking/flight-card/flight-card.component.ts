@@ -3,8 +3,11 @@ import {
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
+  model,
   NgZone,
+  output,
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,18 +30,15 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  item = input(initFlight);
+  selected = model.required<boolean>();
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {

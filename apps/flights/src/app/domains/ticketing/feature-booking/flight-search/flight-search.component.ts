@@ -1,11 +1,33 @@
-import { Component, ElementRef, NgZone, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  NgZone,
+  inject,
+  signal,
+  computed,
+  effect,
+  OnInit,
+  Injector,
+  untracked,
+  Signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
+import { HttpClient } from '@angular/common/http';
+import { delay, interval, map, Observable, Subject } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
+
+/**
+ * 1. Glitch Free
+ * 2. Infinite Loop
+ * 3. Dynamic Dependency Tracking
+ * 4. untracked
+ */
 
 @Component({
   selector: 'app-flight-search',
@@ -20,9 +42,41 @@ export class FlightSearchComponent {
 
   private flightService = inject(FlightService);
 
-  from = 'Paris';
-  to = 'London';
-  flights: Array<Flight> = [];
+  from = signal('Paris');
+  to = signal('London');
+  flights = signal<Flight[]>([]);
+
+  now$ = interval().pipe(map(() => new Date().toLocaleTimeString()));
+  now = toSignal(this.now$, { initialValue: new Date().toLocaleTimeString() });
+  nowObservable$ = toObservable(this.now);
+
+  prettySearch = computed(() => {
+    return `Suche von ${this.from()} nach ${this.to()}: ${
+      this.flights().length
+    } gefunden`;
+  });
+
+  printPrettySearch() {
+    console.log(this.prettySearch());
+  }
+
+  handlePrint() {
+    this.printPrettySearch();
+  }
+
+  logEffect = effect(() => {
+    console.log('effect...');
+
+    // 1. Tracking
+    // this.to();
+
+    // 2. Execution
+    untracked(() => {
+      if (this.to() === 'Wien') {
+        this.printPrettySearch();
+      }
+    });
+  });
 
   basket: Record<number, boolean> = {
     3: true,
@@ -30,9 +84,9 @@ export class FlightSearchComponent {
   };
 
   search(): void {
-    this.flightService.find(this.from, this.to).subscribe({
+    this.flightService.find(this.from(), this.to()).subscribe({
       next: (flights) => {
-        this.flights = flights;
+        this.flights.set(flights);
       },
       error: (errResp) => {
         console.error('Error loading flights', errResp);
@@ -41,7 +95,7 @@ export class FlightSearchComponent {
   }
 
   delay(): void {
-    this.flights = this.toFlightsWithDelays(this.flights, 15);
+    this.flights.update((value) => this.toFlightsWithDelays(value, 15));
   }
 
   toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
@@ -70,5 +124,11 @@ export class FlightSearchComponent {
     });
 
     return null;
+  }
+
+  showPrettySearch = signal(false);
+
+  togglePrettySearch() {
+    this.showPrettySearch.update((value) => !value);
   }
 }
