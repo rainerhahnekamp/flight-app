@@ -10,14 +10,18 @@ import {
   Injector,
   untracked,
   Signal,
+  Type,
+  linkedSignal,
+  ResourceStatus,
+  Resource,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
-import { HttpClient } from '@angular/common/http';
-import { delay, interval, map, Observable, Subject } from 'rxjs';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { debounceTime, delay, interval, map, Observable, Subject } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
@@ -47,9 +51,41 @@ export class FlightSearchComponent {
 
   from = signal('Paris');
   to = signal('London');
-  flights = (now$ = interval(1000).pipe(
-    map(() => new Date().toLocaleTimeString())
-  ));
+
+  searchParamsReactive = toSignal(
+    toObservable(computed(() => ({ from: this.from(), to: this.to() })))
+      .pipe
+      // debounceTime(500)
+      (),
+    { initialValue: { from: '', to: '' } }
+  );
+
+  searchParams = signal({ from: this.from(), to: this.to() });
+
+  flights: Resource<Flight[]> = this.flightService.flights;
+
+  currentFlights = linkedSignal<
+    {
+      values: Flight[];
+      status: ResourceStatus;
+    },
+    Flight[]
+  >({
+    source: () => ({
+      values: this.flights.value(),
+      status: this.flights.status(),
+    }),
+    computation: (source, previous) => {
+      if (source.status !== ResourceStatus.Resolved) {
+        return previous?.value ?? [];
+      }
+
+      return source.values;
+    },
+  });
+
+  now$ = interval(1000).pipe(map(() => new Date().toLocaleTimeString()));
+
   now = toSignal(this.now$, { initialValue: new Date().toLocaleTimeString() });
   nowObservable$ = this.toObservable(this.now, (value) => value);
 
@@ -69,7 +105,7 @@ export class FlightSearchComponent {
 
   prettySearch = computed(() => {
     return `Suche von ${this.from()} nach ${this.to()}: ${
-      this.flights().length
+      this.flights.value().length
     } gefunden`;
   });
 
@@ -101,18 +137,12 @@ export class FlightSearchComponent {
   };
 
   search(): void {
-    this.flightService.find(this.from(), this.to()).subscribe({
-      next: (flights) => {
-        this.flights.set(flights);
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+    this.flightService.findInResource(this.from(), this.to());
+    // this.searchParams.set({ from: this.from(), to: this.to() });
   }
 
   delay(): void {
-    this.flights.update((value) => this.toFlightsWithDelays(value, 15));
+    // this.flights.update((value) => this.toFlightsWithDelays(value, 15));
   }
 
   toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
@@ -150,8 +180,12 @@ export class FlightSearchComponent {
   }
 
   setToKoeln() {
-    this.flights.update((value) =>
-      value.map((flight) => ({ ...flight, from: 'Köln' }))
-    );
+    // this.flights.update((value) =>
+    //   value.map((flight) => ({ ...flight, from: 'Köln' }))
+    // );
+  }
+
+  refresh() {
+    this.flights.reload();
   }
 }

@@ -41,8 +41,7 @@
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true,
-          "hmr": false
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
