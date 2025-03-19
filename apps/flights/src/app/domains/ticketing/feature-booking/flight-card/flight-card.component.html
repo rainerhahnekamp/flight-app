@@ -11,6 +11,8 @@
     <p>Flight-No.: #{{ item.id }}</p>
     <p>Date: {{ item.date | date : 'dd.MM.yyyy HH:mm' }}</p>
 
+    <input [(ngModel)]="from" />
+
     <ng-content select=".middle"></ng-content>
 
     <p>
@@ -33,3 +35,5 @@
     <ng-content select=".bottom"></ng-content>
   </div>
 </div>
+
+{{ blink() }}

@@ -23,10 +23,13 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
 /**
- * 1. Glitch Free
- * 2. Infinite Loop
- * 3. Dynamic Dependency Tracking
- * 4. untracked
+ *     - httpResource
+ *         - Perfecting
+ *         - Streaming
+ *         - rxResource
+ *         - httpResource (auch auf POST eingehen und dass Mutation nicht erwarten werden.)
+ *         - Klassisch zeigen wie man zwei Eingabefelder mit debounceTime usw. über das beherrsch
+ *         - Fehlerbehandlung
  */
 
 @Component({
@@ -44,11 +47,25 @@ export class FlightSearchComponent {
 
   from = signal('Paris');
   to = signal('London');
-  flights = signal<Flight[]>([]);
-
-  now$ = interval().pipe(map(() => new Date().toLocaleTimeString()));
+  flights = (now$ = interval(1000).pipe(
+    map(() => new Date().toLocaleTimeString())
+  ));
   now = toSignal(this.now$, { initialValue: new Date().toLocaleTimeString() });
-  nowObservable$ = toObservable(this.now);
+  nowObservable$ = this.toObservable(this.now, (value) => value);
+
+  date = signal(new Date());
+  number$ = this.toObservable(this.date, (value) => value.toLocaleTimeString());
+
+  toObservable<Type, ReturnType>(
+    value: Signal<Type>,
+    mapper: (value: Type) => ReturnType
+  ): Observable<ReturnType> {
+    const value$ = new Subject<Type>();
+    effect(() => {
+      value$.next(value());
+    });
+    return value$.asObservable().pipe(map((value) => mapper(value)));
+  }
 
   prettySearch = computed(() => {
     return `Suche von ${this.from()} nach ${this.to()}: ${
@@ -130,5 +147,11 @@ export class FlightSearchComponent {
 
   togglePrettySearch() {
     this.showPrettySearch.update((value) => !value);
+  }
+
+  setToKoeln() {
+    this.flights.update((value) =>
+      value.map((flight) => ({ ...flight, from: 'Köln' }))
+    );
   }
 }

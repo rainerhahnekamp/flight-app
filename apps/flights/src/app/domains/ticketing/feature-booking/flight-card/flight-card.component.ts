@@ -1,28 +1,37 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   ElementRef,
-  EventEmitter,
   inject,
   input,
-  Input,
+  linkedSignal,
   model,
   NgZone,
-  output,
-  Output,
+  signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { Flight, initFlight } from '@demo/ticketing/data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-flight-card',
   standalone: true,
-  imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
+  imports: [
+    CommonModule,
+    CityPipe,
+    StatusToggleComponent,
+    RouterLink,
+    FormsModule,
+  ],
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCardComponent {
   private element = inject(ElementRef);
@@ -30,7 +39,11 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  item = input(initFlight);
+  item = input.required<Flight>();
+  // from = computed(() => this.item().from);
+
+  from = linkedSignal(() => this.item().from);
+
   selected = model.required<boolean>();
 
   select() {
