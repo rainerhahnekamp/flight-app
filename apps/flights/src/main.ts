@@ -13,7 +13,7 @@ import { LogLevel, provideLogger, withColor } from '@demo/shared/util-logger';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    // provideExperimentalZonelessChangeDetection(),
+    provideExperimentalZonelessChangeDetection(),
     provideHttpClient(),
     provideRouter(APP_ROUTES),
     importProvidersFrom(NextFlightsModule),

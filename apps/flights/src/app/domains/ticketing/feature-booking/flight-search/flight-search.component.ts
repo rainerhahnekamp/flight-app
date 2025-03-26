@@ -14,6 +14,7 @@ import {
   linkedSignal,
   ResourceStatus,
   Resource,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,8 +22,22 @@ import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
 import { HttpClient, httpResource } from '@angular/common/http';
-import { debounceTime, delay, interval, map, Observable, Subject } from 'rxjs';
+import {
+  debounceTime,
+  delay,
+  from,
+  interval,
+  map,
+  Observable,
+  of,
+  pipe,
+  Subject,
+  tap,
+} from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { FlightStore } from '../../data/flight-store';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { patchState } from '@ngrx/signals';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
@@ -36,41 +51,45 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
  *         - Fehlerbehandlung
  */
 
+type Source = {
+  values: Flight[];
+  status: ResourceStatus;
+};
+
 @Component({
   selector: 'app-flight-search',
   standalone: true,
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
   imports: [CommonModule, FormsModule, FlightCardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightSearchComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
-  private flightService = inject(FlightService);
+  protected flightStore = inject(FlightStore);
 
-  from = signal('Paris');
-  to = signal('London');
+  from = linkedSignal(this.flightStore.searchParams.from);
+  to = linkedSignal(this.flightStore.searchParams.to);
 
-  searchParamsReactive = toSignal(
-    toObservable(computed(() => ({ from: this.from(), to: this.to() })))
-      .pipe
-      // debounceTime(500)
-      (),
-    { initialValue: { from: '', to: '' } }
-  );
+  flights = this.flightStore.flightResource;
 
-  searchParams = signal({ from: this.from(), to: this.to() });
+  searchParams = computed(() => ({ from: this.from(), to: this.to() }));
 
-  flights: Resource<Flight[]> = this.flightService.flights;
+  now = new Date().toLocaleTimeString();
 
-  currentFlights = linkedSignal<
-    {
-      values: Flight[];
-      status: ResourceStatus;
-    },
-    Flight[]
-  >({
+  constructor() {
+    setInterval(() => (this.now = new Date().toLocaleTimeString()), 1000);
+
+    const syncer$ = toObservable(this.searchParams).pipe(debounceTime(500));
+
+    this.flightStore.setSearchParams(
+      toSignal(syncer$, { initialValue: { from: this.from(), to: this.to() } })
+    );
+  }
+
+  currentFlights = linkedSignal<Source, Flight[]>({
     source: () => ({
       values: this.flights.value(),
       status: this.flights.status(),
@@ -84,62 +103,7 @@ export class FlightSearchComponent {
     },
   });
 
-  now$ = interval(1000).pipe(map(() => new Date().toLocaleTimeString()));
-
-  now = toSignal(this.now$, { initialValue: new Date().toLocaleTimeString() });
-  nowObservable$ = this.toObservable(this.now, (value) => value);
-
-  date = signal(new Date());
-  number$ = this.toObservable(this.date, (value) => value.toLocaleTimeString());
-
-  toObservable<Type, ReturnType>(
-    value: Signal<Type>,
-    mapper: (value: Type) => ReturnType
-  ): Observable<ReturnType> {
-    const value$ = new Subject<Type>();
-    effect(() => {
-      value$.next(value());
-    });
-    return value$.asObservable().pipe(map((value) => mapper(value)));
-  }
-
-  prettySearch = computed(() => {
-    return `Suche von ${this.from()} nach ${this.to()}: ${
-      this.flights.value().length
-    } gefunden`;
-  });
-
-  printPrettySearch() {
-    console.log(this.prettySearch());
-  }
-
-  handlePrint() {
-    this.printPrettySearch();
-  }
-
-  logEffect = effect(() => {
-    console.log('effect...');
-
-    // 1. Tracking
-    // this.to();
-
-    // 2. Execution
-    untracked(() => {
-      if (this.to() === 'Wien') {
-        this.printPrettySearch();
-      }
-    });
-  });
-
-  basket: Record<number, boolean> = {
-    3: true,
-    5: true,
-  };
-
-  search(): void {
-    this.flightService.findInResource(this.from(), this.to());
-    // this.searchParams.set({ from: this.from(), to: this.to() });
-  }
+  search(): void {}
 
   delay(): void {
     // this.flights.update((value) => this.toFlightsWithDelays(value, 15));

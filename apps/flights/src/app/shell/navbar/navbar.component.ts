@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TriggerService } from '../../trigger.service';
 
 @Component({
   standalone: true,
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   sidebarVisible = false;
+  triggerService = inject(TriggerService);
 
   sidebarToggle() {
     const body = document.getElementsByTagName('body')[0];
@@ -18,5 +20,9 @@ export class NavbarComponent {
       this.sidebarVisible = false;
       body.classList.remove('nav-open');
     }
+  }
+
+  handleClick() {
+    this.triggerService.trigger();
   }
 }

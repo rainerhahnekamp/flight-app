@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   computed,
   effect,
@@ -9,6 +10,7 @@ import {
   linkedSignal,
   model,
   NgZone,
+  output,
   signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +20,8 @@ import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
 import { Flight, initFlight } from '@demo/ticketing/data';
 import { FormsModule } from '@angular/forms';
+import { FlightWithFavourite } from '../../data/flight-store';
+import { interval, map } from 'rxjs';
 
 @Component({
   selector: 'app-flight-card',
@@ -39,10 +43,28 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  item = input.required<Flight>();
+  now = signal(new Date().toLocaleTimeString());
+  counter = 0;
+
+  // now$ = interval(1000).pipe(map(() => new Date().toLocaleTimeString()));
+  constructor(cdr: ChangeDetectorRef) {
+    // this.now$.subscribe((value) => {
+    //   this.now = value;
+    // });
+    setInterval(() => {
+      this.counter++;
+      if (this.counter % 4 === 0) {
+        this.now.set(new Date().toLocaleTimeString());
+      }
+    }, 1000);
+  }
+
+  item = input.required<FlightWithFavourite>();
   // from = computed(() => this.item().from);
 
   from = linkedSignal(() => this.item().from);
+  addFavourite = output<number>();
+  removeFavourite = output<number>();
 
   selected = model.required<boolean>();
 
@@ -71,5 +93,13 @@ export class FlightCardComponent {
     });
 
     return null;
+  }
+
+  handleRemoveFavourite(id: number) {
+    this.removeFavourite.emit(id);
+  }
+
+  handleAddFavourite(id: number) {
+    this.addFavourite.emit(id);
   }
 }

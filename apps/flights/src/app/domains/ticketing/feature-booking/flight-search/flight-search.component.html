@@ -16,8 +16,8 @@
     <button (click)="search()" class="btn btn-default">Search</button>
     <button (click)="refresh()" class="btn btn-default">Refresh</button>
     <button (click)="delay()" class="btn btn-default">Delay</button>
-    <button (click)="handlePrint()" class="btn btn-default">
-      Pretty Search Print
+    <button (click)="flightStore.sync()" class="btn btn-default">
+      Zustand abspeichern
     </button>
     <button (click)="togglePrettySearch()" class="btn btn-default">
       Toggle Pretty Search
@@ -26,16 +26,22 @@
   </div>
 </form>
 
-<p>Uhrzeit: {{ nowObservable$ | async }}</p>
+<p>{{ flightStore.prettySearch() }}</p>
+<p>Uhrzeit: {{ now }}</p>
 
 <div class="row">
   @if (flights.isLoading()) {
   <p>Lade Flüge...</p>
   } @if (flights.error()) {
   <p>Es trat folgender Fehler auf: {{ flights.error() | json }}</p>
-  } @for (flight of currentFlights(); track flight.id) {
+  } @for (flight of flightStore.entitiesWithFavourite(); track flight.id) {
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-    <app-flight-card [item]="flight" [(selected)]="basket[flight.id]">
+    <app-flight-card
+      [item]="flight"
+      [selected]="true"
+      (addFavourite)="flightStore.addFavourite($event)"
+      (removeFavourite)="flightStore.removeFavourite($event)"
+    >
       <p class="middle"><i>Delays are possible!</i></p>
       <p class="bottom"><small>Statement without guarantee!</small></p>
     </app-flight-card>
@@ -43,8 +49,6 @@
   }
 </div>
 
-<p>&nbsp;{{ prettySearch() }}</p>
-
 <div>
-  <pre>{{ basket | json }}</pre>
+  <pre>{{ flightStore.basket | json }}</pre>
 </div>
