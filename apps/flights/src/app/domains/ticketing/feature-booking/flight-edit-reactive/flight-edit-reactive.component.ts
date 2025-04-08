@@ -56,7 +56,7 @@ export class FlightEditReactiveComponent {
   }
 
   save(): void {
-    this.flight = this.form.getRawValue();
+    this.flight = this.form.getRawValue() as Flight;
     console.log('flight', this.flight);
   }
 

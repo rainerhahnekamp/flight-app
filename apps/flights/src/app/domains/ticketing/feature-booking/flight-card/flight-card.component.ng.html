@@ -1,8 +1,15 @@
-<div [ngClass]="{ selected: selected }" class="card">
+@let item = this.item();
+
+<div [class]="{ selected: selected, card: true }">
   <div class="card-header">
     <h2 class="title">
       {{ item.from | city : 'short' }} - {{ item.to | city : 'long' }}
     </h2>
+  </div>
+
+  <div>
+    <input name="from" [(ngModel)]="from" />
+    <input name="to" [(ngModel)]="to" />
   </div>
 
   <div class="card-body">
@@ -13,13 +20,13 @@
 
     <p>
       Delayed:
-      <app-status-toggle [(status)]="item.delayed"> </app-status-toggle>
+      <app-status-toggle [(status)]="item.delayed"></app-status-toggle>
     </p>
     <p>
-      @if (!selected) {
-      <button (click)="select()" class="btn btn-default">Select</button>
-      } @if(selected) {
+      @if (selected()) {
       <button (click)="deselect()" class="btn btn-default">Remove</button>
+      } @else {
+      <button (click)="select()" class="btn btn-default">Select</button>
       }
       <button
         [routerLink]="['../flight-edit', item.id, { showDetails: false }]"
@@ -31,3 +38,5 @@
     <ng-content select=".bottom"></ng-content>
   </div>
 </div>
+
+{{ blink() }}

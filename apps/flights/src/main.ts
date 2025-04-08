@@ -1,5 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
+import {
+  importProvidersFrom,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
@@ -8,8 +11,12 @@ import { APP_ROUTES } from './app/app.routes';
 import { NextFlightsModule } from '@demo/ticketing/feature-next-flights';
 import { LogLevel, provideLogger, withColor } from '@demo/shared/util-logger';
 
+// Nx
+// Dynamic Forms
+
 bootstrapApplication(AppComponent, {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideHttpClient(),
     provideRouter(APP_ROUTES),
     importProvidersFrom(NextFlightsModule),

@@ -1,25 +1,38 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   ElementRef,
-  EventEmitter,
   inject,
-  Input,
+  input,
+  linkedSignal,
+  model,
   NgZone,
-  Output,
+  signal,
+  untracked,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { Flight } from '@demo/ticketing/data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-flight-card',
   standalone: true,
-  imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
-  templateUrl: './flight-card.component.html',
-  styleUrls: ['./flight-card.component.css'],
+  imports: [
+    CommonModule,
+    CityPipe,
+    StatusToggleComponent,
+    RouterLink,
+    FormsModule,
+  ],
+  templateUrl: './flight-card.component.ng.html',
+  styleUrls: ['./flight-card.component.ng.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCardComponent {
   private element = inject(ElementRef);
@@ -27,18 +40,18 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  item = input.required<Flight>();
+  from = linkedSignal(() => this.item().from);
+  to = linkedSignal(() => this.item().to);
+
+  selected = model.required<boolean>();
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {

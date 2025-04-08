@@ -23,8 +23,15 @@ export class FlightService {
     return this.http.get<Flight[]>(url, { headers, params });
   }
 
-  findPromise(from: string, to: string, urgent = false): Promise<Flight[]> {
-    return firstValueFrom(this.find(from, to, urgent));
+  findPromise(
+    from: string,
+    to: string,
+    abortSignal: AbortSignal
+  ): Promise<Flight[]> {
+    const url = `${this.configService.config.baseUrl}/flight`;
+    return fetch(`${url}?from=${from}&to=${to}`, { signal: abortSignal }).then(
+      (res) => res.json()
+    );
   }
 
   findById(id: string): Observable<Flight> {

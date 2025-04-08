@@ -1,11 +1,54 @@
-import { Component, ElementRef, NgZone, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  linkedSignal,
+  Signal,
+  signal,
+  untracked,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FlightCardComponent } from '../flight-card/flight-card.component';
-import { Flight, FlightService } from '@demo/ticketing/data';
-import { addMinutes } from 'date-fns';
+import { FlightCardComponent } from '../flight-card/flight-card.component.ng';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {
+  concatMap,
+  debounceTime,
+  map,
+  of,
+  pipe,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store.service';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { FlightService } from '@demo/ticketing/data';
+
+/**
+ * effect()
+ * rxResource with just loader
+ * rxResource with default value
+ * rxResource with request
+ * isLoading/hasValue/error in template
+ * pre-fetching
+ * conditional requests
+ * requests with Observable
+ * requests on click (button)
+ * fallback to resource
+ * resource with streaming and HttpClient
+ * httpResource
+ */
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
+/**
+ * Agenda
+ * - linkedSignal, resource
+ * - NgRx
+ * - Nx / Architektur
+ * - zoneless
+ */
 
 @Component({
   selector: 'app-flight-search',
@@ -15,14 +58,28 @@ import { addMinutes } from 'date-fns';
   imports: [CommonModule, FormsModule, FlightCardComponent],
 })
 export class FlightSearchComponent {
-  private element = inject(ElementRef);
-  private zone = inject(NgZone);
+  private readonly flightStore = inject(FlightStore);
 
-  private flightService = inject(FlightService);
+  protected readonly from = linkedSignal(this.flightStore.searchParams.from);
+  protected readonly to = linkedSignal(this.flightStore.searchParams.to);
 
-  from = 'Paris';
-  to = 'London';
-  flights: Array<Flight> = [];
+  protected readonly flights = this.flightStore.flights;
+  protected readonly prettySearch = this.flightStore.prettySearch;
+  searchParams = computed(() => ({ from: this.from(), to: this.to() }));
+
+  constructor() {
+    this.flightStore.setSearchParams(this.searchParams);
+  }
+
+  // searchParams = signal({ from: '', to: '' });
+
+  debounce<T>(value: Signal<T>, time = 500) {
+    return toSignal(toObservable(value).pipe(debounceTime(time)), {
+      initialValue: value(),
+    });
+  }
+
+  params = this.debounce(this.searchParams, 500);
 
   basket: Record<number, boolean> = {
     3: true,
@@ -30,45 +87,14 @@ export class FlightSearchComponent {
   };
 
   search(): void {
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+    this.flightStore.setSearchParams({ from: this.from(), to: this.to() });
   }
 
-  delay(): void {
-    this.flights = this.toFlightsWithDelays(this.flights, 15);
+  delay() {
+    this.flightStore.delay();
   }
 
-  toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
-    if (flights.length === 0) {
-      return [];
-    }
-
-    const oldFlights = flights;
-    const oldFlight = oldFlights[0];
-    const oldDate = new Date(oldFlight.date);
-    const newDate = addMinutes(oldDate, delay);
-
-    const newFlight = { ...oldFlight, date: newDate.toISOString() };
-
-    return [newFlight, ...flights.slice(1)];
-  }
-
-  blink() {
-    // Dirty Hack used to visualize the change detector
-    this.element.nativeElement.firstChild.style.backgroundColor = 'crimson';
-
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        this.element.nativeElement.firstChild.style.backgroundColor = 'white';
-      }, 1000);
-    });
-
-    return null;
+  setToWien() {
+    this.flightStore.setToWien();
   }
 }
