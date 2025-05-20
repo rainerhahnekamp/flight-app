@@ -5,6 +5,8 @@
     </h2>
   </div>
 
+  <p>Current Time: {{ time() }}</p>
+
   <div class="card-body">
     <p>Flight-No.: #{{ item.id }}</p>
     <p>Date: {{ item.date | date : 'dd.MM.yyyy HH:mm' }}</p>

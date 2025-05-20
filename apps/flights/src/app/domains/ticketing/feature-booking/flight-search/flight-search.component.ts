@@ -1,4 +1,9 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
@@ -14,9 +19,9 @@ import { Flight, FlightService } from '@demo/ticketing/data';
   imports: [CommonModule, FormsModule, FlightCardComponent],
 })
 export class FlightSearchComponent {
-  from = 'Paris';
+  from = 'Wien';
   to = 'London';
-  flights: Array<Flight> = [];
+  flights = signal([] as Flight[]);
   selectedFlight: Flight | undefined;
   message = '';
   date = new Date();
@@ -35,7 +40,8 @@ export class FlightSearchComponent {
 
     this.flightService.find(this.from, this.to).subscribe({
       next: (flights) => {
-        this.flights = flights;
+        this.flights.set(flights);
+        console.log(this.flights);
       },
       error: (errResp) => {
         console.error('Error loading flights', errResp);
@@ -46,4 +52,11 @@ export class FlightSearchComponent {
   select(f: Flight): void {
     this.selectedFlight = { ...f };
   }
+
+  getCurrentTime() {
+    // return '';
+    // return new Date().toLocaleTimeString();
+  }
+
+  updateTime() {}
 }

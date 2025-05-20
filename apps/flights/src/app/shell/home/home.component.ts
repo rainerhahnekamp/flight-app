@@ -11,8 +11,13 @@ import { AuthService } from '@demo/shared/util-auth';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  greeting = '';
   logger = inject(LoggerService);
   auth = inject(AuthService);
+
+  login() {
+    this.greeting = 'Welcome';
+  }
 
   constructor() {
     this.logger.debug('home', 'debug');
