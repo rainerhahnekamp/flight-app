@@ -1,0 +1,55 @@
+<div class="header">
+  <h2 class="title">Flight Search</h2>
+</div>
+
+<p>
+  <button (click)="updateTime()">Update</button>
+  <button (click)="setDefaultsToKoelnDortmund()">Change Defaults</button>
+</p>
+
+<form>
+  <div class="form-group">
+    <label for="from">From:</label>
+    <input [(ngModel)]="from" id="from" name="from" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="to">To:</label>
+    <input [(ngModel)]="to" id="to" name="to" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <button (click)="search()" class="btn btn-default">Search</button>
+  </div>
+</form>
+
+<p>Time: {{ _time$ | async }}</p>
+@if (showPrettySearch()) {
+<!--<p>{{ prettySearch() }}</p>-->
+}
+<button (click)="togglePrettySearch()">Toggle Pretty Search</button>
+
+@if (flights.isLoading()) {
+
+<p>Searching...</p>
+} @else if (flights.error()) {
+
+<p>An error has happened</p>
+<pre>{{ flights.error() | json }}</pre>
+} @else if (flights.hasValue()) {
+<div class="row">
+  @for (f of flights.value(); track f.id) {
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <app-flight-card [item]="f" [(selected)]="basket[f.id]">
+      <p class="middle"><i>Delays are possible!</i></p>
+      <p class="bottom"><small>Statement without guarantee!</small></p>
+    </app-flight-card>
+  </div>
+  }
+</div>
+}
+
+<p>&nbsp;</p>
+
+<div>
+  <pre>{{ basket | json }}</pre>
+</div>

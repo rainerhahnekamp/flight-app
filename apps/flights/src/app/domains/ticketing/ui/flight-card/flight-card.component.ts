@@ -1,16 +1,16 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   inject,
+  input,
   Input,
+  model,
   Output,
   signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
+import { FlightEditReactiveComponent } from '../../feature-booking/flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
 import { initFlight } from '@demo/ticketing/data';
@@ -26,9 +26,8 @@ import { interval, map, startWith } from 'rxjs';
 export class FlightCardComponent {
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  item = input(initFlight);
+  selected = model<boolean>();
   time = signal(new Date().toLocaleTimeString());
 
   time$ = interval(1000).pipe(
@@ -37,17 +36,15 @@ export class FlightCardComponent {
   );
 
   constructor() {
-    this.time$.subscribe();
+    this.time$.subscribe((value) => this.time.set(value));
   }
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {

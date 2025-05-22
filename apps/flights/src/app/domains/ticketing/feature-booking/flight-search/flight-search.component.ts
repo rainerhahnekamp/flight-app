@@ -1,13 +1,18 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   inject,
-  signal,
+  linkedSignal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FlightCardComponent } from '../flight-card/flight-card.component';
-import { Flight, FlightService } from '@demo/ticketing/data';
+import { Flight } from '@demo/ticketing/data';
+import { FlightCardComponent } from '@demo/ticketing/ui/flight-card/flight-card.component';
+import { signalMethod } from '@ngrx/signals';
+import { ReduxFlightStore } from '@demo/ticketing/data/redux-flight-store';
+import { Dispatcher, injectDispatch } from '@ngrx/signals/events';
+import { flightEvents } from '@demo/ticketing/data/flight-events';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
@@ -19,39 +24,29 @@ import { Flight, FlightService } from '@demo/ticketing/data';
   imports: [CommonModule, FormsModule, FlightCardComponent],
 })
 export class FlightSearchComponent {
-  from = 'Wien';
-  to = 'London';
-  flights = signal([] as Flight[]);
-  selectedFlight: Flight | undefined;
-  message = '';
-  date = new Date();
+  readonly #flightStore = inject(ReduxFlightStore);
 
-  basket: Record<number, boolean> = {
-    3: true,
-    5: true,
-  };
+  readonly from = linkedSignal(this.#flightStore.searchParams.from);
+  readonly to = linkedSignal(this.#flightStore.searchParams.to);
 
-  private flightService = inject(FlightService);
+  readonly searchParams = computed(() => ({
+    from: this.from(),
+    to: this.to(),
+  }));
 
-  search(): void {
-    // Reset properties
-    this.message = '';
-    this.selectedFlight = undefined;
+  flights = this.#flightStore.flights;
 
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights.set(flights);
-        console.log(this.flights);
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
+  events = injectDispatch(flightEvents);
+
+  constructor() {
+    effect(() => {
+      this.events.search(this.searchParams());
     });
   }
 
-  select(f: Flight): void {
-    this.selectedFlight = { ...f };
-  }
+  search(): void {}
+
+  select(flight: Flight): void {}
 
   getCurrentTime() {
     // return '';
@@ -59,4 +54,8 @@ export class FlightSearchComponent {
   }
 
   updateTime() {}
+
+  resetSearchForm() {}
+
+  syncToLocalStorage() {}
 }

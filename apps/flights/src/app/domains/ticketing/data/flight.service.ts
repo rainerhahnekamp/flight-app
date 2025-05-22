@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { Flight } from './flight';
+import { Flight } from '../model/flight';
 import { ConfigService } from '@demo/shared/util-config';
 
 @Injectable({
