@@ -1,11 +1,34 @@
-import { Component, ElementRef, NgZone, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  linkedSignal,
+  NgZone,
+  signal,
+  untracked,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
+import { debounceTime, of, pipe, Subject, tap } from 'rxjs';
+import { derivedFrom } from 'ngxtension/derived-from';
+import { FlightStore } from '@demo/ticketing/data/flight-store';
+import { patchState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
+
+/**
+ * 1. Glitch-Free Effect
+ * 2. Dynamic Dependency Tracking
+ * 3. Untracked
+ * 4. Infinite Loops
+ *
+ */
 
 @Component({
   selector: 'app-flight-search',
@@ -19,29 +42,35 @@ export class FlightSearchComponent {
   private zone = inject(NgZone);
 
   private flightService = inject(FlightService);
+  private flightStore = inject(FlightStore);
 
-  from = 'Paris';
-  to = 'London';
-  flights: Array<Flight> = [];
+  protected readonly from = linkedSignal(this.flightStore.searchParams.from);
+  protected readonly to = linkedSignal(this.flightStore.searchParams.to);
+
+  constructor() {
+    this.flightStore.search(
+      computed(() => ({ from: this.from(), to: this.to() }))
+    );
+  }
+
+  flights = this.flightStore.flights;
+  flightsCount = this.flightStore.flightsCount;
+  prettySearch = this.flightStore.prettySearch;
+
+  numberEmitter = new Subject<number>();
+  currentNumber = 1;
+
+  search(): void {
+    // this.flightStore.search(this.searchParams().from, this.searchParams().to);
+  }
 
   basket: Record<number, boolean> = {
     3: true,
     5: true,
   };
 
-  search(): void {
-    this.flightService.find(this.from, this.to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
-  }
-
   delay(): void {
-    this.flights = this.toFlightsWithDelays(this.flights, 15);
+    // this.flights = this.toFlightsWithDelays(this.flights, 15);
   }
 
   toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
@@ -70,5 +99,13 @@ export class FlightSearchComponent {
     });
 
     return null;
+  }
+
+  updateFrom() {}
+
+  reload() {}
+
+  emitNumber() {
+    this.numberEmitter.next(this.currentNumber++);
   }
 }

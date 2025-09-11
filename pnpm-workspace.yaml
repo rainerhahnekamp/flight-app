@@ -1,0 +1,9 @@
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - cypress
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+  - nx
+  - unrs-resolver

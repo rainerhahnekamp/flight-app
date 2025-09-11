@@ -1,3 +1,5 @@
+@let item = this.item();
+
 <div [ngClass]="{ selected: selected }" class="card">
   <div class="card-header">
     <h2 class="title">
@@ -27,6 +29,9 @@
       >
         Edit
       </button>
+      <button (click)="setToVienna()">Set to Vienna</button>
+
+      <input [(ngModel)]="from" />
     </p>
     <ng-content select=".bottom"></ng-content>
   </div>

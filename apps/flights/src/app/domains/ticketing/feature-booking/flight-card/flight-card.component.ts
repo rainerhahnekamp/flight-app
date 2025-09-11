@@ -1,23 +1,36 @@
 import {
   Component,
+  effect,
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
+  linkedSignal,
   NgZone,
   Output,
+  signal,
+  untracked,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { Flight, initFlight } from '@demo/ticketing/data';
+import { FormsModule } from '@angular/forms';
+import { select } from '@ngrx/store';
 
 @Component({
   selector: 'app-flight-card',
   standalone: true,
-  imports: [CommonModule, CityPipe, StatusToggleComponent, RouterLink],
+  imports: [
+    CommonModule,
+    CityPipe,
+    StatusToggleComponent,
+    RouterLink,
+    FormsModule,
+  ],
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
 })
@@ -27,9 +40,23 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
+  item = input.required<Flight>();
   @Input() selected = false;
   @Output() selectedChange = new EventEmitter<boolean>();
+
+  state = signal({
+    from: 'Paris',
+    to: 'London',
+    flights: [] as Flight[],
+  });
+
+  from = linkedSignal(() => this.item().from);
+  to = linkedSignal({
+    source: this.item,
+    computation(value) {
+      return value.to;
+    },
+  });
 
   select() {
     this.selected = true;
@@ -58,5 +85,9 @@ export class FlightCardComponent {
     });
 
     return null;
+  }
+
+  setToVienna() {
+    this.from.set('Vienna');
   }
 }
