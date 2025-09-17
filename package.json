@@ -40,8 +40,10 @@
     "@nx/angular": "21.3.6",
     "date-fns": "^2.30.0",
     "es-module-shims": "^1.5.12",
+    "ngxtension": "^6.0.0",
     "rxjs": "7.8.1",
     "tslib": "^2.5.2",
+    "zod": "^3.25.75",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

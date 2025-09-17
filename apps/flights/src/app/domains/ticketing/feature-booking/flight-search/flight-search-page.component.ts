@@ -11,27 +11,39 @@ import {
   untracked,
   Signal,
   ResourceStatus,
+  linkedSignal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCard } from '../flight-card/flight-card.component';
-import { Flight, FlightService } from '@demo/ticketing/data';
+import { Flight, FlightService, toFlights } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
-import { delay, interval, map, Observable, of, Subject } from 'rxjs';
+import {
+  debounceTime,
+  delay,
+  interval,
+  map,
+  Observable,
+  of,
+  Subject,
+} from 'rxjs';
 import {
   takeUntilDestroyed,
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
 import { httpResource } from '@angular/common/http';
+import { FlightClient } from '@demo/ticketing/feature-booking/flight-search/flight-client';
+import { derivedFrom } from 'ngxtension/derived-from';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
 /**
- * 1. Glitch-Free Effect
- * 2. Dynamic Dependency Tracking
- * 3. untracked
- * 4. Infinite Loops
+ * 1. Abfrage nur bei From Änderung ✅
+ * 2. Debounce time in der reaktiven Suche ✅
+ * 3. Lade nicht wenn ein Parameter leer ist ✅
+ * 4. Nur Search Klick macht die Suche
+ *
  */
 
 @Component({
@@ -49,17 +61,43 @@ export class FlightSearchPage {
   protected readonly from = signal('Paris');
   protected readonly to = signal('London');
 
-  protected readonly flights = httpResource<Flight[]>(
-    () => ({
-      url: `https://demo.angulararchitects.io/api/flight`,
-      params: {
-        from: this.from(),
-        to: this.to(),
-      },
-    }),
-    {
-      defaultValue: [],
-    }
+  private readonly flightClient = inject(FlightClient);
+
+  private _params = toSignal(
+    toObservable(computed(() => ({ from: this.from(), to: this.to() }))).pipe(
+      debounceTime(500)
+    ),
+    { initialValue: { from: '', to: '' } }
+  );
+
+  // private params = derivedFrom(
+  //   { from: this.from, to: this.to },
+  //   debounceTime(500),
+  //   { initialValue: { from: '', to: '' } }
+  // );
+
+  params = signal({ from: '', to: '' });
+
+  linkedParams = linkedSignal<
+    { from: string; to: string },
+    { from: string; to: string }
+  >({
+    source: this.params,
+    computation: (value, previous) => {
+      if (previous) {
+        if (
+          previous.value.from === value.from &&
+          previous.value.to === value.to
+        ) {
+          return previous.value;
+        }
+      }
+      return value;
+    },
+  });
+
+  protected readonly flights = this.flightClient.createFlights(
+    this.linkedParams
   );
 
   constructor() {}
@@ -71,11 +109,15 @@ export class FlightSearchPage {
   error = computed(() => this.status().error);
 
   prettySearch = computed(() => {
-    const value = `Suche von ${this.from()} nach ${this.to()}: ${
-      this.flights.value().length
-    } gefunden.`;
+    if (this.flights.hasValue()) {
+      const value = `Suche von ${this.from()} nach ${this.to()}: ${
+        this.flights.value().length
+      } gefunden.`;
 
-    return value;
+      return value;
+    } else {
+      return '-';
+    }
   });
 
   basket: Record<number, boolean> = {
@@ -89,15 +131,7 @@ export class FlightSearchPage {
   time$ = toObservable(this.time);
 
   search(): void {
-    // this.flightService.find(this.from(), this.to()).subscribe({
-    //   next: (flights) => {
-    //     this.flights.set(flights);
-    //   },
-    //   error: (errResp) => {
-    //     console.error('Error loading flights', errResp);
-    //     this.status.update((state) => ({ ...state, error: errResp }));
-    //   },
-    // });
+    this.params.set({ from: this.from(), to: this.to() });
   }
 
   delay(): void {
@@ -132,5 +166,7 @@ export class FlightSearchPage {
     return null;
   }
 
-  logSignal() {}
+  reload() {
+    this.flightClient.reload();
+  }
 }

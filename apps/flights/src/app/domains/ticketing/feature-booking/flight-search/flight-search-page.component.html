@@ -15,12 +15,16 @@
   <div class="form-group">
     <button (click)="search()" class="btn btn-default">Search</button>
     <button (click)="delay()" class="btn btn-default">Delay</button>
-    <button (click)="logSignal()" class="btn btn-default">Log Signal</button>
+    <button (click)="reload()" class="btn btn-default">Reload</button>
   </div>
 </form>
 
-<!--<p>{{ prettySearch() }}</p>-->
-@if (flights.hasValue()) {
+<p>{{ prettySearch() }}</p>
+@if (flights.isLoading()) {
+<p>Wir laden...</p>
+}@else if (flights.error()) {
+<p>Es trat ein Fehler auf: {{ flights.error() | json }}</p>
+} @else if (flights.hasValue()) {
 <div class="row">
   @for (flight of flights.value(); track flight.id) {
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -31,8 +35,4 @@
   </div>
   }
 </div>
-} @else if (flights.isLoading()) {
-<p>Wir laden...</p>
-} @else if (flights.error()) {
-<p>Es trat ein Fehler auf: {{ flights.error() | json }}</p>
 }
