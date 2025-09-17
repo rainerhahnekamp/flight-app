@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { FlightBookingComponent } from './flight-booking.component';
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
-import { FlightSearchComponent } from './flight-search/flight-search.component';
+import { FlightSearchPage } from './flight-search/flight-search-page.component';
 import { PassengerSearchComponent } from './passenger-search/passenger-search.component';
 import { FlightService } from '@demo/ticketing/data';
 import { checkAuth } from '@demo/shared/util-auth';
@@ -20,7 +20,7 @@ export const FLIGHT_BOOKING_ROUTES: Routes = [
       },
       {
         path: 'flight-search',
-        component: FlightSearchComponent,
+        component: FlightSearchPage,
       },
       {
         path: 'flight-edit/:id',

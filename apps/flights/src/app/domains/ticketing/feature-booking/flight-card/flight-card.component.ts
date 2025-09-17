@@ -1,18 +1,21 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
   inject,
-  Input,
+  input,
+  model,
   NgZone,
-  Output,
+  signal,
+  Signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { Flight } from '@demo/ticketing/data';
+import { interval, map, Observable, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-flight-card',
@@ -21,24 +24,21 @@ import { initFlight } from '@demo/ticketing/data';
   templateUrl: './flight-card.component.html',
   styleUrls: ['./flight-card.component.css'],
 })
-export class FlightCardComponent {
+export class FlightCard {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  readonly item = input.required<Flight>();
+  readonly selected = model(false);
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selected.set(false);
   }
 
   edit() {
