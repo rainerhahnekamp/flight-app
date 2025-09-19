@@ -1,40 +1,25 @@
 import {
   Component,
-  ElementRef,
-  NgZone,
-  inject,
-  signal,
   computed,
   effect,
-  OnInit,
-  Injector,
-  untracked,
-  Signal,
-  ResourceStatus,
+  ElementRef,
+  inject,
   linkedSignal,
+  NgZone,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCard } from '../flight-card/flight-card.component';
-import { Flight, FlightService, toFlights } from '@demo/ticketing/data';
+import { Flight, FlightService } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
-import {
-  debounceTime,
-  delay,
-  interval,
-  map,
-  Observable,
-  of,
-  Subject,
-} from 'rxjs';
-import {
-  takeUntilDestroyed,
-  toObservable,
-  toSignal,
-} from '@angular/core/rxjs-interop';
-import { httpResource } from '@angular/common/http';
+import { debounceTime, interval, map, of, pipe, tap } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FlightClient } from '@demo/ticketing/feature-booking/flight-search/flight-client';
-import { derivedFrom } from 'ngxtension/derived-from';
+import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store';
+import { reset } from '@softarc/sheriff-core/src/lib/log/log';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { UserStore } from '@demo/ticketing/feature-booking/flight-search/user-store';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
@@ -51,87 +36,35 @@ import { derivedFrom } from 'ngxtension/derived-from';
   templateUrl: './flight-search-page.component.html',
   styleUrls: ['./flight-search-page.component.css'],
   imports: [CommonModule, FormsModule, FlightCard],
+  providers: [UserStore],
 })
 export class FlightSearchPage {
   private readonly element = inject(ElementRef);
   private readonly zone = inject(NgZone);
 
-  private readonly flightService = inject(FlightService);
+  private readonly flightStore = inject(FlightStore);
 
-  protected readonly from = signal('Paris');
-  protected readonly to = signal('London');
+  protected readonly from = linkedSignal(this.flightStore.searchParams.from);
+  protected readonly to = linkedSignal(this.flightStore.searchParams.to);
 
-  private readonly flightClient = inject(FlightClient);
+  protected readonly flights = this.flightStore.flights;
+  protected readonly status = this.flightStore.status;
+  prettySearch = this.flightStore.prettySearch;
+  userStore = inject(UserStore);
 
-  private _params = toSignal(
-    toObservable(computed(() => ({ from: this.from(), to: this.to() }))).pipe(
-      debounceTime(500)
-    ),
-    { initialValue: { from: '', to: '' } }
-  );
+  private searchParams = computed(() => ({ from: this.from(), to: this.to() }));
 
-  // private params = derivedFrom(
-  //   { from: this.from, to: this.to },
-  //   debounceTime(500),
-  //   { initialValue: { from: '', to: '' } }
-  // );
-
-  params = signal({ from: '', to: '' });
-
-  linkedParams = linkedSignal<
-    { from: string; to: string },
-    { from: string; to: string }
-  >({
-    source: this.params,
-    computation: (value, previous) => {
-      if (previous) {
-        if (
-          previous.value.from === value.from &&
-          previous.value.to === value.to
-        ) {
-          return previous.value;
-        }
-      }
-      return value;
-    },
-  });
-
-  protected readonly flights = this.flightClient.createFlights(
-    this.linkedParams
-  );
-
-  constructor() {}
-
-  status = signal({
-    loaded: false,
-    error: undefined as unknown,
-  });
-  error = computed(() => this.status().error);
-
-  prettySearch = computed(() => {
-    if (this.flights.hasValue()) {
-      const value = `Suche von ${this.from()} nach ${this.to()}: ${
-        this.flights.value().length
-      } gefunden.`;
-
-      return value;
-    } else {
-      return '-';
-    }
-  });
+  constructor() {
+    this.flightStore.searchAutocomplete(this.searchParams);
+  }
 
   basket: Record<number, boolean> = {
     3: true,
     5: true,
   };
 
-  _time$ = interval(1000).pipe(map(() => new Date().toLocaleTimeString()));
-
-  time = toSignal(this._time$);
-  time$ = toObservable(this.time);
-
   search(): void {
-    this.params.set({ from: this.from(), to: this.to() });
+    // this.flightStore.search(this.from(), this.to());
   }
 
   delay(): void {
@@ -167,6 +100,11 @@ export class FlightSearchPage {
   }
 
   reload() {
-    this.flightClient.reload();
+    this.flightStore.reload();
+  }
+
+  reset() {
+    this.flightStore.reset();
+    this.search();
   }
 }

@@ -1,0 +1,155 @@
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  linkedSignal,
+  NgZone,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FlightCard } from '../flight-card/flight-card.component';
+import { Flight, FlightService } from '@demo/ticketing/data';
+import { addMinutes } from 'date-fns';
+import { debounceTime, interval, map } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { FlightClient } from '@demo/ticketing/feature-booking/flight-search/flight-client';
+import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store';
+import { UserStore } from '@demo/ticketing/feature-booking/flight-search/user-store';
+
+// import { CheckinService } from '@demo/checkin/data/checkin.service';
+
+/**
+ * 1. Abfrage nur bei From Änderung ✅
+ * 2. Debounce time in der reaktiven Suche ✅
+ * 3. Lade nicht wenn ein Parameter leer ist ✅
+ * 4. Nur Search Klick macht die Suche
+ *
+ */
+
+@Component({
+  selector: 'app-flight-search',
+  templateUrl: './flight-search-page.component.html',
+  styleUrls: ['./flight-search-page.component.css'],
+  imports: [CommonModule, FormsModule, FlightCard],
+  providers: [UserStore],
+})
+export class FlightSearchPage {
+  private readonly element = inject(ElementRef);
+  private readonly zone = inject(NgZone);
+
+  private readonly flightStore = inject(FlightStore);
+
+  protected readonly from = signal('Paris');
+  protected readonly to = signal('London');
+
+  params = signal({ from: '', to: '' });
+
+  private readonly flightClient = inject(FlightClient);
+
+  private _params = toSignal(
+    toObservable(computed(() => ({ from: this.from(), to: this.to() }))).pipe(
+      debounceTime(500)
+    ),
+    { initialValue: { from: '', to: '' } }
+  );
+
+  // private params = derivedFrom(
+  //   { from: this.from, to: this.to },
+  //   debounceTime(500),
+  //   { initialValue: { from: '', to: '' } }
+  // );
+
+  linkedParams = linkedSignal<
+    { from: string; to: string },
+    { from: string; to: string }
+  >({
+    source: this.params,
+    computation: (value, previous) => {
+      if (previous) {
+        if (
+          previous.value.from === value.from &&
+          previous.value.to === value.to
+        ) {
+          return previous.value;
+        }
+      }
+      return value;
+    },
+  });
+
+  protected readonly flights = this.flightClient.createFlights(
+    this.linkedParams
+  );
+
+  constructor() {}
+
+  status = signal({
+    loaded: false,
+    error: undefined as unknown,
+  });
+  error = computed(() => this.status().error);
+
+  prettySearch = computed(() => {
+    if (this.flights.hasValue()) {
+      const value = `Suche von ${this.from()} nach ${this.to()}: ${
+        this.flights.value().length
+      } gefunden.`;
+
+      return value;
+    } else {
+      return '-';
+    }
+  });
+
+  basket: Record<number, boolean> = {
+    3: true,
+    5: true,
+  };
+
+  _time$ = interval(1000).pipe(map(() => new Date().toLocaleTimeString()));
+
+  time = toSignal(this._time$);
+  time$ = toObservable(this.time);
+
+  search(): void {
+    this.params.set({ from: this.from(), to: this.to() });
+  }
+
+  delay(): void {
+    // this.flights = this.toFlightsWithDelays(this.flights, 15);
+  }
+
+  toFlightsWithDelays(flights: Flight[], delay: number): Flight[] {
+    if (flights.length === 0) {
+      return [];
+    }
+
+    const oldFlights = flights;
+    const oldFlight = oldFlights[0];
+    const oldDate = new Date(oldFlight.date);
+    const newDate = addMinutes(oldDate, delay);
+
+    const newFlight = { ...oldFlight, date: newDate.toISOString() };
+
+    return [newFlight, ...flights.slice(1)];
+  }
+
+  blink() {
+    // Dirty Hack used to visualize the change detector
+    this.element.nativeElement.firstChild.style.backgroundColor = 'crimson';
+
+    this.zone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.element.nativeElement.firstChild.style.backgroundColor = 'white';
+      }, 1000);
+    });
+
+    return null;
+  }
+
+  reload() {
+    this.flightClient.reload();
+  }
+}

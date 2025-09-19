@@ -29,7 +29,7 @@ export class FlightClient {
         };
       },
       {
-        defaultValue: [],
+        // defaultValue: [],
         parse: toFlights,
       }
     );
