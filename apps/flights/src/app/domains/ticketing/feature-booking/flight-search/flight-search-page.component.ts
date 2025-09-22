@@ -1,24 +1,17 @@
 import {
   Component,
   computed,
-  effect,
   ElementRef,
   inject,
   linkedSignal,
   NgZone,
-  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlightCard } from '../flight-card/flight-card.component';
-import { Flight, FlightService } from '@demo/ticketing/data';
+import { Flight } from '@demo/ticketing/data';
 import { addMinutes } from 'date-fns';
-import { debounceTime, interval, map, of, pipe, tap } from 'rxjs';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { FlightClient } from '@demo/ticketing/feature-booking/flight-search/flight-client';
 import { FlightStore } from '@demo/ticketing/feature-booking/flight-search/flight-store';
-import { reset } from '@softarc/sheriff-core/src/lib/log/log';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { UserStore } from '@demo/ticketing/feature-booking/flight-search/user-store';
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
