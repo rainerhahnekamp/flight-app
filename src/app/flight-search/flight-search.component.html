@@ -1,3 +1,6 @@
+@let selectedFlight = this.selectedFlight();
+@let flights = this.flights.value();
+
 <div class="header">
   <h2 class="title">Flight Search</h2>
 </div>
@@ -17,7 +20,8 @@
   </div>
 </form>
 
-@if (flights.length > 0) {
+<p>{{prettySearch()}}</p>
+
   <table class="table table-condensed">
       <tr>
         <th>Id</th>
@@ -26,25 +30,24 @@
         <th>Date</th>
         <th></th>
       </tr>
-      @for (f of flights; track f.id) {
-        <tr [class.selected]="f.id === selectedFlight?.id">
-          <td>{{ f.id }}</td>
-          <td>{{ f.from }}</td>
-          <td>{{ f.to }}</td>
-          <td>{{ f.date | date: "dd.MM.yyyy" }}</td>
+      @for (flight of flights; track flight.id) {
+        <tr [class.selected]="flight.id === selectedFlight?.id">
+          <td>{{ flight.id }}</td>
+          <td>{{ flight.from }}</td>
+          <td>{{ flight.to }}</td>
+          <td>{{ flight.date | date: "dd.MM.yyyy" }}</td>
           <td>
-            <a (click)="select(f)">Select</a>
+            <button (click)="select(flight)">Select</button>
           </td>
         </tr>
       }
   </table>
-}
 
 @if (selectedFlight) {
   <div>
-    @if (message) {
+    @if (message()) {
       <div class="alert alert-primary">
-        {{ message }}
+        {{ message() }}
       </div>
     }
     <div class="form-group">
