@@ -1,26 +1,25 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  effect,
-  inject,
   input,
   linkedSignal,
+  model,
   output,
 } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormsModule,
   isFormGroup,
   ReactiveFormsModule,
   ValidationErrors,
-  Validators,
 } from '@angular/forms';
 import { FlightSearchParams } from './model/flight-search-params';
-import { OnlyWienDirective } from './only-wien.directive';
-import { EqualFieldsDirective } from './equal-fields.directive';
-import { JsonPipe } from '@angular/common';
+import {
+  Control,
+  form,
+  required,
+  ValidationError,
+} from '@angular/forms/signals';
 
 const onlyWien = (control: AbstractControl): ValidationErrors | null => {
   if (control.value !== 'Wien') {
@@ -47,63 +46,68 @@ function equalFields(equalFields: [string, string]) {
 }
 
 @Component({
+  selector: 'app-errors',
+  template: `
+    @for (error of errors(); track error) {
+      <p class="error">{{ error.message }}</p>
+    }
+  `,
+})
+export class ErrorComponent {
+  errors = input<ValidationError[]>();
+}
+
+@Component({
   selector: `flight-search-form`,
-  template: `<form [formGroup]="form">
+  template: `<form (ngSubmit)="search()">
     <div class="form-group">
       <label>From:</label>
-      <input formControlName="from" name="from" class="form-control" />
+      <input
+        [control]="searchForm.from"
+        data-testid="inp-from"
+        name="from"
+        class="form-control"
+      />
     </div>
+    <app-errors [errors]="searchForm.from().errors()" />
 
-    @if (form.controls['from'] && form.controls['from'].hasError('required')) {
-      <p>Feld muss ausgefüllt sein</p>
-    }
-    @if (form.controls['from'].hasError('onlyWien')) {
-      <p>Nur Wien hat einen Flughafen</p>
-    }
     <div class="form-group">
       <label>To:</label>
-      <input formControlName="to" name="to" class="form-control" />
+      <input [control]="searchForm.to" name="to" class="form-control" />
     </div>
+    <app-errors [errors]="searchForm.to().errors()" />
 
-    <!--    @if (form.controls['from'].value === form.controls['to'].value) {-->
-    <!--      <p>Werte dürfen nicht gleich sein.</p>-->
-    <!--    }-->
-
-    @if (form.hasError('equalFields')) {
-      <p>Start und Ziel dürfen nicht gleich sein.</p>
-    }
     <div class="form-group">
       <button
-        (click)="search()"
         class="btn btn-default"
-        [disabled]="form.invalid"
+        [disabled]="searchForm().invalid()"
+        data-testid="btn-search"
       >
         Search
       </button>
     </div>
   </form>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, Control, ErrorComponent],
 })
 export class FlightSearchForm {
   searched = output<FlightSearchParams>();
-  searchParams = input.required<FlightSearchParams>();
+  searchParams = model.required<FlightSearchParams>();
 
-  form = inject(FormBuilder).nonNullable.group(
-    {
-      from: ['', [Validators.required, onlyWien]],
-      to: ['', Validators.required],
-    },
-    { validators: [equalFields(['from', 'to'])] },
-  );
+  formValues = linkedSignal(this.searchParams);
 
-  constructor() {
-    effect(() => this.form.setValue(this.searchParams()));
-  }
+  searchForm = form(this.formValues, (params) => {
+    required(params.from, { message: 'Dieses Feld ist verpflichtend' });
+
+    required(params.to, {
+      message: 'Dieses Feld ist verpflichtend',
+      when: (ctx) => ctx.valueOf(params.from) === 'Wien',
+    });
+  });
 
   search() {
-    if (this.form.valid) {
-      this.searched.emit(this.form.getRawValue());
+    if (this.searchForm().valid()) {
+      this.searched.emit(this.formValues());
     }
   }
 }

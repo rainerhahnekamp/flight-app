@@ -28,6 +28,7 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
+            "polyfills": [],
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css"
@@ -93,9 +94,6 @@
     }
   },
   "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
-    },
     "@schematics/angular:directive": {
       "type": "directive"
     },

@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { FlightClient } from '../flight-client';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Card } from '../card.component';
-import { DatumShower } from './datum-shower';
 import { FlightSearchParams } from '../model/flight-search-params';
-import { FlightSearchFormly } from '../flight-search-formly';
+import { FlightSearchForm } from '../flight-search-form';
+import { FlightStore } from '../flight-store';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * 1. Config with AppInitializer
@@ -22,9 +23,10 @@ const initialSearchParams = { from: 'London', to: 'Paris' };
   selector: 'app-flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  imports: [FormsModule, JsonPipe, Card, DatumShower, FlightSearchFormly],
+  imports: [FormsModule, JsonPipe, Card, FlightSearchForm],
 })
 export class FlightSearchComponent {
+  readonly #route = inject(ActivatedRoute);
   protected readonly from = signal('London');
   protected readonly to = signal('Paris');
   protected readonly searchParams = signal(initialSearchParams, {
@@ -35,6 +37,16 @@ export class FlightSearchComponent {
   protected readonly message = signal('');
 
   readonly #flightClient = inject(FlightClient);
+  readonly #flightStore = inject(FlightStore);
+
+  constructor() {
+    const { from, to } = this.#route.snapshot.params;
+    if (from && to) {
+      this.searchParams.set({ from, to });
+      this.search(this.searchParams());
+    }
+    this.#flightStore.searchBackLink = '/flights/search';
+  }
 
   readonly basket: Record<number, boolean> = {
     137: true,
@@ -111,3 +123,5 @@ export class FlightSearchComponent {
     this.basket[id] = selected;
   }
 }
+
+export default FlightSearchComponent;
