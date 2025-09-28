@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, of } from 'rxjs';
+import { delay, firstValueFrom, of } from 'rxjs';
 import { Flight } from './model/flight';
 import { flights } from '../assets/filter-config.json';
 
@@ -33,5 +33,5 @@ export const filteringInterceptor: HttpInterceptorFn = (
       status: 200,
       body: filteredFlights,
     }),
-  );
+  ).pipe(delay(200));
 };
