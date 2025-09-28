@@ -17,7 +17,18 @@ export const filteringInterceptor: HttpInterceptorFn = (
   if (!req.url.includes('/flight')) {
     return next(req);
   }
+
   console.info('intercepting flight request', req.url);
+
+  const id = Number(req.url.match(/flight\/([0-9]+)/)?.[1]);
+  if (id) {
+    const flight = flights.find((flight) => flight.id === id);
+    return of(
+      new HttpResponse({
+        body: flight,
+      }),
+    ).pipe(delay(200));
+  }
 
   const from = req.params.get('from') || '';
   const to = req.params.get('to') || '';
