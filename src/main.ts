@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   inject,
   provideAppInitializer,
@@ -12,14 +12,11 @@ import { provideFormlyCore } from '@ngx-formly/core';
 import { withFormlyMaterial } from '@ngx-formly/material';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { HomePage } from './app/home-page';
-import { FlightSearchComponent } from './app/flight-search/flight-search.component';
-import { flightRoutes } from './app/flight-routes';
-import { FlightEditPage } from './app/flight-edit-page/flight-edit-page';
+import { filteringInterceptor } from './app/filtering.interceptor';
 
 void bootstrapApplication(AppComponent, {
   providers: [
-    provideFormlyCore(withFormlyMaterial()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([filteringInterceptor])),
     provideRouter(
       [
         {
@@ -31,8 +28,7 @@ void bootstrapApplication(AppComponent, {
           children: [
             {
               path: 'search',
-              loadComponent: () =>
-                import('./app/flight-search/flight-search.component'),
+              loadComponent: () => import('./app/flight-search-page'),
             },
             {
               path: 'edit/:id',

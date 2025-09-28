@@ -21,30 +21,6 @@ import {
   ValidationError,
 } from '@angular/forms/signals';
 
-const onlyWien = (control: AbstractControl): ValidationErrors | null => {
-  if (control.value !== 'Wien') {
-    return { onlyWien: true };
-  }
-
-  return null;
-};
-
-function equalFields(equalFields: [string, string]) {
-  return (formGroup: AbstractControl): ValidationErrors | null => {
-    if (!isFormGroup(formGroup)) {
-      return null;
-    }
-    const value = formGroup.value;
-
-    const [field1, field2] = equalFields;
-    if (!(field1 in value || field2 in value)) {
-      return null;
-    }
-
-    return value[field1] === value[field2] ? { equalFields: true } : null;
-  };
-}
-
 @Component({
   selector: 'app-errors',
   template: `
@@ -59,48 +35,33 @@ export class ErrorComponent {
 
 @Component({
   selector: `flight-search-form`,
-  template: `<form (ngSubmit)="search()">
+  template: ` <form (ngSubmit)="search()">
     <div class="form-group">
       <label>From:</label>
-      <input
-        [control]="searchForm.from"
-        data-testid="inp-from"
-        name="from"
-        class="form-control"
-      />
+      <input name="from" class="form-control" [control]="searchForm.from" />
     </div>
-    <app-errors [errors]="searchForm.from().errors()" />
-
     <div class="form-group">
       <label>To:</label>
-      <input [control]="searchForm.to" name="to" class="form-control" />
+      <input name="to" class="form-control" [control]="searchForm.to" />
     </div>
-    <app-errors [errors]="searchForm.to().errors()" />
 
     <div class="form-group">
-      <button
-        class="btn btn-default"
-        [disabled]="searchForm().invalid()"
-        data-testid="btn-search"
-      >
-        Search
-      </button>
+      <button class="btn btn-default">Search</button>
     </div>
   </form>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, ReactiveFormsModule, Control, ErrorComponent],
+  imports: [Control, FormsModule],
 })
 export class FlightSearchForm {
-  searched = output<FlightSearchParams>();
-  searchParams = model.required<FlightSearchParams>();
-
-  formValues = linkedSignal(this.searchParams);
+  readonly searched = output<FlightSearchParams>();
+  readonly searchParams = model.required<FlightSearchParams>();
+  protected readonly formValues = linkedSignal(this.searchParams);
 
   searchForm = form(this.formValues, (params) => {
-    required(params.from, { message: 'Dieses Feld ist verpflichtend' });
+    required(params.from, { message: 'This field is mandatory' });
 
     required(params.to, {
-      message: 'Dieses Feld ist verpflichtend',
+      message: 'This field is mandatory',
       when: (ctx) => ctx.valueOf(params.from) === 'Wien',
     });
   });

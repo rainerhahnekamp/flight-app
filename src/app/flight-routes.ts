@@ -1,6 +1,6 @@
-import { FlightSearchComponent } from './flight-search/flight-search.component';
+import FlightSearchPage from './flight-search-page';
 
 export const flightRoutes = {
   path: 'flight-search',
-  component: FlightSearchComponent,
+  component: FlightSearchPage,
 };

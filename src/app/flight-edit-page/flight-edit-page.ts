@@ -1,18 +1,14 @@
-import { httpResource } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  Component,
-  effect,
-  inject,
-  input,
-  numberAttribute,
-  untracked,
-} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Control, form } from '@angular/forms/signals';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map, switchMap } from 'rxjs';
 import { FlightClient } from '../flight-client';
-import { FlightStore } from '../flight-store';
 import { Flight } from '../model/flight';
 
 const emptyFlight: Flight = {
@@ -25,68 +21,67 @@ const emptyFlight: Flight = {
 
 @Component({
   selector: 'app-flight-edit-page',
-  imports: [Control, FormsModule],
-  template: `<p>Flug ID: {{ id() }}</p>
-    <p>Status: {{ flights.status() }}</p>
+  imports: [ReactiveFormsModule],
+  template: `
+    <h2>Flight Edit</h2>
 
-    <form>
-      <div>
-        <input [control]="editForm.id" />
+    <form (ngSubmit)="saveFlight()" [formGroup]="editForm" class="col-md-4">
+      <div class="form-group">
+        <label>ID</label>
+        <input formControlName="id" class="form-control" />
       </div>
-      <div>
-        <input [control]="editForm.from" placeholder="from" />
+      <div class="form-group">
+        <label>From</label>
+        <input formControlName="from" class="form-control" />
       </div>
-      <div>
-        <input [control]="editForm.to" />
+      <div class="form-group">
+        <label>To</label>
+        <input formControlName="to" class="form-control" />
       </div>
-      <div>
-        <input [control]="editForm.date" />
+      <div class="form-group">
+        <label>Date</label>
+        <input formControlName="date" class="form-control" />
       </div>
-      <div>
-        <input [control]="editForm.delayed" />
+      <div class="form-group">
+        <label>Delayed</label>
+        <input formControlName="delayed" type="checkbox" class="form-control" />
       </div>
-      <button type="submit" (click)="saveFlight()">Save</button>
-    </form> `,
+      <button>Save</button>
+    </form>
+  `,
 })
-export class FlightEditPage {
-  protected readonly id = input.required({ transform: numberAttribute });
+export default class FlightEditPage {
   readonly #flightClient = inject(FlightClient);
-  readonly #flightStore = inject(FlightStore);
+  readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  protected readonly flights = httpResource<Flight>(
-    () => `https://demo.angulararchitects.io/api/flight/${this.id()}`,
-    { defaultValue: emptyFlight },
-  );
-
-  protected readonly editForm = form(this.flights.value);
-
-  readonly #snackbar = inject(MatSnackBar);
 
   constructor() {
-    console.log();
-    effect(() => {
-      const status = this.flights.status();
-
-      if (status === 'error') {
-        untracked(() => this.#snackbar.open('Es trat ein Fehler auf'));
-      }
-    });
+    this.#route.params
+      .pipe(
+        map((params) => Number(params['id'])),
+        filter(Boolean),
+        switchMap((id) => this.#flightClient.findById(id)),
+        takeUntilDestroyed(),
+      )
+      .subscribe((flight) => {
+        this.editForm.patchValue(flight);
+      });
   }
 
-  saveFlight() {
-    if (this.editForm().valid()) {
-      const flight = this.flights.value();
-      this.#flightClient.save(flight).subscribe(() => {
-        this.#snackbar.open('Ihr Flug wurde gespeichert', 'OK', {
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          duration: 5000,
-        });
+  protected readonly editForm = inject(FormBuilder).nonNullable.group({
+    id: [0, Validators.required],
+    from: ['', Validators.required],
+    to: ['', Validators.required],
+    date: ['', Validators.required],
+    delayed: [false, Validators.required],
+  });
 
-        this.#router.navigateByUrl('flights/search');
+  saveFlight() {
+    if (this.editForm.valid) {
+      const flight = this.editForm.getRawValue();
+      this.#flightClient.save(flight).subscribe(() => {
+        void this.#router.navigateByUrl('flights/search');
       });
     }
   }
 }
-
-export default FlightEditPage;

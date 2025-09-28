@@ -1,0 +1,144 @@
+{
+  "flights": [
+    {
+      "id": 1,
+      "from": "Wien",
+      "to": "Paris",
+      "date": "2024-01-15T10:30:00Z",
+      "delayed": false
+    },
+    {
+      "id": 2,
+      "from": "Wien",
+      "to": "London",
+      "date": "2024-01-15T14:20:00Z",
+      "delayed": true
+    },
+    {
+      "id": 3,
+      "from": "Paris",
+      "to": "Wien",
+      "date": "2024-01-15T16:45:00Z",
+      "delayed": false
+    },
+    {
+      "id": 4,
+      "from": "London",
+      "to": "Wien",
+      "date": "2024-01-15T18:10:00Z",
+      "delayed": false
+    },
+    {
+      "id": 5,
+      "from": "Wien",
+      "to": "Berlin",
+      "date": "2024-01-16T08:15:00Z",
+      "delayed": false
+    },
+    {
+      "id": 6,
+      "from": "Berlin",
+      "to": "Wien",
+      "date": "2024-01-16T12:30:00Z",
+      "delayed": true
+    },
+    {
+      "id": 7,
+      "from": "Paris",
+      "to": "London",
+      "date": "2024-01-16T09:45:00Z",
+      "delayed": false
+    },
+    {
+      "id": 8,
+      "from": "London",
+      "to": "Paris",
+      "date": "2024-01-16T15:20:00Z",
+      "delayed": false
+    },
+    {
+      "id": 9,
+      "from": "Wien",
+      "to": "Madrid",
+      "date": "2024-01-17T11:00:00Z",
+      "delayed": false
+    },
+    {
+      "id": 10,
+      "from": "Madrid",
+      "to": "Wien",
+      "date": "2024-01-17T17:30:00Z",
+      "delayed": true
+    },
+    {
+      "id": 11,
+      "from": "Wien",
+      "to": "København",
+      "date": "2024-01-18T08:30:00Z",
+      "delayed": false
+    },
+    {
+      "id": 12,
+      "from": "Wien",
+      "to": "København",
+      "date": "2024-01-18T12:45:00Z",
+      "delayed": true
+    },
+    {
+      "id": 13,
+      "from": "Wien",
+      "to": "København",
+      "date": "2024-01-18T16:20:00Z",
+      "delayed": false
+    },
+    {
+      "id": 14,
+      "from": "Wien",
+      "to": "København",
+      "date": "2024-01-19T09:15:00Z",
+      "delayed": false
+    },
+    {
+      "id": 15,
+      "from": "Wien",
+      "to": "København",
+      "date": "2024-01-19T14:50:00Z",
+      "delayed": true
+    },
+    {
+      "id": 16,
+      "from": "København",
+      "to": "Wien",
+      "date": "2024-01-18T10:00:00Z",
+      "delayed": false
+    },
+    {
+      "id": 17,
+      "from": "København",
+      "to": "Wien",
+      "date": "2024-01-18T15:30:00Z",
+      "delayed": true
+    },
+    {
+      "id": 18,
+      "from": "København",
+      "to": "Wien",
+      "date": "2024-01-18T19:45:00Z",
+      "delayed": false
+    },
+    {
+      "id": 19,
+      "from": "København",
+      "to": "Wien",
+      "date": "2024-01-19T11:20:00Z",
+      "delayed": false
+    },
+    {
+      "id": 20,
+      "from": "København",
+      "to": "Wien",
+      "date": "2024-01-19T17:10:00Z",
+      "delayed": true
+    }
+  ]
+}

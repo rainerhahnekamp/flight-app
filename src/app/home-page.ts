@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, signal } from '@angular/core';
 @Component({
-  template: `<h1>Hallo bei Flight42</h1>`,
+  template: `<h1>Home</h1>`,
 })
 export class HomePage {}
