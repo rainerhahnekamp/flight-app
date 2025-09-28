@@ -5,17 +5,15 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { Configuration } from './app/config';
-import { FlightClient } from './app/flight-client';
-import { provideFormlyCore } from '@ngx-formly/core';
-import { withFormlyMaterial } from '@ngx-formly/material';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { HomePage } from './app/home-page';
 import { filteringInterceptor } from './app/filtering.interceptor';
+import { HomePage } from './app/home-page';
 
 void bootstrapApplication(AppComponent, {
   providers: [
+    provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([filteringInterceptor])),
     provideRouter(
       [

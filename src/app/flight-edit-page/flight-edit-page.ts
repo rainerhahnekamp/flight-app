@@ -1,13 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
+import { httpResource } from '@angular/common/http';
+import { Component, inject, input } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Control, form, required, validateTree } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 import { FlightClient } from '../flight-client';
 import { Flight } from '../model/flight';
 
@@ -21,30 +16,37 @@ const emptyFlight: Flight = {
 
 @Component({
   selector: 'app-flight-edit-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Control],
   template: `
     <h2>Flight Edit</h2>
 
-    <form (ngSubmit)="saveFlight()" [formGroup]="editForm" class="col-md-4">
+    <form (ngSubmit)="saveFlight()" class="col-md-4">
       <div class="form-group">
         <label>ID</label>
-        <input formControlName="id" class="form-control" />
+        <input [control]="editForm.id" class="form-control" />
       </div>
       <div class="form-group">
         <label>From</label>
-        <input formControlName="from" class="form-control" />
+        <input [control]="editForm.from" class="form-control" />
+        @for (error of editForm.from().errors(); track error.message) {
+          <p class="error">{{ error.message }}</p>
+        }
       </div>
       <div class="form-group">
         <label>To</label>
-        <input formControlName="to" class="form-control" />
+        <input [control]="editForm.to" class="form-control" />
       </div>
       <div class="form-group">
         <label>Date</label>
-        <input formControlName="date" class="form-control" />
+        <input [control]="editForm.date" class="form-control" />
       </div>
       <div class="form-group">
         <label>Delayed</label>
-        <input formControlName="delayed" type="checkbox" class="form-control" />
+        <input
+          [control]="editForm.delayed"
+          type="checkbox"
+          class="form-control"
+        />
       </div>
       <button>Save</button>
     </form>
@@ -52,36 +54,55 @@ const emptyFlight: Flight = {
 })
 export default class FlightEditPage {
   readonly #flightClient = inject(FlightClient);
-  readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
-  constructor() {
-    this.#route.params
-      .pipe(
-        map((params) => Number(params['id'])),
-        filter(Boolean),
-        switchMap((id) => this.#flightClient.findById(id)),
-        takeUntilDestroyed(),
-      )
-      .subscribe((flight) => {
-        this.editForm.patchValue(flight);
-      });
-  }
+  readonly id = input.required<number>();
 
-  protected readonly editForm = inject(FormBuilder).nonNullable.group({
-    id: [0, Validators.required],
-    from: ['', Validators.required],
-    to: ['', Validators.required],
-    date: ['', Validators.required],
-    delayed: [false, Validators.required],
+  readonly flight = httpResource<Flight>(
+    () => ({
+      url: `https://demo.angulararchitects.io/api/flight/${this.id()}`,
+    }),
+    {
+      defaultValue: emptyFlight,
+    },
+  );
+
+  editForm = form(this.flight.value, (path) => {
+    required(path.id, {
+      message: 'This field is mandatory',
+    });
+    required(path.from, {
+      message: 'This field is mandatory',
+      when: (ctx) => Boolean(ctx.valueOf(path.to)),
+    });
+    required(path.to, { message: 'This field is mandatory' });
+    required(path.date, { message: 'This field is mandatory' });
+    required(path.delayed, { message: 'This field is mandatory' });
+
+    validateTree(path, (ctx) => {
+      const from = ctx.field.from().value();
+      const to = ctx.field.to().value();
+
+      if (from === to) {
+        return {
+          kind: 'custom',
+          field: ctx.field.from,
+          message: 'From and To must be different',
+        };
+      }
+
+      return null;
+    });
   });
 
   saveFlight() {
-    if (this.editForm.valid) {
-      const flight = this.editForm.getRawValue();
-      this.#flightClient.save(flight).subscribe(() => {
-        void this.#router.navigateByUrl('flights/search');
-      });
+    if (this.editForm().valid()) {
+      const flight = this.flight.value();
+
+      console.log(flight);
+      // this.#flightClient.save(flight).subscribe(() => {
+      //   void this.#router.navigateByUrl('flights/search');
+      // });
     }
   }
 }
