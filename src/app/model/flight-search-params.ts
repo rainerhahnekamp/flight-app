@@ -1,4 +1,4 @@
-export interface FlightSearchParams {
+export type FlightSearchParams = {
   from: string;
   to: string;
-}
+};

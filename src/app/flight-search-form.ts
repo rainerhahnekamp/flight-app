@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   input,
   linkedSignal,
   model,
@@ -17,6 +18,7 @@ import { FlightSearchParams } from './model/flight-search-params';
 import {
   Control,
   form,
+  maxLength,
   required,
   ValidationError,
 } from '@angular/forms/signals';
@@ -55,14 +57,15 @@ export class ErrorComponent {
 export class FlightSearchForm {
   readonly searched = output<FlightSearchParams>();
   readonly searchParams = model.required<FlightSearchParams>();
+
   protected readonly formValues = linkedSignal(this.searchParams);
 
-  searchForm = form(this.formValues, (params) => {
-    required(params.from, { message: 'This field is mandatory' });
+  searchForm = form(this.formValues, (path) => {
+    required(path.from, { message: 'This field is mandatory' });
 
-    required(params.to, {
+    required(path.to, {
       message: 'This field is mandatory',
-      when: (ctx) => ctx.valueOf(params.from) === 'Wien',
+      when: (ctx) => ctx.valueOf(path.from) === 'Wien',
     });
   });
 

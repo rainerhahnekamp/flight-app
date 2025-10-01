@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
-import { FlightClient } from '../flight-client';
+import { FlightStore } from '../flight-store.service';
 import { Flight } from '../model/flight';
 
 const emptyFlight: Flight = {
@@ -51,7 +51,7 @@ const emptyFlight: Flight = {
   `,
 })
 export default class FlightEditPage {
-  readonly #flightClient = inject(FlightClient);
+  readonly #flightClient = inject(FlightStore);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 

@@ -1,10 +1,17 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Injector,
+  linkedSignal,
+  signal,
+  untracked,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FlightCard } from './flight-card';
-import { FlightClient } from './flight-client';
-import { FlightSearchForm } from './flight-search-form';
-import { Flight } from './model/flight';
-import { FlightSearchParams } from './model/flight-search-params';
+import { FlightStore } from './flight-store.service';
 
 @Component({
   selector: 'app-flight-search',
@@ -12,38 +19,52 @@ import { FlightSearchParams } from './model/flight-search-params';
       <h2 class="title">Flight Search</h2>
     </div>
 
-    <div class="row">
-      <flight-search-form
-        [searchParams]="searchParams"
-        (searched)="search($event)"
-      />
-    </div>
+    <form (ngSubmit)="search()">
+      <div class="form-group">
+        <label>From:</label>
+        <input name="from" class="form-control" [(ngModel)]="from" required />
+      </div>
+      <div class="form-group">
+        <label>To:</label>
+        <input name="to" class="form-control" [(ngModel)]="to" required />
+      </div>
 
-    <div class="row">
-      @for (flight of flights; track $index) {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <app-flight-card [flight]="flight"></app-flight-card>
-        </div>
-      }
-    </div> `,
-  imports: [FormsModule, FlightCard, FlightSearchForm],
+      <div class="form-group">
+        <!--        <button class="btn btn-default">Search</button>-->
+      </div>
+    </form>
+
+    @if (flightStore.hasValue()) {
+      <div class="row">
+        @for (flight of flightStore.value(); track $index) {
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <app-flight-card [flight]="flight"></app-flight-card>
+          </div>
+        }
+      </div>
+    }`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule, FlightCard],
 })
 export default class FlightSearchPage {
-  searchParams = { from: 'København', to: 'Wien' };
-  protected flights: Flight[] = [];
+  protected readonly flightStore = inject(FlightStore);
+  protected readonly from = linkedSignal(
+    () => this.flightStore.searchParams().from,
+  );
+  protected readonly to = linkedSignal(
+    () => this.flightStore.searchParams().to,
+  );
 
-  readonly #flightClient = inject(FlightClient);
+  protected readonly searchParams = computed(() => ({
+    from: this.from(),
+    to: this.to(),
+  }));
 
-  search(searchParams: FlightSearchParams): void {
-    const { from, to } = searchParams;
+  constructor() {
+    this.flightStore.search(this.searchParams);
+  }
 
-    this.#flightClient.search(from, to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (errResp) => {
-        console.error('Error loading flights', errResp);
-      },
-    });
+  search(): void {
+    // this.flightStore.search(this.from(), this.to());
   }
 }

@@ -1,4 +1,10 @@
-import { Component, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { Flight } from './model/flight';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -11,6 +17,8 @@ import { RouterLink } from '@angular/router';
       <div class="card-header">
         <h2 class="title">{{ flight.from }} - {{ flight.to }}</h2>
       </div>
+
+      <p>{{ time() }}</p>
 
       <div class="card-body">
         <p>Flight-No.: #{{ flight.id }}</p>
@@ -26,8 +34,14 @@ import { RouterLink } from '@angular/router';
       </div>
     </div>`,
   imports: [DatePipe, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlightCard {
   readonly flight = input.required<Flight>();
   readonly selected = model(false);
+  readonly time = signal(new Date().toLocaleTimeString());
+
+  constructor() {
+    setInterval(() => this.time.set(new Date().toLocaleTimeString()), 1000);
+  }
 }
