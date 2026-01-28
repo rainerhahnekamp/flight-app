@@ -1,0 +1,1332 @@
+[?25l[2m◼[22m Building...
+[2K[1A[2K[G[33m⠋[39m Building...
+[2K[1A[2K[G[33m⠙[39m Building...
+[2K[1A[2K[G[33m⠹[39m Building...
+[2K[1A[2K[G[33m⠸[39m Building...
+[2K[1A[2K[G[33m⠼[39m Building...
+[2K[1A[2K[G[33m⠴[39m Building...
+[2K[1A[2K[G[33m⠦[39m Building...
+[2K[1A[2K[G[33m⠧[39m Building...
+[2K[1A[2K[G[33m⠇[39m Building...
+[2K[1A[2K[G[33m⠏[39m Building...
+[2K[1A[2K[G[33m⠋[39m Building...
+[2K[1A[2K[G[33m⠙[39m Building...
+[2K[1A[2K[G[33m⠹[39m Building...
+[2K[1A[2K[G[33m⠸[39m Building...
+[2K[1A[2K[G[33m⠼[39m Building...
+[2K[1A[2K[G[33m⠴[39m Building...
+[2K[1A[2K[G[33m⠦[39m Building...
+[2K[1A[2K[G[33m⠧[39m Building...
+[2K[1A[2K[G[33m⠇[39m Building...
+[2K[1A[2K[G[33m⠏[39m Building...
+[2K[1A[2K[G[32m✔[39m Building...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [1.954 seconds] - 2026-01-14T08:20:19.607Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG1010: 'imports' must be an array of components, directives, pipes, or NgModules.[39m[22m
+[1m[31m  Value could not be determined statically.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:47:47:[39m[22m
+[1m[31m[37m      47 │   imports: [CommonModule, FlightCardComponent, [32mField[37m],[39m[22m
+[1m[31m         ╵                                                [32m~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Unknown reference.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:47:47:[39m[22m
+[1m[31m[37m      47 │   imports: [CommonModule, FlightCardComponent, [32mField[37m],[39m[22m
+[1m[31m         ╵                                                [32m~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2693: 'Field' only refers to a type, but is being used as a value here.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:47:47:[39m[22m
+[1m[31m[37m      47 │   imports: [CommonModule, FlightCardComponent, [32mField[37m],[39m[22m
+[1m[31m         ╵                                                [32m~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[37mWatch mode enabled. Watching for file changes...[39m
+^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠸[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠼[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠴[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠦[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.693 seconds] - 2026-01-14T08:20:48.762Z[39m
+[37m[39m
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: Control is not used within the template of FlightSearchComponent[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:47:47:[39m[22m
+[1m[33m[37m      47 │   imports: [CommonModule, FlightCardComponent, [32mControl[37m],[39m[22m
+[1m[33m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'field' since it isn't a known property of 'input'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:9:6:[39m[22m
+[1m[31m[37m      9 │       [32m[field]="searchForm.from"[37m[39m[22m
+[1m[31m        ╵       [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:45:15:[39m[22m
+[1m[31m[37m      45 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG8002: Can't bind to 'field' since it isn't a known property of 'input'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:17:11:[39m[22m
+[1m[31m[37m      17 │     <input [32m[field]="searchForm.to"[37m id="to" name="to" class="form-c...[39m[22m
+[1m[31m         ╵            [32m~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:45:15:[39m[22m
+[1m[31m[37m      45 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠸[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠼[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠴[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-CTXNLWBS.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m101.25 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.574 seconds] - 2026-01-14T08:20:57.774Z[39m
+[37m[39m
+[37mNOTE: Raw file sizes do not reflect development server per-request transformations.[39m
+[2m9:20:57 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m Re-optimizing dependencies because lockfile has changed
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m9:20:57 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because lockfile has changed [33m(x2)[39m
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-SCIG3SOI.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m101.32 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.301 seconds] - 2026-01-14T08:21:58.634Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-VWREJFZR.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m101.38 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.251 seconds] - 2026-01-14T08:23:23.955Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-T2OHQG4G.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m101.89 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.304 seconds] - 2026-01-14T08:23:53.371Z[39m
+[37m[39m
+[37mComponent update sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠸[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-HJDFILEE.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m102.02 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.318 seconds] - 2026-01-14T08:26:48.999Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠸[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-BLFNA5WX.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m102.11 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.304 seconds] - 2026-01-14T08:28:01.918Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-RQBEHOM3.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m102.11 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.174 seconds] - 2026-01-14T08:28:15.524Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-AFEZOW37.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.11 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.285 seconds] - 2026-01-14T08:32:51.608Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-L7RX3XAO.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.22 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.215 seconds] - 2026-01-14T08:35:02.585Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.235 seconds] - 2026-01-14T08:37:08.465Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS18046: 'value' is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/abc.ts:11:4:[39m[22m
+[1m[31m[37m      11 │     [32mvalue[37m.toLowerCase();[39m[22m
+[1m[31m         ╵     [32m~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-I2HKH7YS.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m103.35 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.116 seconds] - 2026-01-14T08:37:43.570Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-DMUVE4MM.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.37 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.165 seconds] - 2026-01-14T08:39:24.356Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.268 seconds] - 2026-01-14T08:39:49.720Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module '@demo/ticketing/feature-booking/flight-search/abc' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:32:20:[39m[22m
+[1m[31m[37m      32 │ ... { Abc } from [32m'@demo/ticketing/feature-booking/flight-search/abc'[37m;[39m[22m
+[1m[31m         ╵                  [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2571: Object is of type 'unknown'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:88:4:[39m[22m
+[1m[31m[37m      88 │     [32mthis.abc[37m.logSignal(this.searchForm().value);[39m[22m
+[1m[31m         ╵     [32m~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.288 seconds] - 2026-01-14T08:42:16.883Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:32:14:[39m[22m
+[1m[31m[37m      32 │ <p>Status: {{ [32mflights[37m.status() }}</p>[39m[22m
+[1m[31m         ╵               [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:33:5:[39m[22m
+[1m[31m[37m      33 │ @if ([32mflights[37m.hasValue()) {[39m[22m
+[1m[31m         ╵      [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:35:18:[39m[22m
+[1m[31m[37m      35 │   @for (flight of [32mflights[37m.value(); track flight.id) {[39m[22m
+[1m[31m         ╵                   [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./f[39m[22m[1m[31mlight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:44:12:[39m[22m
+[1m[31m[37m      44 │ } @else if ([32mflights[37m.isLoading()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:46:12:[39m[22m
+[1m[31m[37m      46 │ } @else if ([32mflights[37m.error()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:47:37:[39m[22m
+[1m[31m[37m      47 │ ...st ein Fehler aufgetreten: {{ [32mflights[37m.error()?.cause | json }}</p>[39m[22m
+[1m[31m         ╵                                  [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    [39m[22m[1m[31mapps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:19:[39m[22m
+[1m[31m[37m      71 │     return `${this.[32msearchParams[37m()?.from} -> ${this.searchParams()?...[39m[22m
+[1m[31m         ╵                    [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:51:[39m[22m
+[1m[31m[37m      71 │ ...rn `${this.searchParams()?.from} -> ${this.[32msearchParams[37m()?.to}: ${[39m[22m
+[1m[31m         ╵                                               [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:72:11:[39m[22m
+[1m[31m[37m      72 │       this.[32mflights[37m.value().length[39m[22m
+[1m[31m         ╵            [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logSignal' does not exist on type 'FlightSearchStore'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:78:13:[39m[22m
+[1m[31m[37m      78 │     this.abc.[32mlogSignal[37m(this.searchForm().value);[39m[22m
+[1m[31m         ╵              [32m~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'F[39m[22m[1m[31mlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:87:9:[39m[22m
+[1m[31m[37m      87 │     this.[32msearchParams[37m.set(this.searchForm().value());[39m[22m
+[1m[31m         ╵          [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:9:[39m[22m
+[1m[31m[37m      92 │     this.[32mflights[37m.value.set(this.toFlightsWithDelays(this.flights.v...[39m[22m
+[1m[31m         ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:57:[39m[22m
+[1m[31m[37m      92 │ ...hts.value.set(this.toFlightsWithDelays(this.[32mflights[37m.value(), 15));[39m[22m
+[1m[31m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:124:9:[39m[22m
+[1m[31m[37m      124 │     this.[32mflights[37m.reload();[39m[22m
+[1m[31m          ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.155 seconds] - 2026-01-14T08:42:21.462Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:32:14:[39m[22m
+[1m[31m[37m      32 │ <p>Status: {{ [32mflights[37m.status() }}</p>[39m[22m
+[1m[31m         ╵               [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:33:5:[39m[22m
+[1m[31m[37m      33 │ @if ([32mflights[37m.hasValue()) {[39m[22m
+[1m[31m         ╵      [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:35:18:[39m[22m
+[1m[31m[37m      35 │   @for (flight of [32mflights[37m.value(); track flight.id) {[39m[22m
+[1m[31m         ╵                   [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./f[39m[22m[1m[31mlight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:44:12:[39m[22m
+[1m[31m[37m      44 │ } @else if ([32mflights[37m.isLoading()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:46:12:[39m[22m
+[1m[31m[37m      46 │ } @else if ([32mflights[37m.error()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:47:37:[39m[22m
+[1m[31m[37m      47 │ ...st ein Fehler aufgetreten: {{ [32mflights[37m.error()?.cause | json }}</p>[39m[22m
+[1m[31m         ╵                                  [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    [39m[22m[1m[31mapps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:19:[39m[22m
+[1m[31m[37m      71 │     return `${this.[32msearchParams[37m()?.from} -> ${this.searchParams()?...[39m[22m
+[1m[31m         ╵                    [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:51:[39m[22m
+[1m[31m[37m      71 │ ...rn `${this.searchParams()?.from} -> ${this.[32msearchParams[37m()?.to}: ${[39m[22m
+[1m[31m         ╵                                               [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:72:11:[39m[22m
+[1m[31m[37m      72 │       this.[32mflights[37m.value().length[39m[22m
+[1m[31m         ╵            [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logSignal' does not exist on type 'FlightSearchStore'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:78:13:[39m[22m
+[1m[31m[37m      78 │     this.abc.[32mlogSignal[37m(this.searchForm().value);[39m[22m
+[1m[31m         ╵              [32m~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'F[39m[22m[1m[31mlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:87:9:[39m[22m
+[1m[31m[37m      87 │     this.[32msearchParams[37m.set(this.searchForm().value());[39m[22m
+[1m[31m         ╵          [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:9:[39m[22m
+[1m[31m[37m      92 │     this.[32mflights[37m.value.set(this.toFlightsWithDelays(this.flights.v...[39m[22m
+[1m[31m         ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:57:[39m[22m
+[1m[31m[37m      92 │ ...hts.value.set(this.toFlightsWithDelays(this.[32mflights[37m.value(), 15));[39m[22m
+[1m[31m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:124:9:[39m[22m
+[1m[31m[37m      124 │     this.[32mflights[37m.reload();[39m[22m
+[1m[31m          ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.087 seconds] - 2026-01-14T08:42:25.027Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:32:14:[39m[22m
+[1m[31m[37m      32 │ <p>Status: {{ [32mflights[37m.status() }}</p>[39m[22m
+[1m[31m         ╵               [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:33:5:[39m[22m
+[1m[31m[37m      33 │ @if ([32mflights[37m.hasValue()) {[39m[22m
+[1m[31m         ╵      [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:35:18:[39m[22m
+[1m[31m[37m      35 │   @for (flight of [32mflights[37m.value(); track flight.id) {[39m[22m
+[1m[31m         ╵                   [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./f[39m[22m[1m[31mlight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:44:12:[39m[22m
+[1m[31m[37m      44 │ } @else if ([32mflights[37m.isLoading()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:46:12:[39m[22m
+[1m[31m[37m      46 │ } @else if ([32mflights[37m.error()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:47:37:[39m[22m
+[1m[31m[37m      47 │ ...st ein Fehler aufgetreten: {{ [32mflights[37m.error()?.cause | json }}</p>[39m[22m
+[1m[31m         ╵                                  [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    [39m[22m[1m[31mapps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:19:[39m[22m
+[1m[31m[37m      71 │     return `${this.[32msearchParams[37m()?.from} -> ${this.searchParams()?...[39m[22m
+[1m[31m         ╵                    [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:71:51:[39m[22m
+[1m[31m[37m      71 │ ...rn `${this.searchParams()?.from} -> ${this.[32msearchParams[37m()?.to}: ${[39m[22m
+[1m[31m         ╵                                               [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:72:11:[39m[22m
+[1m[31m[37m      72 │       this.[32mflights[37m.value().length[39m[22m
+[1m[31m         ╵            [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logSignal' does not exist on type 'FlightSearchStore'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:78:13:[39m[22m
+[1m[31m[37m      78 │     this.abc.[32mlogSignal[37m(this.searchForm().value);[39m[22m
+[1m[31m         ╵              [32m~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'F[39m[22m[1m[31mlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:87:9:[39m[22m
+[1m[31m[37m      87 │     this.[32msearchParams[37m.set(this.searchForm().value());[39m[22m
+[1m[31m         ╵          [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:9:[39m[22m
+[1m[31m[37m      92 │     this.[32mflights[37m.value.set(this.toFlightsWithDelays(this.flights.v...[39m[22m
+[1m[31m         ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:92:57:[39m[22m
+[1m[31m[37m      92 │ ...hts.value.set(this.toFlightsWithDelays(this.[32mflights[37m.value(), 15));[39m[22m
+[1m[31m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:124:9:[39m[22m
+[1m[31m[37m      124 │     this.[32mflights[37m.reload();[39m[22m
+[1m[31m          ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.159 seconds] - 2026-01-14T08:42:47.299Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'prettySearch' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:31:6:[39m[22m
+[1m[31m[37m      31 │ <p>{{ [32mprettySearch[37m() }}</p>[39m[22m
+[1m[31m         ╵       [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:32:14:[39m[22m
+[1m[31m[37m      32 │ <p>Status: {{ [32mflights[37m.status() }}</p>[39m[22m
+[1m[31m         ╵               [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:33:5:[39m[22m
+[1m[31m[37m      33 │ @if ([32mflights[37m.hasValue()) {[39m[22m
+[1m[31m         ╵      [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[39m[22m[1m[31m[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:35:18:[39m[22m
+[1m[31m[37m      35 │   @for (flight of [32mflights[37m.value(); track flight.id) {[39m[22m
+[1m[31m         ╵                   [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:44:12:[39m[22m
+[1m[31m[37m      44 │ } @else if ([32mflights[37m.isLoading()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:46:12:[39m[22m
+[1m[31m[37m      46 │ } @else if ([32mflights[37m.error()) {[39m[22m
+[1m[31m         ╵             [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/fligh[39m[22m[1m[31mt-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:47:37:[39m[22m
+[1m[31m[37m      47 │ ...st ein Fehler aufgetreten: {{ [32mflights[37m.error()?.cause | json }}</p>[39m[22m
+[1m[31m         ╵                                  [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'logSignal' does not exist on type 'FlightSearchStore'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:72:13:[39m[22m
+[1m[31m[37m      72 │     this.abc.[32mlogSignal[37m(this.searchForm().value);[39m[22m
+[1m[31m         ╵              [32m~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchParams' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:81:9:[39m[22m
+[1m[31m[37m      81 │     this.[32msearchParams[37m.set(this.searchForm().value());[39m[22m
+[1m[31m         ╵          [32m~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:8[39m[22m[1m[31m6:9:[39m[22m
+[1m[31m[37m      86 │     this.[32mflights[37m.value.set(this.toFlightsWithDelays(this.flights.v...[39m[22m
+[1m[31m         ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:86:57:[39m[22m
+[1m[31m[37m      86 │ ...hts.value.set(this.toFlightsWithDelays(this.[32mflights[37m.value(), 15));[39m[22m
+[1m[31m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:118:9:[39m[22m
+[1m[31m[37m      118 │     this.[32mflights[37m.reload();[39m[22m
+[1m[31m          ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.236 seconds] - 2026-01-14T08:44:44.927Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'flights' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:116:9:[39m[22m
+[1m[31m[37m      116 │     this.[32mflights[37m.reload();[39m[22m
+[1m[31m          ╵          [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-3HNOXLMK.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m103.27 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.168 seconds] - 2026-01-14T08:44:50.944Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-PL6YQ74D.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.50 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.163 seconds] - 2026-01-14T08:46:51.793Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.231 seconds] - 2026-01-14T08:48:26.811Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchForm' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:9:17:[39m[22m
+[1m[31m[37m      9 │       [control]="[32msearchForm[37m.from"[39m[22m
+[1m[31m        ╵                  [32m~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchForm' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:17:22:[39m[22m
+[1m[31m[37m      17 │     <input [control]="[32msearchForm[37m.to" id="to" name="to" class="form...[39m[22m
+[1m[31m         ╵                       [32m~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'searchForm' does not exist on type 'FlightSearchComponent'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.html:22:22:[39m[22m
+[1m[31m[37m      22 │     <input [control]="[32msearchForm[37m.airport.city" class="form-control...[39m[22m
+[1m[31m         ╵                       [32m~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightSearchComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-b[39m[22m[1m[31mooking/flight-search/flight-search.component.ts:46:15:[39m[22m
+[1m[31m[37m      46 │   templateUrl: [32m'./flight-search.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2687: All declarations of 'from' must have identical modifiers.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:56:2:[39m[22m
+[1m[31m[37m      56 │   [32mfrom[37m = signal('Paris');[39m[22m
+[1m[31m         ╵   [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2300: Duplicate identifier 'from'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2687: All declarations of 'from' must have identical modifiers.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2717: Subsequent property declarations must have the same type.  Property 'from' must be of type 'WritableSignal<string>', but here has type '{ <O extends ObservableInput<any>>(input: O): Observable<ObservedValueOf<O>>; <O extends ObservableInput<any>>(input: O, scheduler: SchedulerLike | undefined): Observable<...>; }'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  'from' was also declared here.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-se[39m[22m[1m[31march/flight-search.component.ts:56:2:[39m[22m
+[1m[31m[37m      56 │   [32mfrom[37m = signal('Paris');[39m[22m
+[1m[31m         ╵   [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.199 seconds] - 2026-01-14T08:49:43.576Z[39m
+[37m[39m
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: Control is not used within the template of FlightSearchComponent[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:48:47:[39m[22m
+[1m[33m[37m      48 │   imports: [CommonModule, FlightCardComponent, [32mControl[37m, FormsModule],[39m[22m
+[1m[33m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2687: All declarations of 'from' must have identical modifiers.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:56:2:[39m[22m
+[1m[31m[37m      56 │   [32mfrom[37m = signal('Paris');[39m[22m
+[1m[31m         ╵   [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2300: Duplicate identifier 'from'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2687: All declarations of 'from' must have identical modifiers.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2717: Subsequent property declarations must have the same type.  Property 'from' must be of type 'WritableSignal<string>', but here has type '{ <O extends ObservableInput<any>>(input: O): Observable<ObservedValueOf<O>>; <O extends ObservableInput<any>>(input: O, scheduler: SchedulerLike | undefined): Observable<...>; }'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:106:21:[39m[22m
+[1m[31m[37m      106 │   protected readonly [32mfrom[37m = from;[39m[22m
+[1m[31m          ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  'from' was also declared here.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:56:2:[39m[22m
+[1m[31m[37m      56 │   [32mfrom[37m = signal('Paris');[39m[22m
+[1m[31m         ╵   [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-SBAINOJ3.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m103.75 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.181 seconds] - 2026-01-14T08:49:58.318Z[39m
+[37m[39m
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: Control is not used within the template of FlightSearchComponent[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search.component.ts:48:47:[39m[22m
+[1m[33m[37m      48 │   imports: [CommonModule, FlightCardComponent, [32mControl[37m, FormsModule],[39m[22m
+[1m[33m         ╵                                                [32m~~~~~~~[0m[39m[22m
+[1m[33m[39m[22m
+[1m[33m[39m[22m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-ZGGAU4C6.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.68 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.151 seconds] - 2026-01-14T08:50:03.791Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-ZGGAU4C6.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m103.68 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.149 seconds] - 2026-01-14T08:52:28.980Z[39m
+[37m[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.214 seconds] - 2026-01-14T08:54:20.425Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2532: Object is possibly 'undefined'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-search/flight-search-store.service.ts:28:6:[39m[22m
+[1m[31m[37m      28 │       [32mthis.flights.value()[37m.length[39m[22m
+[1m[31m         ╵       [32m~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-UESCWJBS.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m103.86 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.179 seconds] - 2026-01-14T08:54:39.203Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-AZQ5JED2.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.89 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.134 seconds] - 2026-01-14T08:55:48.479Z[39m
+[37m[39m
+[37mComponent update sent to client(s).[39m
+[1m[31mComponent update failed: Resource is currently in an error state (see Error.cause for details): Http failure during parsing for http://localhost:4200/flight[39m[22m
+[1m[31mError: Resource is currently in an error state (see Error.cause for details): Http failure during parsing for http://localhost:4200/flight[39m[22m
+[1m[31m    at ResourceImpl.computed.equal.equal [as computation] (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:3679:19)[39m[22m
+[1m[31m    at Object.producerRecomputeValue (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:314:25)[39m[22m
+[1m[31m    at producerUpdateValueVersion (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:115:8)[39m[22m
+[1m[31m    at consumerPollProducersForChange (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:185:5)[39m[22m
+[1m[31m    at producerUpdateValueVersion (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:111:45)[39m[22m
+[1m[31m    at consumerPollProducersForChange (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-N7RF7O25.js?v=0ca7ad25:185:5)[39m[22m
+[1m[31m    at detectChangesInView (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-DE5R5XCH.js?v=0ca7ad25:5902:47)[39m[22m
+[1m[31m    at detectChangesInViewIfAttached (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-DE5R5XCH.js?v=0ca7ad25:5892:3)[39m[22m
+[1m[31m    at detectChangesInComponent (http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-DE5R5XCH.js?v=0ca7ad25:5885:3)[39m[22m
+[1m[31m    at detectChangesInChildComponents [39m[22m[1m[31m(http://localhost:4200/@fs/Users/rainerh/programming/flight-app/.angular/cache/21.0.0-next.5/flights/vite/deps/chunk-DE5R5XCH.js?v=0ca7ad25:5940:5)[39m[22m
+[1m[31mPlease consider reporting the error at https://github.com/angular/angular-cli/issues[39m[22m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-65HGQD6J.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.92 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.231 seconds] - 2026-01-14T08:56:13.242Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m        [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mmain.js[39m[37m                    [2m | [22m[2mmain[22m [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m           [2m | [22m[1mNames[22m[2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-OG4U3EWH.js[39m[37m[2m | [22m[2mindex[22m[2m | [22m[36m103.92 kB[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.191 seconds] - 2026-01-14T08:57:05.534Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠹[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠸[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.308 seconds] - 2026-01-14T09:00:20.646Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'from' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:4:14:[39m[22m
+[1m[31m[37m      4 │       {{ item.[32mfrom[37m | city : 'short' }} - {{ item.to | city : 'long' }}[39m[22m
+[1m[31m        ╵               [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'to' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:4:49:[39m[22m
+[1m[31m[37m      4 │       {{ item.from | city : 'short' }} - {{ item.[32mto[37m | city : 'long' }}[39m[22m
+[1m[31m        ╵                                                  [32m~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'id' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:9:28:[39m[22m
+[1m[31m[37m      9 │     <p>Flight-No.: #{{ item.[32mid[37m }}</p>[39m[22m
+[1m[31m        ╵                             [32m~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[3[39m[22m[1m[31m7m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'date' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:10:21:[39m[22m
+[1m[31m[37m      10 │     <p>Date: {{ item.[32mdate[37m | date : 'dd.MM.yyyy HH:mm' }}</p>[39m[22m
+[1m[31m         ╵                      [32m~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'delayed' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:16:42:[39m[22m
+[1m[31m[37m      16 │ ...<app-status-toggle [(status)]="item.[32mdelayed[37m"> </app-status-toggle>[39m[22m
+[1m[31m         ╵                                        [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'delayed' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:16:42:[39m[22m
+[1m[31m[37m      16 │ ...<app-status-toggle [(status)]="item.[32mdelayed[37m"> </app-status-toggle>[39m[22m
+[1m[31m         ╵                                  [39m[22m[1m[31m      [32m~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'id' does not exist on type 'InputSignal<Flight>'.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.html:25:46:[39m[22m
+[1m[31m[37m      25 │ ...[routerLink]="['../flight-edit', item.[32mid[37m, { showDetails: false }]"[39m[22m
+[1m[31m         ╵                                          [32m~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m  Error occurs in the template of component FlightCardComponent.[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:23:15:[39m[22m
+[1m[31m[37m      23 │   templateUrl: [32m'./flight-card.component.html'[37m,[39m[22m
+[1m[31m         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37m[1mInitial chunk files[22m             [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mstyles.css[39m[37m                      [2m | [22m[2mstyles[22m       [2m | [22m[36m116.70 kB[39m[37m[2m | [22m[39m
+[37m[32mmain.js[39m[37m                         [2m | [22m[2mmain[22m         [2m | [22m [36m35.87 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JFNFBGNE.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m [36m11.06 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-JW4CCDVI.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m9.19 kB[39m[37m[2m | [22m[39m
+[37m[32mchunk-CZJLB7T5.js[39m[37m               [2m | [22m[2m-[22m            [2m | [22m  [36m1.08 kB[39m[37m[2m | [22m[39m
+[37m[32mpolyfills.js[39m[37m                    [2m | [22m[2mpolyfills[22m    [2m | [22m [36m95 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37m[1m [22m                               [2m | [22m[1mInitial total[22m[2m | [22m[1m173.99 kB[22m[39m
+[37m[39m
+[37m[1mLazy chunk files[22m                [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[39m
+[37m[32mfeature-booking-USRLM2XR.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m[36m104.34 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-checkin-QDUGHQJE.js[39m[37m     [2m | [22m[2mindex[22m        [2m | [22m  [36m9.39 kB[39m[37m[2m | [22m[39m
+[37m[32mfeature-next-flights-R73IV4XR.js[39m[37m[2m | [22m[2mindex[22m        [2m | [22m[36m179 bytes[39m[37m[2m | [22m[39m
+[37m[39m
+[37mApplication bundle generation complete. [0.187 seconds] - 2026-01-14T09:01:12.519Z[39m
+[37m[39m
+[37mPage reload sent to client(s).[39m
+[?25l[2m◼[22m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠋[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[33m⠙[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[32m✔[39m Changes detected. Rebuilding...
+[2K[1A[2K[G[?25h[37mApplication bundle generation failed. [0.192 seconds] - 2026-01-14T09:07:10.099Z[39m
+[37m[39m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG8118: `item` is a required `input` and does not have a value in this context.[0m [1m[35m[plugin angular-compiler][0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m    apps/flights/src/app/domains/ticketing/feature-booking/flight-card/flight-card.component.ts:37:4:[39m[22m
+[1m[31m[37m      37 │     [32mthis.item[37m();[39m[22m
+[1m[31m         ╵     [32m~~~~~~~~~[0m[39m[22m
+[1m[31m[39m[22m
+[1m[31m[39m[22m
+^C[?25h

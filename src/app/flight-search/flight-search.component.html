@@ -1,0 +1,80 @@
+<!-- Template-Driven Forms
+ 
+<form (ngSubmit)="search()" #form="ngForm" roundtrip>
+  <div class="form-group">
+    <label>From:</label>
+    <input [(ngModel)]="from" name="from" class="form-control" required city />
+    <form-error [errors]="form.controls['from'].errors"></form-error>
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input
+      [(ngModel)]="to"
+      name="to"
+      class="form-control"
+      required
+      validCity
+      city="London,Berlin,Wien,Eisenstadt"
+    />
+    <form-error [errors]="form.controls['to'].errors"></form-error>
+  </div>
+
+  <div class="form-group">
+    @if(form.hasError('roundtrip')) {
+    <p>Rundumflüge sind unzulässig.</p>
+    }
+    <button class="btn btn-default" [disabled]="form.invalid">Search</button>
+  </div>
+</form> 
+-->
+
+<form (ngSubmit)="search()" [formGroup]="form">
+  <div class="form-group">
+    <label>From:</label>
+    <input class="form-control" formControlName="from" />
+    <form-error [errors]="form.controls['from'].errors"></form-error>
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input class="form-control" formControlName="to" />
+    <form-error [errors]="form.controls['to'].errors"></form-error>
+  </div>
+
+  <div class="form-group">
+    @if(form.hasError('roundtrip')) {
+    <p>Rundumflüge sind unzulässig.</p>
+    }
+    <button class="btn btn-default" [disabled]="form.invalid">Search</button>
+  </div>
+</form>
+
+<p>{{ prettySearch() }}</p>
+
+@for(flight of flights(); track $index) {
+<flight-card [item]="flight" [(selected)]="basket[flight.id]">
+  <!--    <div data-form="true">-->
+  <!--      <p>Bitte benachrichten Sie mich bei Preisänderungen</p>-->
+  <!--      <form>-->
+  <!--        <input [(ngModel)]="email" name="email">-->
+  <!--        <button type="submit">Abschicken</button>-->
+  <!--      </form>-->
+  <!--    </div>-->
+
+  <!--    <p data-promition="true">Preise werden bald teurer</p>-->
+</flight-card>
+} @if (selectedFlight(); as flight) {
+<form (ngSubmit)="save(flight)">
+  <div class="form-group">
+    <label>From:</label>
+    <input [(ngModel)]="flight.from" name="from" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input [(ngModel)]="flight.to" name="to" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-default">Save</button>
+  </div>
+</form>
+}

@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx serve",
+    "startTime": "2026-01-14T14:38:19.387Z",
+    "endTime": "2026-01-14T21:37:17.440Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "flights:serve:development",
+      "target": "serve",
+      "projectName": "flights",
+      "hash": "242246365355030245",
+      "startTime": "2026-01-14T14:38:19.447Z",
+      "endTime": "2026-01-14T21:37:17.290Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}
