@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Hotelbuchung</h2>
+
+  <div class="search-form">
+    <label>
+      Stadt:
+      <input
+        type="text"
+        [(ngModel)]="city"
+        placeholder="Wien, London, ..."
+      />
+    </label>
+    <button (click)="search()">Suchen</button>
+  </div>
+
+  <div class="hotels-list">
+    <h3>Verfügbare Hotels</h3>
+    @for (hotel of filteredHotels(); track hotel.id) {
+      <div
+        class="hotel-card"
+        [class.selected]="selectedHotel()?.id === hotel.id"
+        [class.unavailable]="!hotel.available"
+        (click)="selectHotel(hotel)"
+      >
+        <h4>{{ hotel.name }}</h4>
+        <p>Stadt: {{ hotel.city }}</p>
+        <p>Preis pro Nacht: €{{ hotel.pricePerNight }}</p>
+        <p>
+          Status:
+          @if (hotel.available) {
+            <span style="color: green;">Verfügbar</span>
+          } @else {
+            <span style="color: red;">Nicht verfügbar</span>
+          }
+        </p>
+      </div>
+    }
+  </div>
+
+  @if (selectedHotel()) {
+    <div class="booking-section">
+      <h3>Ausgewähltes Hotel</h3>
+      <p><strong>{{ selectedHotel()!.name }}</strong></p>
+      <p>{{ selectedHotel()!.city }} - €{{ selectedHotel()!.pricePerNight }}/Nacht</p>
+      <button (click)="book()">Jetzt buchen</button>
+    </div>
+  }
+</div>

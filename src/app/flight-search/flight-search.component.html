@@ -1,5 +1,5 @@
 <!-- Template-Driven Forms
- 
+
 <form (ngSubmit)="search()" #form="ngForm" roundtrip>
   <div class="form-group">
     <label>From:</label>
@@ -25,8 +25,10 @@
     }
     <button class="btn btn-default" [disabled]="form.invalid">Search</button>
   </div>
-</form> 
+</form>
 -->
+
+<!-- Reactive Forms
 
 <form (ngSubmit)="search()" [formGroup]="form">
   <div class="form-group">
@@ -46,35 +48,64 @@
     }
     <button class="btn btn-default" [disabled]="form.invalid">Search</button>
   </div>
-</form>
+</form> -->
 
-<p>{{ prettySearch() }}</p>
-
-@for(flight of flights(); track $index) {
-<flight-card [item]="flight" [(selected)]="basket[flight.id]">
-  <!--    <div data-form="true">-->
-  <!--      <p>Bitte benachrichten Sie mich bei Preisänderungen</p>-->
-  <!--      <form>-->
-  <!--        <input [(ngModel)]="email" name="email">-->
-  <!--        <button type="submit">Abschicken</button>-->
-  <!--      </form>-->
-  <!--    </div>-->
-
-  <!--    <p data-promition="true">Preise werden bald teurer</p>-->
-</flight-card>
-} @if (selectedFlight(); as flight) {
-<form (ngSubmit)="save(flight)">
+<form (submit)="searchSignals($event)">
   <div class="form-group">
     <label>From:</label>
-    <input [(ngModel)]="flight.from" name="from" class="form-control" />
+    <input
+      class="form-control"
+      data-testid="from"
+      [formField]="searchForm.from"
+    />
+    @for (error of searchForm.from().errors(); track error) {
+      <p>{{ error.message }}</p>
+    }
   </div>
   <div class="form-group">
     <label>To:</label>
-    <input [(ngModel)]="flight.to" name="to" class="form-control" />
+    <input class="form-control" data-testid="to" [formField]="searchForm.to" />
+    @for (error of searchForm.to().errors(); track error) {
+      <p>{{ error.message }}</p>
+    }
   </div>
 
   <div class="form-group">
-    <button class="btn btn-default">Save</button>
+    <!-- @if (searchForm().invalid()) { -->
+    <!-- <p>Rundumflüge sind unzulässig.</p> -->
+    <!-- } -->
+    <button class="btn btn-default" [disabled]="searchForm().invalid()">
+      Search
+    </button>
   </div>
 </form>
+
+@if (status() === "view") {
+  @if (flights.hasValue()) {
+    @for (flight of flights.value(); track $index) {
+      <flight-card
+        [item]="flight"
+        [(selected)]="basket[flight.id]"
+        (edit)="selectFlight($event)"
+      >
+        <!--    <div data-form="true">-->
+        <!--      <p>Bitte benachrichten Sie mich bei Preisänderungen</p>-->
+        <!--      <form>-->
+        <!--        <input [(ngModel)]="email" name="email">-->
+        <!--        <button type="submit">Abschicken</button>-->
+        <!--      </form>-->
+        <!--    </div>-->
+
+        <!--    <p data-promition="true">Preise werden bald teurer</p>-->
+      </flight-card>
+    }
+  } @else if (flights.isLoading()) {
+    <p>Loading...</p>
+  } @else if (flights.error()) {
+    <p>Error: {{ flights.error() }}</p>
+  }
+}
+
+@if (status() === "edit") {
+  <flight-edit-form [flight]="selectedFlight()" (save)="save($event)" />
 }

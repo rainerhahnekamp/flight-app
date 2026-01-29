@@ -4,9 +4,5 @@ export interface Flight {
   to: string;
   date: string;
   delayed: boolean;
-  airline: {
-    name: string;
-    code: string;
-  }
 }
 

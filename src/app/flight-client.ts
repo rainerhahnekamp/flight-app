@@ -1,8 +1,8 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, signal} from "@angular/core";
 import {Flight} from "./entities/flight";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, httpResource} from "@angular/common/http";
 import {Configuration} from "./configuration";
-import {from, lastValueFrom, Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 
 /**
  * config Pattern
@@ -11,8 +11,16 @@ import {from, lastValueFrom, Observable, of} from "rxjs";
  * provide LOCALE_ID
  */
 
+
 @Injectable({providedIn: 'root'})
 export class FlightClient {
+  readonly searchParams = signal<{ from: string, to: string }>({from: '', to: ''})
+
+  readonly flightResource = httpResource(() => ({
+    url:`${this.config.baseUrl}/flight`,
+    params:this.searchParams()
+  }), {defaultValue: []});
+
   private readonly httpClient = inject(HttpClient);
   private readonly config = inject(Configuration)
 
@@ -20,8 +28,11 @@ export class FlightClient {
     return this.httpClient.get<Flight[]>(`${this.config.baseUrl}/flight?from=${from}&to=${to}`)
   }
 
+  setSearchParams(from: string, to: string, date = new Date()) {
+    this.searchParams.set({from, to})
+  }
+
   save(flight: Flight): Observable<Flight> {
-    // return this.httpClient.post<Flight>(`${this.config.baseUrl}/flight`, flight)
-    return of(flight);
+    return this.httpClient.post<Flight>(`${this.config.baseUrl}/flight`, flight)
   }
 }

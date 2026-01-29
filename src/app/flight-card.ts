@@ -4,9 +4,9 @@ import {
   effect,
   EventEmitter,
   input,
-  Input, model,
+  Input, model, OnChanges,
   OnDestroy,
-  OnInit,
+  OnInit, output,
   Output,
   SimpleChange, ViewChild, viewChild
 } from "@angular/core";
@@ -20,7 +20,6 @@ const initFlight: Flight = {
   to: '',
   date: '',
   delayed: false,
-  airline: {name: '', code: ''}
 }
 
 @Component({
@@ -56,12 +55,14 @@ const initFlight: Flight = {
       } @else {
         <button (click)="select()">Select</button>
       }
+        <button (click)="editFlight()">Bearbeite Flug</button>
     </div>
   `
 })
 export class FlightCard {
   item = input.required<Flight>()
   selected = model(false);
+  edit = output<Flight>();
 
   timeComponent = viewChild(TimeComponent)
 
@@ -89,5 +90,9 @@ export class FlightCard {
   protected deselect() {
     this.selected.set(false);
 
+  }
+
+  protected editFlight() {
+   this.edit.emit(this.item());
   }
 }

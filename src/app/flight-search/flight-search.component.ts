@@ -1,34 +1,23 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { Flight } from '../entities/flight';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { FlightClient } from '../flight-client';
-import { FlightCard } from '../flight-card';
-import { JsonPipe } from '@angular/common';
-import { CityValidator, createValidateCity } from '../forms/city';
-import { Roundtrip, validateRoundtrip } from '../forms/roundtrip';
-import { FormErrors } from '../forms/form-errors.component';
-import {
-  AsyncCityValidator,
-  createValidateAsync,
-  ValidCity,
-} from '../forms/valid-city';
+import {Component, computed, inject, signal} from '@angular/core';
+import {Flight} from '../entities/flight';
+import {FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import {FlightClient} from '../flight-client';
+import {FlightCard} from '../flight-card';
+import {FormField,} from '@angular/forms/signals';
+import {AsyncCityValidator,} from '../forms/valid-city';
+import {createForm} from '../forms/validate-search-form';
+import {FlightEditForm} from "../flight-edit-form";
+
+type Status = 'view' | 'edit';
 
 @Component({
   selector: 'app-flight-search',
   imports: [
-    FormsModule,
     FlightCard,
-    CityValidator,
-    Roundtrip,
-    FormErrors,
-    ValidCity,
     ReactiveFormsModule,
+    FormField,
+    FlightEditForm,
+    FormsModule
   ],
   templateUrl: './flight-search.component.html',
   styles: `
@@ -38,40 +27,73 @@ import {
   `,
 })
 export class FlightSearchComponent {
-  protected readonly from = signal('Wien');
-  protected readonly to = signal('London');
-
-  protected readonly prettySearch = computed(
-    () => `${this.from()} to ${this.to()}`
-  );
-
-  protected readonly selectedFlight = signal<Flight | undefined>(undefined);
-  protected readonly flights = signal<Flight[]>([]);
 
   private readonly flightClient = inject(FlightClient);
+  protected readonly flights = this.flightClient.flightResource;
   private readonly asyncCityValidator = inject(AsyncCityValidator);
 
-  protected form = inject(FormBuilder).nonNullable.group(
-    {
-      from: [
-        'Wien',
-        [Validators.required, createValidateCity()],
-        [
-          (ac: AbstractControl<string>) =>
-            this.asyncCityValidator.validateAsync(ac),
-        ],
-      ],
-      to: [
-        'London',
-        [Validators.required, createValidateCity(['Eisenstadt'])],
-        [
-          (ac: AbstractControl<string>) =>
-            this.asyncCityValidator.validateAsync(ac),
-        ],
-      ],
-    },
-    { validators: [validateRoundtrip] }
-  );
+  protected readonly status = signal<Status>('view');
+
+  protected from = signal('Wien');
+  protected to = signal('London')
+
+  protected readonly searchParams = signal({
+    from: 'Wien',
+    to: 'London',
+  });
+
+  prettySearch = computed(() => {
+    const {from, to} = this.searchParams();
+    return `Suche von ${from} nach ${to}`;
+  })
+
+  time = signal(new Date())
+  counter = signal(1);
+
+  constructor() {
+    this.search();
+  }
+
+  protected readonly searchForm = createForm(this.searchParams);
+
+  searchSignals(event: SubmitEvent) {
+    event.preventDefault();
+    this.search();
+  }
+
+
+  protected readonly selectedFlight = signal<Flight>({id: 0, from: '', to: '', date: '', delayed: false});
+
+
+  // protected editForm = inject(NonNullableFormBuilder).group({
+  //   id: [0, Validators.required],
+  //   from: ['', Validators.required],
+  //   to: ['', Validators.required],
+  //   date: ['', Validators.required],
+  //   delayed: [false]
+  // })
+
+  // protected form = inject(FormBuilder).nonNullable.group(
+  //   {
+  //     from: [
+  //       'Wien',
+  //       [Validators.required, createValidateCity()],
+  //       [
+  //         (ac: AbstractControl<string>) =>
+  //           this.asyncCityValidator.validateAsync(ac),
+  //       ],
+  //     ],
+  //     to: [
+  //       'London',
+  //       [Validators.required, createValidateCity(['Eisenstadt'])],
+  //       [
+  //         (ac: AbstractControl<string>) =>
+  //           this.asyncCityValidator.validateAsync(ac),
+  //       ],
+  //     ],
+  //   },
+  //   { validators: [validateRoundtrip] }
+  // );
 
   basket: Record<number, boolean> = {
     115: false,
@@ -79,36 +101,25 @@ export class FlightSearchComponent {
   };
   protected email = '';
 
-  constructor() {
-    // this.form.setValue({ from: 'Wien', to: 'London' });
-    this.search();
-  }
-
   search() {
-    this.flightClient.search(this.from(), this.to()).subscribe((flights) => {
-      this.flights.set(
-        flights.map((flight) => ({
-          ...flight,
-          airline: { name: 'Austrian', code: 'AUA' },
-        }))
-      );
-    });
+    const {from, to} = this.searchParams();
+
+    this.flightClient.setSearchParams(from, to)
   }
 
   selectFlight(flight: Flight) {
     this.selectedFlight.set(structuredClone(flight));
+
+    this.status.set('edit');
   }
 
   protected save(flight: Flight) {
     this.flightClient.save(flight).subscribe(() => {
-      this.from.set(flight.from);
-      this.to.set(flight.to);
+      this.searchParams.set({from: flight.from, to: flight.to});
       this.search();
-      this.selectedFlight.set(undefined);
+      this.status.set('view');
     });
   }
-
-  protected readonly input = input;
 }
 
 class Person {
