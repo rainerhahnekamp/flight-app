@@ -1,102 +1,149 @@
-import {Component, computed, effect, inject, input, linkedSignal, signal, untracked} from '@angular/core';
-import {Flight} from "../entities/flight";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+  untracked,
+} from '@angular/core';
+import { Flight } from '../entities/flight';
+import {
+  form,
+  FormField,
+  minLength,
+  required,
+  submit,
+  validate,
+  validateHttp,
+} from '@angular/forms/signals';
+import { FlightService } from '../flight-service';
+import { FlightCardComponent } from '../flight-card/flight-card.component';
+import { FlightEditFormComponent } from '../flight-edit-form.component';
+import { JsonPipe } from '@angular/common';
+import { FlightStore } from '../flight-store';
+import { Config } from '../config';
 
-import {AbstractControl, FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FlightService} from "../flight-service";
-import {FlightCardComponent} from "../flight-card/flight-card.component";
-import {FlightEditFormComponent} from "../flight-edit-form.component";
-import {JsonPipe} from "@angular/common";
-import {FlightStore} from "../flight-store";
-import {validateCity} from "../forms/validate-city";
-import {validateRoundtrip} from "../forms/validate-roundtrip";
-import {asyncCityValidator, AsyncCityValidator} from "../forms/async-validate-city";
-
+interface SearchModel {
+  from: string;
+  to: string;
+}
 
 @Component({
   selector: 'app-flight-search',
-  imports: [ReactiveFormsModule, FlightCardComponent, FlightEditFormComponent, JsonPipe],
+  imports: [FormField, FlightCardComponent, JsonPipe],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.css',
 })
 export class FlightSearchComponent {
-  private readonly flightStore = inject(FlightStore)
-  private readonly asyncCityValidator = inject(AsyncCityValidator)
-  readonly _flights = signal<Array<Flight>>([])
+  private readonly flightStore = inject(FlightStore);
+  private readonly config = inject(Config);
 
-  readonly formBuilder = inject(FormBuilder)
+  readonly searchModel = signal<SearchModel>({ from: '', to: '' });
 
-  readonly formGroup = this.formBuilder.nonNullable.group({
-    from: ['', [Validators.required, Validators.minLength(3)], (ac: AbstractControl) => this.asyncCityValidator.validate(ac)],
-    to: ['', [Validators.required], asyncCityValidator()],
-  }, {validators: [validateRoundtrip]});
+  readonly searchForm = form(this.searchModel, (schemaPath) => {
+    required(schemaPath.from, { message: 'This field is required.' });
+    minLength(schemaPath.from, 3, {
+      message: 'This field has a minimal length of 3.',
+    });
+    validateHttp(schemaPath.from, {
+      request: ({ value }) =>
+        value() ? `${this.config.baseUrl}/flight?from=&to=` : undefined,
+      onSuccess: (response: Flight[], { value }) => {
+        const cities = new Set((response ?? []).flatMap((f) => [f.from, f.to]));
+        return cities.has(value() ?? '')
+          ? null
+          : {
+              kind: 'city',
+              message: 'This city is not allowed.',
+              allowedCities: [...cities],
+            };
+      },
+      onError: () => ({
+        kind: 'networkError',
+        message: 'Could not verify city.',
+      }),
+    });
 
+    required(schemaPath.to, { message: 'This field is required.' });
+    validateHttp(schemaPath.to, {
+      request: ({ value }) =>
+        value() ? `${this.config.baseUrl}/flight?from=&to=` : undefined,
+      onSuccess: (response: Flight[], { value }) => {
+        const cities = new Set((response ?? []).flatMap((f) => [f.from, f.to]));
+        return cities.has(value() ?? '')
+          ? null
+          : {
+              kind: 'city',
+              message: 'This city is not allowed.',
+              allowedCities: [...cities],
+            };
+      },
+      onError: () => ({
+        kind: 'networkError',
+        message: 'Could not verify city.',
+      }),
+    });
 
-  formSyncEffect = effect(() => {
+    validate(schemaPath.to, ({ value, valueOf }) =>
+      value() === valueOf(schemaPath.from)
+        ? { kind: 'roundtrip', message: 'Roundtrips are not allowed.' }
+        : null,
+    );
+  });
+
+  private storeSyncEffect = effect(() => {
     const from = this.flightStore.from();
     const to = this.flightStore.to();
+    untracked(() => this.searchModel.set({ from, to }));
+  });
 
-    untracked(() => this.formGroup.setValue({from, to}));
-  })
-
-  readonly flights = this.flightStore.flights
+  readonly flights = this.flightStore.flights;
 
   basket: Record<number, boolean> = {
-    1: true
-  }
+    1: true,
+  };
 
   readonly message = computed(() => {
     switch (this.flights.status()) {
       case 'idle':
-        return ''
+        return '';
       case 'loading':
-        return 'Searching...'
+        return 'Searching...';
       case 'resolved':
-        return 'Search successful'
+        return 'Search successful';
       case 'error':
-        return 'Search failed'
+        return 'Search failed';
     }
+    return '';
+  });
 
-    return ''
-  })
+  flightService = inject(FlightService);
+  selectedFlight = signal<Flight | undefined>(undefined);
 
-
-  // flights = httpResource<Flight[]>(() => ({
-  //   url: 'https://demo.angulararchitects.io/api/flight',
-  //   params: {from: this.from(), to: this.to()}, // -> Query Strings
-  // }), {
-  //   defaultValue: []
-  // })
-
-  constructor() {
-    const value = this.flights.value
-  }
-
-  flightService = inject(FlightService)
-
-  selectedFlight = signal<Flight | undefined>(undefined)
-
-  search() {
-    const {from, to} = this.formGroup.getRawValue();
-    this.flightStore.setSearchParams(from, to)
+  onSubmit(event: Event) {
+    event.preventDefault();
+    submit(this.searchForm, async () => {
+      const { from, to } = this.searchModel();
+      this.flightStore.setSearchParams(from, to);
+    });
   }
 
   selectFlight(flight: Flight) {
-    this.selectedFlight.set({...flight})
+    this.selectedFlight.set({ ...flight });
   }
 
   editFlight(flight: Flight) {
-    this.selectedFlight.set({...flight});
+    this.selectedFlight.set({ ...flight });
   }
 
   save(flight: Flight) {
     this.flightService.save(flight).subscribe({
-      next: (flight) => {
-        this.flightStore.setSearchParams(flight.from, flight.to)
-        this.search()
+      next: (updated) => {
+        this.flightStore.setSearchParams(updated.from, updated.to);
         this.selectedFlight.set(undefined);
-      }
-    })
-
+      },
+    });
   }
 
   protected readonly input = input;

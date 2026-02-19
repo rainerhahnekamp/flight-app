@@ -3,6 +3,7 @@ import {
   effect,
   inject,
   input,
+  numberAttribute,
   output,
   untracked,
 } from '@angular/core';
@@ -14,12 +15,18 @@ import {
 } from '@angular/forms';
 import { Flight } from './entities/flight';
 import { validateCity } from './forms/validate-city';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-flight-edit-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   template: `
+    <h1>Flight Edit Form</h1>
+    <p>Flight ID: {{ id() }}</p>
+    <a [routerLink]="['/flight-edit', id() - 1]">Previous</a>
+
+    <a [routerLink]="['/flight-edit', id() + 1]">Next</a>
     <form [formGroup]="formGroup" (ngSubmit)="submit()">
       <div>
         <label for="edit-from">From</label>
@@ -28,7 +35,12 @@ import { validateCity } from './forms/validate-city';
           <p>This field is required.</p>
         }
         @if (formGroup.controls['from'].hasError('minlength')) {
-          <p>Min length {{ formGroup.controls['from'].getError('minlength').requiredLength }}.</p>
+          <p>
+            Min length
+            {{
+              formGroup.controls['from'].getError('minlength').requiredLength
+            }}.
+          </p>
         }
       </div>
       <div>
@@ -61,27 +73,14 @@ export class FlightEditFormComponent {
   readonly save = output<Flight>();
   readonly cancel = output<void>();
 
+  id = input.required({ transform: numberAttribute });
+
   readonly formGroup: FormGroup = inject(FormBuilder).group({
     from: ['', [Validators.required, Validators.minLength(3), validateCity()]],
     to: ['', [Validators.required, validateCity()]],
     date: ['', Validators.required],
     delayed: [false],
   });
-
-  constructor() {
-    effect(() => {
-      const f = this.flight();
-      untracked(() =>
-        this.formGroup.patchValue({
-          from: f.from,
-          to: f.to,
-          date: f.date,
-          delayed: f.delayed,
-        })
-      );
-    });
-  }
-
   protected submit(): void {
     if (this.formGroup.invalid) return;
     const value = this.formGroup.getRawValue();

@@ -1,37 +1,47 @@
-<form (ngSubmit)="search()" [formGroup]="formGroup">
-  <input formControlName="from">
-  @if (formGroup.controls['from'].hasError('required')) {
-    <p>This field is required.</p>
-  }
-  @let errors = formGroup.controls['from'].errors;
-
-  @if (errors) {
-    @if (errors['minlength']) {
-      <p>This field has a minimal length of
-        {{ errors['minlength'].requiredLength }}.</p>
+<form (ngSubmit)="onSubmit($event)">
+  <input [formField]="searchForm.from" />
+  @if (searchForm.from().touched() && searchForm.from().invalid()) {
+    @for (error of searchForm.from().errors(); track error.kind) {
+      <p>
+        @if (error.kind === "city" && $any(error).allowedCities) {
+          This city is not allowed.<br />Allowed cities are:
+          {{ $any(error).allowedCities | json }}
+        } @else {
+          {{ error.message }}
+        }
+      </p>
     }
-    @if (errors['city']) {
-      <p>This city is not allowed.<br>Allowed cities are: {{ errors['city'].allowedCities }}</p>
+  }
+  @if (searchForm.from().pending()) {
+    <p>Checking city...</p>
+  }
+
+  <input [formField]="searchForm.to" />
+  @if (searchForm.to().touched() && searchForm.to().invalid()) {
+    @for (error of searchForm.to().errors(); track error.kind) {
+      <p>
+        @if (error.kind === "roundtrip") {
+          Roundtrips are not allowed.
+        } @else if (error.kind === "city" && $any(error).allowedCities) {
+          This city is not allowed.<br />Allowed cities are:
+          {{ $any(error).allowedCities | json }}
+        } @else {
+          {{ error.message }}
+        }
+      </p>
     }
-    <pre>{{ formGroup.controls['from'].errors | json }}</pre>
+  }
+  @if (searchForm.to().pending()) {
+    <p>Checking city...</p>
   }
 
-  @if(formGroup.hasError('roundtrip')) {
-    <p>Roundtrips are not allowed.</p>
-  }
-
-  <input formControlName="to">
-
-  <button [disabled]="formGroup.invalid">Search</button>
+  <button
+    type="submit"
+    [disabled]="searchForm().invalid() || searchForm().pending()"
+  >
+    Search
+  </button>
 </form>
-
-@if (selectedFlight(); as flight) {
-  <app-flight-edit-form
-    [flight]="flight"
-    (save)="save($event)"
-    (cancel)="selectedFlight.set(undefined)"
-  />
-}
 
 <p>Status: {{ flights.status() }}</p>
 
@@ -42,8 +52,7 @@
 } @else if (flights.hasValue()) {
   @for (flight of flights.value(); track flight.id) {
     <div>
-      <app-flight-card [flight]="flight"
-                       [(selected)]="basket[flight.id]">
+      <app-flight-card [flight]="flight" [(selected)]="basket[flight.id]">
       </app-flight-card>
       <button type="button" (click)="editFlight(flight)">Edit</button>
     </div>
