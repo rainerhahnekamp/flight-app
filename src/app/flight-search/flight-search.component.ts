@@ -4,6 +4,7 @@ import {Flight} from "../entities/flight";
 import {AbstractControl, FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FlightService} from "../flight-service";
 import {FlightCardComponent} from "../flight-card/flight-card.component";
+import {FlightEditFormComponent} from "../flight-edit-form.component";
 import {JsonPipe} from "@angular/common";
 import {FlightStore} from "../flight-store";
 import {validateCity} from "../forms/validate-city";
@@ -13,7 +14,7 @@ import {asyncCityValidator, AsyncCityValidator} from "../forms/async-validate-ci
 
 @Component({
   selector: 'app-flight-search',
-  imports: [ReactiveFormsModule, FlightCardComponent, JsonPipe],
+  imports: [ReactiveFormsModule, FlightCardComponent, FlightEditFormComponent, JsonPipe],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.css',
 })
@@ -81,6 +82,10 @@ export class FlightSearchComponent {
 
   selectFlight(flight: Flight) {
     this.selectedFlight.set({...flight})
+  }
+
+  editFlight(flight: Flight) {
+    this.selectedFlight.set({...flight});
   }
 
   save(flight: Flight) {

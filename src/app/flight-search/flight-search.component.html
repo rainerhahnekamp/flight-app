@@ -25,6 +25,14 @@
   <button [disabled]="formGroup.invalid">Search</button>
 </form>
 
+@if (selectedFlight(); as flight) {
+  <app-flight-edit-form
+    [flight]="flight"
+    (save)="save($event)"
+    (cancel)="selectedFlight.set(undefined)"
+  />
+}
+
 <p>Status: {{ flights.status() }}</p>
 
 @if (flights.isLoading()) {
@@ -32,11 +40,13 @@
 } @else if (flights.error()) {
   <p>Error: {{ flights.error() | json }}</p>
 } @else if (flights.hasValue()) {
-  @for (flight of flights.value(); track $index) {
-    <app-flight-card [flight]="flight"
-                     [(selected)]="basket[flight.id]">
-      <h2 class="orange">Title: {{ flight.from }} - {{ flight.to }}</h2>
-    </app-flight-card>
+  @for (flight of flights.value(); track flight.id) {
+    <div>
+      <app-flight-card [flight]="flight"
+                       [(selected)]="basket[flight.id]">
+      </app-flight-card>
+      <button type="button" (click)="editFlight(flight)">Edit</button>
+    </div>
   }
 }
 
