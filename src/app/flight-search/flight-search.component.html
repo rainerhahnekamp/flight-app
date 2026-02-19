@@ -1,0 +1,43 @@
+<form (ngSubmit)="search()" [formGroup]="formGroup">
+  <input formControlName="from">
+  @if (formGroup.controls['from'].hasError('required')) {
+    <p>This field is required.</p>
+  }
+  @let errors = formGroup.controls['from'].errors;
+
+  @if (errors) {
+    @if (errors['minlength']) {
+      <p>This field has a minimal length of
+        {{ errors['minlength'].requiredLength }}.</p>
+    }
+    @if (errors['city']) {
+      <p>This city is not allowed.<br>Allowed cities are: {{ errors['city'].allowedCities }}</p>
+    }
+    <pre>{{ formGroup.controls['from'].errors | json }}</pre>
+  }
+
+  @if(formGroup.hasError('roundtrip')) {
+    <p>Roundtrips are not allowed.</p>
+  }
+
+  <input formControlName="to">
+
+  <button [disabled]="formGroup.invalid">Search</button>
+</form>
+
+<p>Status: {{ flights.status() }}</p>
+
+@if (flights.isLoading()) {
+  <p>Loading...</p>
+} @else if (flights.error()) {
+  <p>Error: {{ flights.error() | json }}</p>
+} @else if (flights.hasValue()) {
+  @for (flight of flights.value(); track $index) {
+    <app-flight-card [flight]="flight"
+                     [(selected)]="basket[flight.id]">
+      <h2 class="orange">Title: {{ flight.from }} - {{ flight.to }}</h2>
+    </app-flight-card>
+  }
+}
+
+<button (click)="flights.reload()">Reload</button>
