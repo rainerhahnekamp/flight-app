@@ -1,0 +1,60 @@
+<div class="header">
+  <h2 class="title">Flight Search</h2>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="search()">
+  <div class="form-group">
+    <label>From:</label>
+    <input formControlName="from" class="form-control" />
+    <form-errors [inputField]="form.get('from')"></form-errors>
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input formControlName="to" class="form-control" />
+  </div>
+
+  <!-- <p>{{ prettySearch() }}</p> -->
+
+  <div class="form-group">
+    <button [disabled]="form.invalid" class="btn btn-default">Search</button>
+
+    <button (click)="reverse()" class="btn btn-default">Reverse</button>
+    <button (click)="flights.reload()" class="btn btn-default">Reload</button>
+    <button (click)="reset()" class="btn btn-default">Reset</button>
+    <button
+      (click)="flightStore.setRecommendedSearch()"
+      class="btn btn-default"
+    >
+      Set Recommended
+    </button>
+  </div>
+</form>
+<p>{{ prettySearch() }}</p>
+@if(flights.hasValue()) { @for (flight of flights.value(); track $index) {
+<flight-card [item]="flight" [(selected)]="basket[flight.id]">
+  <h1 data-title>{{ flight.from }} - {{ flight.to }}</h1>
+  <p data-footer>Without Gurantee for Punctuality</p>
+</flight-card>
+} } @else if(flights.isLoading()) {
+<p>Loading...</p>
+} @else if (flights.error()) {
+<p>An error has happened</p>
+<pre>{{ flights.error() | json }}</pre>
+}
+
+<!-- @if (selectedFlight) { -->
+<!-- <form>
+  <div class="form-group">
+    <label>From:</label>
+    <input [(ngModel)]="selectedFlight.from" name="from" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>To:</label>
+    <input [(ngModel)]="selectedFlight.to" name="to" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <button (click)="save(selectedFlight)" class="btn btn-default">Save</button>
+  </div>
+</form>
+} -->

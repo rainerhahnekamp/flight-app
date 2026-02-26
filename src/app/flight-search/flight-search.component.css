@@ -1,0 +1,23 @@
+.selected {
+  background-color: orange;
+}
+
+button[disabled] {
+  background-color: white;
+  color: black;
+}
+
+h1 {
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-thickness: 2px;
+}
