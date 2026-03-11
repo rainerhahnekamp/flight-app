@@ -10,27 +10,62 @@ import {
   Injector,
   linkedSignal,
   NgZone,
+  resource,
   Signal,
   signal,
-  untracked,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
-import { Flight } from '@demo/ticketing/data';
-import { FlightStore } from '@demo/ticketing/data/flight-store';
-import { addMinutes } from 'date-fns';
-import { derivedFrom } from 'ngxtension/derived-from';
 import {
-  BehaviorSubject,
-  debounceTime,
-  interval,
-  map,
-  Observable,
-  pipe,
-  startWith,
-} from 'rxjs';
+  AbstractControl,
+  FormGroup,
+  FormsModule,
+  isFormGroup,
+  ValidatorFn,
+} from '@angular/forms';
+import {
+  form,
+  FormField,
+  min,
+  required,
+  SchemaPath,
+  validate,
+  validateAsync,
+  validateStandardSchema,
+  debounce,
+} from '@angular/forms/signals';
+import { NumberSelectorField } from '@demo/shared/ui-common/number-selector-field';
+import { Flight, FlightService } from '@demo/ticketing/data';
+import { FlightStore, SearchParams } from '@demo/ticketing/data/flight-store';
+import { addMinutes } from 'date-fns';
+
+import { BehaviorSubject, interval, map, Observable, startWith } from 'rxjs';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
-import { getState, watchState } from '@ngrx/signals';
+import z from 'zod';
+
+const validateRoundtrip: ValidatorFn = (control: AbstractControl) => {
+  if (!isFormGroup(control)) {
+    return null;
+  }
+
+  const { from, to } = control.value;
+  return from === to ? { roundTrip: true } : null;
+};
+
+const searchParamsSchema = z
+  .object({
+    from: z.string().nonempty('Von muss ausgefüllt sein'),
+    to: z.string().nonempty('Nach muss ausgefüllt sein'),
+    priority: z.number().min(1, 'Priorität muss mindestens 1 sein'),
+  })
+  .refine((data) => data.from !== data.to, {
+    message: 'Von und Nach müssen verschieden sein',
+  });
+
+type SearchParamsForForm = {
+  from: string;
+  to: string;
+  priority: number;
+};
 
 // import { CheckinService } from '@demo/checkin/data/checkin.service';
 
@@ -45,32 +80,77 @@ import { getState, watchState } from '@ngrx/signals';
   selector: 'app-flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  imports: [JsonPipe, FormsModule, FlightCardComponent],
+  imports: [
+    JsonPipe,
+    FormsModule,
+    FlightCardComponent,
+    FormField,
+    NumberSelectorField,
+  ],
 })
 export class FlightSearchComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
   flightStore = inject(FlightStore);
+  flightService = inject(FlightService);
 
-  from = linkedSignal({
-    source: this.flightStore.searchParams,
-    computation: (source) => {
-      if (source === undefined) {
-        return '';
-      }
-
-      return source.from;
+  searchParams = linkedSignal<SearchParams, SearchParamsForForm>({
+    source: () => this.flightStore.searchParams(),
+    computation: (source, previousValue) => {
+      return { ...source, priority: previousValue?.value.priority ?? 0 };
     },
   });
-  to = linkedSignal(() => this.flightStore.searchParams()?.to ?? '');
 
-  searchParams = signal<{ from: string; to: string } | undefined>(undefined);
+  searchForm = form(this.searchParams, (path) => {
+    validateStandardSchema(path, searchParamsSchema);
+    validateAsync(path.from, {
+      params: (ctx) => ctx.value(),
+      factory: (params) => {
+        return this.flightService.getResource(() => ({
+          from: params() ?? '',
+          to: '',
+        }));
+      },
+      onSuccess: (flights) =>
+        flights.length > 0
+          ? undefined
+          : { kind: 'noFlights', message: 'Keine Flüge gefunden' },
+      onError: (error) => {
+        return { kind: 'error', message: (error as Error).message };
+      },
+    });
+
+    debounce(path.from, 300);
+  });
+
+  suggestion = resource({
+    params: () => {
+      const from = this.searchForm.from();
+      console.log('running from');
+      if (from.valid()) {
+        return undefined;
+      }
+
+      console.log('checkin for async error');
+      const hasAsyncFailed = from
+        .errors()
+        .some((error) => error.kind === 'noFlights');
+
+      if (!hasAsyncFailed) {
+        return undefined;
+      }
+
+      console.log('starting resource');
+      return from.value();
+    },
+    loader: () => Promise.resolve(['Punitz', 'Badersdorf']),
+  });
 
   prettySearch = computed(() => {
-    const value = `Suche von ${this.from()} nach ${this.to()}: ${
-      this.flights.value()?.length
-    }`;
+    const value = `Suche von ${this.searchParams().from} nach ${
+      this.searchParams().to
+    }: ${this.flights.value()?.length}`;
     return value;
   });
 
@@ -118,14 +198,11 @@ export class FlightSearchComponent {
     },
   });
 
-  searchParamsSignal = derivedFrom(
-    {
-      from: this.from(),
-      to: this.to(),
-    },
-    pipe(debounceTime(500)),
-    { initialValue: { from: '', to: '' } }
-  );
+  // debouncedSearchParams = derivedFrom(
+  //   this.searchParams(),
+  //   pipe(debounceTime(500)),
+  //   { initialValue: { from: '', to: '', priority: 1 } }
+  // );
 
   // flights = rxResource({
   //   params: this.searchParams,
@@ -151,12 +228,7 @@ export class FlightSearchComponent {
   // error = signal<Error | undefined>(undefined)
 
   constructor() {
-    effect(() => {
-      const from = this.from();
-      const to = this.to();
-
-      untracked(() => this.flightStore.search({ from, to }));
-    });
+    this.flightStore.search(this.searchParams);
   }
 
   // constructor() {
@@ -228,9 +300,7 @@ export class FlightSearchComponent {
   }
 
   handleReset() {
+    this.searchForm().reset();
     this.flightStore.reset();
-    console.log(`Anzahl der Flüge: ${this.flightStore.flightsCount()}`);
-    console.log(`Suche wurde geresettet: ${this.from()} nach ${this.to()}`);
-    console.log(`Suche im FlightStore: ${this.flightStore.searchParams()}`);
   }
 }

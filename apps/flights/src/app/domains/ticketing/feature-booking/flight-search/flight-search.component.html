@@ -5,11 +5,32 @@
 <form>
   <div class="form-group">
     <label for="from">From:</label>
-    <input [(ngModel)]="from" id="from" name="from" class="form-control" />
+    <input [formField]="searchForm.from" class="form-control" />
+    @for (error of searchForm.from().errors(); track error) {
+    <div class="alert alert-danger">{{ error.message }}</div>
+    } @if (suggestion.hasValue()) {
+    <p>Did you mean: {{ suggestion.value() | json }}</p>
+    }
   </div>
   <div class="form-group">
     <label for="to">To:</label>
-    <input [(ngModel)]="to" id="to" name="to" class="form-control" />
+    <input [formField]="searchForm.to" class="form-control" />
+    @for (error of searchForm.to().errors(); track error) {
+    <div class="alert alert-danger">{{ error.message }}</div>
+    }
+  </div>
+  <div class="form-group">
+    <label for="priority">Priority:</label>
+    <app-number-selector [formField]="searchForm.priority" />
+    @for (error of searchForm.priority().errors(); track error) {
+    <div class="alert alert-danger">{{ error.message }}</div>
+    }
+  </div>
+
+  <div>
+    @for (error of searchForm().errors(); track error) {
+    <div class="alert alert-danger">{{ error.message }}</div>
+    }
   </div>
 
   <div class="form-group">
@@ -22,7 +43,7 @@
   </div>
 </form>
 
-<p>Zeit {{ time() }}</p>
+<p>{{ searchParams() | json }}</p>
 
 <!-- <p>{{ prettySearch() }}</p> -->
 
