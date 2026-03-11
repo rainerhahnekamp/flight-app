@@ -1,6 +1,8 @@
 <table class="table">
-  <tr *ngFor="let row of data">
-    <td *ngFor="let f of fieldList">
+  @for (row of data; track row) {
+  <tr>
+    @for (f of fieldList; track f) {
+    <td>
       <ng-container
         *appCustomTemplateOutlet="
           f.templateRef;
@@ -8,5 +10,7 @@
         "
       ></ng-container>
     </td>
+    }
   </tr>
+  }
 </table>

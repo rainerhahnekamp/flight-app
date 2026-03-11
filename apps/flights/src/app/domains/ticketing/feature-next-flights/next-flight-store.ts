@@ -17,7 +17,7 @@ import {
   updateEntities,
   withEntities,
 } from '@ngrx/signals/entities';
-import { event, Events, withEffects } from '@ngrx/signals/events';
+import { event, Events, withEventHandlers } from '@ngrx/signals/events';
 import { appEvents } from '@demo/shared/util-common/events';
 
 export const NextFlightStore = signalStore(
@@ -41,7 +41,7 @@ export const NextFlightStore = signalStore(
       });
     }),
   })),
-  withEffects((store, events = inject(Events)) => ({
+  withEventHandlers((store, events = inject(Events)) => ({
     flightSelected: events.on(appEvents.flightSelected),
   })),
   withHooks((store) => ({

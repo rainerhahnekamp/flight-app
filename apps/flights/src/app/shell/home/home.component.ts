@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LoggerService } from '@demo/shared/util-logger';
 import { AuthService } from '@demo/shared/util-auth';
 import { ApaStore } from '@demo/ticketing/apa-store';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
