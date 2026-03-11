@@ -6,3 +6,10 @@
 
 <button (click)="auth.login('Max')" class="btn btn-default">Login</button>
 <button (click)="auth.logout()" class="btn btn-default">Logout</button>
+
+<h2>Apa Nachrichten</h2>
+
+@if(apaStore.apaResource.hasValue()) { @for(message of
+apaStore.apaResource.value(); track message) {
+<p>{{ message }}</p>
+} }

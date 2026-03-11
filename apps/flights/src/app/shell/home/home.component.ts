@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoggerService } from '@demo/shared/util-logger';
 import { AuthService } from '@demo/shared/util-auth';
-
+import { ApaStore } from '@demo/ticketing/apa-store';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -13,6 +13,7 @@ import { AuthService } from '@demo/shared/util-auth';
 export class HomeComponent {
   logger = inject(LoggerService);
   auth = inject(AuthService);
+  apaStore = inject(ApaStore);
 
   constructor() {
     this.logger.debug('home', 'debug');

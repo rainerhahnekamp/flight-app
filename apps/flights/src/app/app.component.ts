@@ -12,6 +12,7 @@ import { filter, map, merge, Observable } from 'rxjs';
 import { SidebarComponent } from './shell/sidebar/sidebar.component';
 import { NavbarComponent } from './shell/navbar/navbar.component';
 import { ConfigService } from '@demo/shared/util-config';
+import { NextFlightStore } from '@demo/ticketing/feature-next-flights/next-flight-store';
 
 @Component({
   standalone: true,

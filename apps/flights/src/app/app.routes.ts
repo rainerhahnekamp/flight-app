@@ -6,6 +6,7 @@ import { BasketComponent } from './shell/basket/basket.component';
 import { ConfigService } from '@demo/shared/util-config';
 import { NotFoundComponent } from './shell/not-found/not-found.component';
 import { FeatureManageComponent } from '@demo/checkin/feature-manage/feature-manage.component';
+import { NextFlightStore } from '@demo/ticketing/feature-next-flights/next-flight-store';
 
 export const APP_ROUTES: Routes = [
   {
@@ -48,6 +49,7 @@ export const APP_ROUTES: Routes = [
       },
       {
         path: 'next-flights',
+        providers: [NextFlightStore],
         loadChildren: () =>
           import('@demo/ticketing/feature-next-flights').then(
             (m) => m.NextFlightsModule

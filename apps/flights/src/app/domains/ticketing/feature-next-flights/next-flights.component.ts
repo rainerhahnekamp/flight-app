@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/prefer-standalone */
 
 import { Component, inject } from '@angular/core';
-import { NextFlightsService } from './next-flights.service';
+import { NextFlightStore } from './next-flight-store';
 
 @Component({
   selector: 'app-next-flights',
@@ -10,6 +10,7 @@ import { NextFlightsService } from './next-flights.service';
   styleUrls: ['./next-flights.component.css'],
 })
 export class NextFlightsComponent {
-  nextFlightsService = inject(NextFlightsService);
-  flights$ = this.nextFlightsService.load();
+  nextFlightStore = inject(NextFlightStore);
+
+  flights = this.nextFlightStore.flights;
 }

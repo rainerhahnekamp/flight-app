@@ -1,18 +1,20 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
+import {
+  afterNextRender,
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  NgZone,
+  output,
+} from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@demo/shared/ui-common';
-import { initFlight } from '@demo/ticketing/data';
+import { Flight } from '@demo/ticketing/data';
+import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 
 @Component({
   selector: 'app-flight-card',
@@ -27,18 +29,29 @@ export class FlightCardComponent {
 
   private dialog = inject(MatDialog);
 
-  @Input() item = initFlight;
-  @Input() selected = false;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  formGroup = inject(FormBuilder).group({
+    from: [''],
+  });
+
+  readonly item = input.required<Flight>();
+
+  constructor() {
+    afterNextRender(() => {
+      this.formGroup.patchValue({ from: this.item().from });
+    });
+
+    effect(() => this.formGroup.patchValue({ from: this.item().from }));
+  }
+
+  selected = input(false);
+  selectedChange = output<boolean>();
 
   select() {
-    this.selected = true;
-    this.selectedChange.emit(this.selected);
+    this.selectedChange.emit(true);
   }
 
   deselect() {
-    this.selected = false;
-    this.selectedChange.emit(this.selected);
+    this.selectedChange.emit(false);
   }
 
   edit() {
